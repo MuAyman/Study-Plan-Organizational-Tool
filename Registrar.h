@@ -30,9 +30,9 @@ public:
 	Rules getRules();
 	bool catalogRead(ifstream& File, string name, Rules& R);
 	bool RulesRead(ifstream& File, string name, Rules& R1);
-	//bool Execute();
+	bool ExecuteOfferings();
 	bool ExecuteRules();
-
+	Rules R = this->getRules();
 
 	void Run();
 

@@ -31,6 +31,7 @@ public:
 	void setGradePoints();
 	void setQp();
 	void setGradeLetter(CourseGradeLetter x);
+
 	void DrawMe(GUI*) const;
 	void DrawInfo(GUI* pG) const;
 	bool select(int x, int y);

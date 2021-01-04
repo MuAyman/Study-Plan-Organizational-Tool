@@ -130,7 +130,6 @@
     <ClCompile Include="ActionSavePlan.cpp" />
     <ClCompile Include="Actions\ActionAddCourse.cpp" />
     <ClCompile Include="ActionUndo.cpp" />
-    <ClCompile Include="CalculateGPA.cpp" />
     <ClCompile Include="Courses\Course.cpp" />
     <ClCompile Include="Drag_DropAction.cpp" />
     <ClCompile Include="GUI\CMUgraphicsLib\CMUgraphics.cpp" />
@@ -189,7 +188,6 @@
     <ClInclude Include="Actions\Action.h" />
     <ClInclude Include="Actions\ActionAddCourse.h" />
     <ClInclude Include="ActionUndo.h" />
-    <ClInclude Include="CalculateGPA.h" />
     <ClInclude Include="Courses\Course.h" />
     <ClInclude Include="Drag_DropAction.h" />
     <ClInclude Include="GUI\CMUgraphicsLib\CMUgraphics.h" />
@@ -221,7 +219,6 @@
     <ClInclude Include="ValidityCheck.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\Downloads\Catalog - 2020 12 19.txt" />
     <Text Include="Default Study Plans\CIE.txt" />
     <Text Include="Default Study Plans\ENV.txt" />
     <Text Include="Default Study Plans\NAN.txt" />
@@ -230,7 +227,6 @@
     <Text Include="GUI\CMUgraphicsLib\Manual.txt" />
     <Text Include="GUI\CMUgraphicsLib\Readme.txt" />
     <Text Include="Rules.txt" />
-    <Text Include="Source.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

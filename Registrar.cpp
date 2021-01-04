@@ -14,6 +14,7 @@
 #include <sstream>
 #include <cctype>
 
+
 Registrar::Registrar()
 {
 	pGUI = new GUI;	//create interface object
@@ -140,6 +141,43 @@ bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
 			R.CourseCatalog.push_back(c);
 		}
 	}
+}
+
+
+bool Registrar::ExecuteOfferings()					//OFFEREINGS **************************************		AYMAN
+{
+	GUI* pGUI = this->getGUI();
+	ifstream OfferingsData;
+	OfferingsData.open("tt.txt");
+
+	char* psc = nullptr;
+	const int size = 100;
+	char line[size];
+
+	while (OfferingsData.getline(line, size))
+	{
+		AcademicYearOfferings as;
+		this->getRules().OffringsList.push_back(as);
+		int static i = 0; i++;
+		char* context = nullptr;							// YEAR
+		psc = strtok_s(line, ",", &context);
+		as.Year = psc;
+		cout << as.Year << endl;
+		char* context2 = nullptr;							// FALL
+		psc = strtok_s(context, ",", &context2);
+		char* context3 = nullptr;
+		while (psc != NULL)							// FALL/SPRING/SUMMER COURSES
+		{
+			cout << "before: " << psc << endl;
+			psc = strtok_s(NULL, ",", &context2);
+			if (psc != NULL)
+			{
+				cout << "after: " << psc << endl;
+				as.Offerings[i - 1].push_back(psc);
+			}
+		}
+	}
+	OfferingsData.close();
 	return true;
 }
 
@@ -292,17 +330,14 @@ bool Registrar::ExecuteRules()
 		&& major != "NANSCIE"
 		&& major != "MATSCIE")
 	{
-		pGUI->PrintMsg("enter a valid major name");
+		pGUI->PrintMsg("enter a valid major name: ");
 		major = pGUI->GetSrting();
 	}
 	RulesReset(RegRules);
 
 	ifstream input;
 	if (major == "CIE")
-	{
-		RulesRead(input, "Rules.txt", RegRules);
-	}
-		
+		RulesRead(input, "Rules.txt", RegRules);		
 	else if (major == "SPC")
 		RulesRead(input, "Rules.txt", RegRules);
 	else if (major == "ENV")
@@ -321,10 +356,11 @@ bool Registrar::ExecuteRules()
 		RulesRead(input, "Rules.txt", RegRules);
 
 	input.close();
-	
 	ifstream catalogFile;
 	catalogRead(catalogFile, "Souce.txt", RegRules);
 	catalogFile.close();
+
+	Registrar::ExecuteOfferings();
 
 	return true;
 }
@@ -373,9 +409,6 @@ Action* Registrar::CreateRequiredAction()
 	case REDO:	//Redo action
 		RequiredAction = new ActionRedo(this);
 		break;
-	//case OFFER:	//Import offering courses data file from user
-	//	RequiredAction = new ActionAddRules(this);
-	//	break;
 	case EXIT:
 		RequiredAction = new ActionExit(this);
 		break;
