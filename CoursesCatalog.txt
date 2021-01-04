@@ -1,0 +1,3 @@
+PHYS 102,Introduction to Electromagnetism,3,Coreq: PHYS112 And KOKO,Prereq: PHYS 101 And MATH 101
+MATH 102,Calculas ||,3,Prereq: MATH 101
+CSCI 101,Introduction to Computer Science,2
