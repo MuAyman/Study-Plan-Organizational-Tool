@@ -80,6 +80,7 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 									Course* CRS = new Course(it->Code, Title, crd);
 									CRS->setCoReq(it->CoReqList);
 									CRS->setPreReq(it->PreReqList);
+									pReg->checkType(CRS); //new
 									//pReg->getStudyPlay()->AddCourse(CRS, year, sem);
 										//This  is to check the Validity of the offerings
 									Rules pR = pReg->getRules();

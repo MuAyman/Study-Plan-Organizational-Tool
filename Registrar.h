@@ -28,6 +28,7 @@ public:
 	vector <ActionType> Memory;
 	bool RulesReset(Rules& R);
 	Rules getRules();
+	void checkType(Course* pC); //new
 	bool catalogRead(ifstream& File, string name, Rules& R);
 	bool RulesRead(ifstream& File, string name, Rules& R1);
 	//bool Execute();

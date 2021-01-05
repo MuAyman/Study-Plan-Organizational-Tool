@@ -24,10 +24,11 @@ class Course : public Drawable
 public:
 	Course(Course_Code r_code,string r_title, int crd);
 	Course(Course_Code r_code, string r_title, int crd, string Type); // Added to make the programer able to set the type
+	string getType()const;
+	void setType(string t);
 	string getTitle() const;
 	string getCode() const;
 	int getCredits() const;
-	string getType() const;
 	void setGradePoints();
 	void setQp();
 	void setGradeLetter(CourseGradeLetter x);

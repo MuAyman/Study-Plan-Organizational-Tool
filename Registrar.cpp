@@ -32,8 +32,89 @@ StudyPlan* Registrar::getStudyPlay() const
 	return pSPlan;
 }
 
+void Registrar::checkType(Course* pC) //new
+{
+	int t = 0; // variable to check whether the course type is declared or not yet
+	// to not enter each loop 
 
+	if (t == 0) //UnivCompulsory
+	{
+		for (auto type = RegRules.UnivCompulsory.begin(); type != RegRules.UnivCompulsory.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("UnivCompulsory");
+				t = 1;
+				break;
+			}
+		}
+	}
 
+	if (t == 0) // UnivElective
+	{
+		for (auto type = RegRules.UnivElective.begin(); type != RegRules.UnivElective.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("UnivElective");
+				t = 1;
+				break;
+			}
+		}
+	}
+
+	if (t == 0) //TrackCompulsory
+	{
+		for (auto type = RegRules.TrackCompulsory.begin(); type != RegRules.TrackCompulsory.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("TrackCompulsory");
+				t = 1;
+				break;
+			}
+		}
+	}
+	if (t == 0) //TrackElective
+	{
+		for (auto type = RegRules.TrackElective.begin(); type != RegRules.TrackElective.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("TrackElective");
+				t = 1;
+				break;
+			}
+		}
+	}
+
+	if (t == 0) //MajorCompulsory
+	{
+		for (auto type = RegRules.MajorCompulsory.begin(); type != RegRules.MajorCompulsory.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("MajorCompulsory");
+				t = 1;
+				break;
+			}
+		}
+	}
+
+	if (t == 0) //MajorElective
+	{
+		for (auto type = RegRules.MajorElective.begin(); type != RegRules.MajorElective.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("MajorElective");
+				t = 1;
+				break;
+			}
+		}
+	}
+
+}
 
 bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
 {
@@ -323,7 +404,7 @@ bool Registrar::ExecuteRules()
 	input.close();
 	
 	ifstream catalogFile;
-	catalogRead(catalogFile, "Souce.txt", RegRules);
+	catalogRead(catalogFile, "Source.txt", RegRules);
 	catalogFile.close();
 
 	return true;

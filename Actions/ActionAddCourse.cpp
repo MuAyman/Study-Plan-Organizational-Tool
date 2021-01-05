@@ -29,6 +29,7 @@ bool ActionAddCourse::Execute()
 				crd = it->Credits;
 				pC->setCoReq(it->CoReqList);
 				pC->setPreReq(it->PreReqList);
+				pReg->checkType(pC); //new
 				check = true;
 				break;
 			}
