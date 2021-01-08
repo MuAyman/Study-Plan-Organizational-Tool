@@ -34,7 +34,6 @@ public:
 	//bool Execute();
 	bool ExecuteRules();
 
-
 	void Run();
 
 	~Registrar();
