@@ -26,6 +26,43 @@ GUI* Registrar::getGUI() const
 	return pGUI;
 }
 
+bool Registrar::ExecuteOfferings()					//OFFEREINGS **************************************		AYMAN
+{
+	GUI* pGUI = this->getGUI();
+	ifstream OfferingsData;
+	OfferingsData.open("tt.txt");
+
+	char* psc = nullptr;
+	const int size = 100;
+	char line[size];
+
+	while (OfferingsData.getline(line, size))
+	{
+		AcademicYearOfferings as;
+		this->RegRules.OffringsList.push_back(as);
+		int static i = 0; i++;
+		char* context = nullptr;							// YEAR
+		psc = strtok_s(line, ",", &context);
+		as.Year = psc;
+		cout << as.Year << endl;
+		char* context2 = nullptr;							// FALL
+		psc = strtok_s(context, ",", &context2);
+		char* context3 = nullptr;
+		while (psc != NULL)							// FALL/SPRING/SUMMER COURSES
+		{
+			cout << "before: " << psc << endl;
+			psc = strtok_s(NULL, ",", &context2);
+			if (psc != NULL)
+			{
+				cout << "after: " << psc << endl;
+				as.Offerings[i - 1].push_back(psc);
+			}
+		}
+	}
+	OfferingsData.close();
+	return true;
+}
+
 //returns the study plan
 StudyPlan* Registrar::getStudyPlay() const
 {
@@ -468,10 +505,10 @@ Action* Registrar::CreateRequiredAction()
 }
 
 
-Rules Registrar::getRules()
-{
-	return RegRules;
-}
+//Rules Registrar::getRules()
+//{
+//	return RegRules;
+//}
 
 
 //Executes the action, Releases its memory, and return true if done, false if cancelled
@@ -486,6 +523,7 @@ bool Registrar::ExecuteAction(Action* pAct)
 void Registrar::Run()
 {
 	Registrar::ExecuteRules();
+	Registrar::ExecuteOfferings();
 		while (true)
 		{
 			//update interface here as CMU Lib doesn't refresh itself
