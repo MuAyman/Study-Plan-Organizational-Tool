@@ -1,4 +1,0 @@
-﻿  ActionImportPlan.cpp
-E:\ZC\Courses Material\Fall Year 3\C++\Project\GitHub\Latest3.1\SPOT\ActionImportPlan.cpp(18,13): warning C4101: 'y': unreferenced local variable
-E:\ZC\Courses Material\Fall Year 3\C++\Project\GitHub\Latest3.1\SPOT\ActionImportPlan.cpp(18,10): warning C4101: 'x': unreferenced local variable
-  SPOT.vcxproj -> E:\ZC\Courses Material\Fall Year 3\C++\Project\GitHub\Latest3.1\x64\Debug\SPOT.exe
