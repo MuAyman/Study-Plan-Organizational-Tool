@@ -33,4 +33,8 @@
 *.vcxproj
 *.vcxproj.filters
 *.filters
+*.vcxproj.user
+*.user
 .vs/
+*.user
+SPOT.vcxproj.user

@@ -26,14 +26,14 @@ bool ActionChangeCourse::Execute()
 
 	int year = pS->getYear(actData.x, actData.y);
 	SEMESTER sem = pS->getSemester(actData.x, actData.y);
-	Rules pR = pReg->getRules();
+	Rules pR = pReg->RegRules;
 	if (pS->AddCourse(pC, actData.x, actData.y) == true)
 	{
 
 		// This is a offering_time validation check for the course
-		for (int i = 0; i < pR.OffringsList[year].Offerings[sem].size(); i++)
+		for (int i = 0; i < pR.OffringsList[1].Offerings[sem].size(); i++)
 		{
-			if (pC->getCode() == pR.OffringsList[year].Offerings[sem][i])
+			if (pC->getCode() == pR.OffringsList[1].Offerings[sem][i])
 			{
 				// set the course as valid
 				pC->SetOfferingsValid(true);

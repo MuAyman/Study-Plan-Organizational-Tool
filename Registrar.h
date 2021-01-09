@@ -10,7 +10,7 @@
 class Registrar
 {
 	GUI *pGUI;	//pointer to GUI 
-	Rules RegRules;	//Registration rules
+
 	StudyPlan *pSPlan;
 
 	ActionData actData;
@@ -18,7 +18,7 @@ class Registrar
 public:
 
 	//Major getMajortype();
-
+	Rules RegRules;	//Registration rules
 	Registrar();
 	GUI* getGUI() const;
 	Action* CreateRequiredAction();
@@ -27,12 +27,12 @@ public:
 	StudyPlan* getStudyPlay() const;
 	vector <ActionType> Memory;
 	bool RulesReset(Rules& R);
-	Rules getRules();
+	void checkType(Course* pC); //new
 	bool catalogRead(ifstream& File, string name, Rules& R);
 	bool RulesRead(ifstream& File, string name, Rules& R1);
 	//bool Execute();
 	bool ExecuteRules();
-
+	bool ExecuteOfferings();
 
 	void Run();
 
