@@ -69,38 +69,6 @@ void Course::setQp()
 	QP = credits * gradePoints;
 }
 
-string Course::getType() const
-{
-	gradeLetter = letter;
-}
-
-void Course::setGradePoints()
-{
-	if (gradeLetter == "A")
-		gradePoints = 4;
-	if (gradeLetter == "A-")
-		gradePoints = 3.67;
-	if (gradeLetter == "B+")
-		gradePoints = 3.33;
-	if (gradeLetter == "B")
-		gradePoints = 3;
-	if (gradeLetter == "B-")
-		gradePoints = 2.67;
-	if (gradeLetter == "C+")
-		gradePoints = 2.33;
-	if (gradeLetter == "C")
-		gradePoints = 2;
-	if (gradeLetter == "C-")
-		gradePoints = 1.67;
-	if (gradeLetter == "F")
-		gradePoints = 0;
-}
-
-void Course::setQp()
-{
-	QP = credits * gradePoints;
-}
-
 void Course::DrawMe(GUI* pG) const
 {
 	pG->DrawCourse(this);

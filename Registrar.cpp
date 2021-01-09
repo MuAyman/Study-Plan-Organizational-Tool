@@ -14,7 +14,6 @@
 #include <sstream>
 #include <cctype>
 
-
 Registrar::Registrar()
 {
 	pGUI = new GUI;	//create interface object
@@ -26,120 +25,6 @@ GUI* Registrar::getGUI() const
 {
 	return pGUI;
 }
-
-//returns the study plan
-StudyPlan* Registrar::getStudyPlay() const
-{
-	return pSPlan;
-}
-
-//bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
-//{
-//	File.open(name, ios::in);
-//	if (File.fail())
-//		return false;
-//	else
-//	{
-//		char* psc;
-//		char* context1 = nullptr;
-//		const int size = 300;
-//		char line[size];
-//		while (File.getline(line, size))
-//		{
-//			int i = 0, j = 0, k = 0;
-//			psc = strtok_s(line, ",", &context1);
-//			CourseInfo c;
-//			c.Code = psc;
-//			i++;
-//			while (psc != NULL)
-//			{
-//				if (i == 1)
-//				{
-//					psc = strtok_s(NULL, ",", &context1);
-//					c.Title = psc;
-//				}
-//				if (i == 2)
-//				{
-//					psc = strtok_s(NULL, ",", &context1);
-//					const string A = psc;
-//					c.Credits = stoi(A);
-//				}
-//				if (i > 2 && i < 5)
-//				{
-//					while (psc != NULL)
-//					{
-//						psc = strtok_s(NULL, ",", &context1);
-//						if (psc != NULL)
-//						{
-//							string s = psc;
-//							if (s.substr(0, 7) == "Coreq: ")
-//							{
-//								string h = s.substr(7);
-//								stringstream ss(h);
-//								string temp, code, num, m;
-//								int i = 0;
-//								while (ss >> temp)
-//								{
-//									if (temp != "AND")
-//									{
-//										if (isdigit(temp[0]))
-//										{
-//											num = temp;
-//											i++;
-//										}
-//										else
-//										{
-//											code = temp;
-//											i++;
-//										}
-//										if (i == 2)
-//										{
-//											m = code + " " + num;
-//											c.CoReqList.push_back(m);
-//											i = 0;
-//										}
-//									}
-//								}
-//							}
-//							if (s.substr(0, 8) == "Prereq: ")
-//							{
-//								string h = s.substr(8);
-//								stringstream ss(h);
-//								string temp, code, num, m;
-//								int i = 0;
-//								while (ss >> temp)
-//								{
-//									if (temp != "AND")
-//									{
-//										if (isdigit(temp[0]))
-//										{
-//											num = temp;
-//											i++;
-//										}
-//										else
-//										{
-//											code = temp;
-//											i++;
-//										}
-//										if (i == 2)
-//										{
-//											m = code + " " + num;
-//											c.PreReqList.push_back(m);
-//											i = 0;
-//										}
-//									}
-//								}
-//							}
-//						}
-//					}
-//				}
-//				i++;
-//			}
-//			R.CourseCatalog.push_back(c);
-//		}
-//	}
-//}
-
 
 bool Registrar::ExecuteOfferings()					//OFFEREINGS **************************************		AYMAN
 {
@@ -175,7 +60,6 @@ bool Registrar::ExecuteOfferings()					//OFFEREINGS ****************************
 		}
 	}
 	OfferingsData.close();
-
 	return true;
 }
 
@@ -374,7 +258,6 @@ bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
 			R.CourseCatalog.push_back(c);
 		}
 	}
-
 	return true;
 }
 
@@ -608,6 +491,9 @@ Action* Registrar::CreateRequiredAction()
 	case REDO:	//Redo action
 		RequiredAction = new ActionRedo(this);
 		break;
+	//case OFFER:	//Import offering courses data file from user
+	//	RequiredAction = new ActionAddRules(this);
+	//	break;
 	case EXIT:
 		RequiredAction = new ActionExit(this);
 		break;
