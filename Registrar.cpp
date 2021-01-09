@@ -26,6 +26,7 @@ GUI* Registrar::getGUI() const
 	return pGUI;
 }
 
+
 bool Registrar::ExecuteOfferings()					//OFFEREINGS **************************************		AYMAN
 {
 	GUI* pGUI = this->getGUI();
@@ -62,6 +63,7 @@ bool Registrar::ExecuteOfferings()					//OFFEREINGS ****************************
 	OfferingsData.close();
 	return true;
 }
+
 
 //returns the study plan
 StudyPlan* Registrar::getStudyPlay() const
@@ -511,6 +513,7 @@ Action* Registrar::CreateRequiredAction()
 //}
 
 
+
 //Executes the action, Releases its memory, and return true if done, false if cancelled
 bool Registrar::ExecuteAction(Action* pAct)
 {
@@ -524,6 +527,7 @@ void Registrar::Run()
 {
 	Registrar::ExecuteRules();
 	Registrar::ExecuteOfferings();
+
 		while (true)
 		{
 			//update interface here as CMU Lib doesn't refresh itself

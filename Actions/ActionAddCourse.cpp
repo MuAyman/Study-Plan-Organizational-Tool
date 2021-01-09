@@ -16,9 +16,6 @@ bool ActionAddCourse::Execute()
 	Course_Code code;
 	string Title = "Test101";
 	int crd = 0;
-	
-
-
 
 	while (!check)
 	{
@@ -31,11 +28,11 @@ bool ActionAddCourse::Execute()
 				Title = it->Title;
 				crd = it->Credits;
 				Course* pC = new Course(code, Title, crd);
+
 				pC->setCoReq(it->CoReqList);
 				pC->setPreReq(it->PreReqList);
 				pReg->checkType(pC); //new
 				check = true;
-
 
 				ActionData actData = pGUI->GetUserAction("Select a year to add coures to");
 				//TODO: add input validation
@@ -89,12 +86,7 @@ bool ActionAddCourse::Execute()
 		//TODO: Ask registrar to add course to the year selected by the user
 		//TODO: add the course to the correct year obtained from registrar
 
-
-
-
-
 	//TODO:
-
 
 	return true;
 }
