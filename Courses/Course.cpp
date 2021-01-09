@@ -12,6 +12,14 @@ Course::Course(Course_Code r_code, string r_title, int crd, string Type) : code(
 	type = Type;
 }
 
+string Course::getType()const
+{
+	return type;
+}
+void Course::setType(string t)
+{
+	type = t;
+}
 
 Course_Code Course::getCode() const
 {
@@ -28,10 +36,39 @@ int Course::getCredits() const
 {
 	return credits;
 }
-string Course::getType() const
+
+void Course::setGradeLetter(CourseGradeLetter letter)
 {
-	return type;
+	gradeLetter = letter;
 }
+
+void Course::setGradePoints()
+{
+	if (gradeLetter == "A")
+		gradePoints = 4;
+	if (gradeLetter == "A-")
+		gradePoints = 3.67;
+	if (gradeLetter == "B+")
+		gradePoints = 3.33;
+	if (gradeLetter == "B")
+		gradePoints = 3;
+	if (gradeLetter == "B-")
+		gradePoints = 2.67;
+	if (gradeLetter == "C+")
+		gradePoints = 2.33;
+	if (gradeLetter == "C")
+		gradePoints = 2;
+	if (gradeLetter == "C-")
+		gradePoints = 1.67;
+	if (gradeLetter == "F")
+		gradePoints = 0;
+}
+
+void Course::setQp()
+{
+	QP = credits * gradePoints;
+}
+
 void Course::DrawMe(GUI* pG) const
 {
 	pG->DrawCourse(this);

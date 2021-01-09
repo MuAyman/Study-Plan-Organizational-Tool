@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 typedef string Course_Code;
+typedef string CourseGradeLetter;
 typedef string TrackType;
 
 

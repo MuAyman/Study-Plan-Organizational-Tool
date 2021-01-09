@@ -7,8 +7,8 @@ ValidityCheck::ValidityCheck()
 
 bool ValidityCheck::CreditsCheck(int SemCredits)
 {
-	int cr_min = pReg->getRules().SemMinCredit;
-	int cr_max = pReg->getRules().SemMaxCredit;
+	int cr_min = pReg->RegRules.SemMinCredit;
+	int cr_max = pReg->RegRules.SemMaxCredit;
 	if (SemCredits > cr_max)
 	{
 		pGUI->PrintMsg("Credits is greater than Max credits");

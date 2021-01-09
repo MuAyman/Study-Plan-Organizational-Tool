@@ -11,6 +11,8 @@
 #include "ActionDeleteCourse.h"
 #include "Drag_DropAction.h"
 #include "ActionChangeCourse.h"
+#include <sstream>
+#include <cctype>
 
 Registrar::Registrar()
 {
@@ -23,13 +25,6 @@ GUI* Registrar::getGUI() const
 {
 	return pGUI;
 }
-
-//returns the study plan
-StudyPlan* Registrar::getStudyPlay() const
-{
-	return pSPlan;
-}
-
 
 bool Registrar::ExecuteOfferings()					//OFFEREINGS **************************************		AYMAN
 {
@@ -44,7 +39,7 @@ bool Registrar::ExecuteOfferings()					//OFFEREINGS ****************************
 	while (OfferingsData.getline(line, size))
 	{
 		AcademicYearOfferings as;
-		this->getRules().OffringsList.push_back(as);
+		this->RegRules.OffringsList.push_back(as);
 		int static i = 0; i++;
 		char* context = nullptr;							// YEAR
 		psc = strtok_s(line, ",", &context);
@@ -65,7 +60,204 @@ bool Registrar::ExecuteOfferings()					//OFFEREINGS ****************************
 		}
 	}
 	OfferingsData.close();
+	return true;
+}
 
+//returns the study plan
+StudyPlan* Registrar::getStudyPlay() const
+{
+	return pSPlan;
+}
+
+void Registrar::checkType(Course* pC) //new
+{
+	int t = 0; // variable to check whether the course type is declared or not yet
+	// to not enter each loop 
+
+	if (t == 0) //UnivCompulsory
+	{
+		for (auto type = RegRules.UnivCompulsory.begin(); type != RegRules.UnivCompulsory.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("UnivCompulsory");
+				t = 1;
+				break;
+			}
+		}
+	}
+
+	if (t == 0) // UnivElective
+	{
+		for (auto type = RegRules.UnivElective.begin(); type != RegRules.UnivElective.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("UnivElective");
+				t = 1;
+				break;
+			}
+		}
+	}
+
+	if (t == 0) //TrackCompulsory
+	{
+		for (auto type = RegRules.TrackCompulsory.begin(); type != RegRules.TrackCompulsory.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("TrackCompulsory");
+				t = 1;
+				break;
+			}
+		}
+	}
+	if (t == 0) //TrackElective
+	{
+		for (auto type = RegRules.TrackElective.begin(); type != RegRules.TrackElective.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("TrackElective");
+				t = 1;
+				break;
+			}
+		}
+	}
+
+	if (t == 0) //MajorCompulsory
+	{
+		for (auto type = RegRules.MajorCompulsory.begin(); type != RegRules.MajorCompulsory.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("MajorCompulsory");
+				t = 1;
+				break;
+			}
+		}
+	}
+
+	if (t == 0) //MajorElective
+	{
+		for (auto type = RegRules.MajorElective.begin(); type != RegRules.MajorElective.end(); type++)
+		{
+			if (pC->getCode() == *type)
+			{
+				pC->setType("MajorElective");
+				t = 1;
+				break;
+			}
+		}
+	}
+
+}
+
+bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
+{
+	File.open(name, ios::in);
+	if (File.fail())
+		return false;
+	else
+	{
+		char* psc;
+		char* context1 = nullptr;
+		const int size = 300;
+		char line[size];
+		while (File.getline(line, size))
+		{
+			int i = 0, j = 0, k = 0;
+			psc = strtok_s(line, ",", &context1);
+			CourseInfo c;
+			c.Code = psc;
+			i++;
+			while (psc != NULL)
+			{
+				if (i == 1)
+				{
+					psc = strtok_s(NULL, ",", &context1);
+					c.Title = psc;
+				}
+				if (i == 2)
+				{
+					psc = strtok_s(NULL, ",", &context1);
+					const string A = psc;
+					c.Credits = stoi(A);
+				}
+				if (i > 2 && i < 5)
+				{
+					while (psc != NULL)
+					{
+						psc = strtok_s(NULL, ",", &context1);
+						if (psc != NULL)
+						{
+							string s = psc;
+							if (s.substr(0, 7) == "Coreq: ")
+							{
+								string h = s.substr(7);
+								stringstream ss(h);
+								string temp, code, num, m;
+								int i = 0;
+								while (ss >> temp)
+								{
+									if (temp != "AND")
+									{
+										if (isdigit(temp[0]))
+										{
+											num = temp;
+											i++;
+										}
+										else
+										{
+											code = temp;
+											i++;
+										}
+										if (i == 2)
+										{
+											m = code + " " + num;
+											c.CoReqList.push_back(m);
+											i = 0;
+										}
+									}
+								}
+							}
+							if (s.substr(0, 8) == "Prereq: ")
+							{
+								string h = s.substr(8);
+								stringstream ss(h);
+								string temp, code, num, m;
+								int i = 0;
+								while (ss >> temp)
+								{
+									if (temp != "AND")
+									{
+										if (isdigit(temp[0]))
+										{
+											num = temp;
+											i++;
+										}
+										else
+										{
+											code = temp;
+											i++;
+										}
+										if (i == 2)
+										{
+											m = code + " " + num;
+											c.PreReqList.push_back(m);
+											i = 0;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				i++;
+			}
+			R.CourseCatalog.push_back(c);
+		}
+	}
 	return true;
 }
 
@@ -218,14 +410,17 @@ bool Registrar::ExecuteRules()
 		&& major != "NANSCIE"
 		&& major != "MATSCIE")
 	{
-		pGUI->PrintMsg("enter a valid major name: ");
+		pGUI->PrintMsg("enter a valid major name");
 		major = pGUI->GetSrting();
 	}
 	RulesReset(RegRules);
 
 	ifstream input;
 	if (major == "CIE")
-		RulesRead(input, "Rules.txt", RegRules);		
+	{
+		RulesRead(input, "Rules.txt", RegRules);
+	}
+		
 	else if (major == "SPC")
 		RulesRead(input, "Rules.txt", RegRules);
 	else if (major == "ENV")
@@ -244,7 +439,10 @@ bool Registrar::ExecuteRules()
 		RulesRead(input, "Rules.txt", RegRules);
 
 	input.close();
-	Registrar::ExecuteOfferings();
+	
+	ifstream catalogFile;
+	catalogRead(catalogFile, "Source.txt", RegRules);
+	catalogFile.close();
 
 	return true;
 }
@@ -293,9 +491,9 @@ Action* Registrar::CreateRequiredAction()
 	case REDO:	//Redo action
 		RequiredAction = new ActionRedo(this);
 		break;
-//	case OFFER:	//Import offering courses data file from user
-	//	RequiredAction = new Registrar(this);
-		//break;
+	//case OFFER:	//Import offering courses data file from user
+	//	RequiredAction = new ActionAddRules(this);
+	//	break;
 	case EXIT:
 		RequiredAction = new ActionExit(this);
 		break;
@@ -307,10 +505,10 @@ Action* Registrar::CreateRequiredAction()
 }
 
 
-Rules Registrar::getRules()
-{
-	return RegRules;
-}
+//Rules Registrar::getRules()
+//{
+//	return RegRules;
+//}
 
 
 //Executes the action, Releases its memory, and return true if done, false if cancelled
@@ -325,6 +523,7 @@ bool Registrar::ExecuteAction(Action* pAct)
 void Registrar::Run()
 {
 	Registrar::ExecuteRules();
+	Registrar::ExecuteOfferings();
 		while (true)
 		{
 			//update interface here as CMU Lib doesn't refresh itself

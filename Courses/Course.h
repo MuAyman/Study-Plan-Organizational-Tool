@@ -11,6 +11,9 @@ using namespace std;
 class Course : public Drawable
 {
 	const Course_Code code;	//course code: e.g. "CIE202". This is the course ID
+	CourseGradeLetter gradeLetter;
+	double gradePoints;
+	double QP;
 	const string Title;		//course title: e.g. "Fundamentals of Computer Programming"
 	int credits;	//no. of course credits
 	string type;	//Univ, track, or major.....etc.
@@ -21,11 +24,14 @@ class Course : public Drawable
 public:
 	Course(Course_Code r_code,string r_title, int crd);
 	Course(Course_Code r_code, string r_title, int crd, string Type); // Added to make the programer able to set the type
+	void setType(string t);
 	string getTitle() const;
 	string getCode() const;
 	int getCredits() const;
 	string getType() const;
-
+	void setGradePoints();
+	void setQp();
+	void setGradeLetter(CourseGradeLetter x);
 	void DrawMe(GUI*) const;
 	void DrawInfo(GUI* pG) const;
 	bool select(int x, int y);
