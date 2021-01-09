@@ -17,15 +17,15 @@ bool ActionAddCourse::Execute()
 	string Title = "Test101";
 	int crd = 0;
 	
-
-
-
 	while (!check)
 	{
 		pGUI->PrintMsg("Add Course to plan: Enter course Code(e.g. CIE202):");
+		string coursecode = pGUI->GetSrting();
+		for (int i = 0; i < coursecode.length(); i++)
+			coursecode[i] = toupper(coursecode[i]);
 		for (auto it = pReg->RegRules.CourseCatalog.begin(); it != pReg->RegRules.CourseCatalog.end(); it++)
 		{
-			if (it->Code == pGUI->GetSrting());
+			if (it->Code == coursecode)
 			{
 				code = it->Code;
 				Title = it->Title;
