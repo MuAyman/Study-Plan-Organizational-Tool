@@ -10,7 +10,9 @@
 class Registrar
 {
 	GUI *pGUI;	//pointer to GUI 
+
 	StudyPlan *pSPlan;
+
 	ActionData actData;
 
 public:
@@ -31,7 +33,6 @@ public:
 	//bool Execute();
 	bool ExecuteRules();
 	bool ExecuteOfferings();
-
 
 	void Run();
 

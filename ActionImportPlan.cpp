@@ -64,6 +64,7 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 					ye++;
 				}
 
+			
 				while (psc != NULL)
 				{
 					if (i > 2)
@@ -75,6 +76,7 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 							for (auto it = (pReg->RegRules.CourseCatalog.begin()); it != (pReg->RegRules.CourseCatalog.end()); it++)
 							{
 								//cout << "PSC:  " << psc << "||" << "it: " << *it;
+
 								if (it->Code == psc)
 								{
 									code = it->Code;
@@ -87,7 +89,6 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 									//pReg->getStudyPlay()->AddCourse(CRS, year, sem);
 										//This  is to check the Validity of the offerings
 									Rules pR = pReg->RegRules;
-
 									if (pReg->getStudyPlay()->AddCourse(CRS, year, sem) == true)
 									{
 
@@ -105,9 +106,11 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 												//set the course as in valid
 												CRS->SetOfferingsValid(false);
 											}
+											
 										}
 										
 									}
+
 									/*else
 									{
 										return false;
@@ -115,6 +118,7 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 									//break;
 								}
 							}
+						
 					}
 					psc = strtok_s(NULL, ",", &context);
 					i++;
