@@ -171,6 +171,7 @@
     <ClCompile Include="ActionChangeCourse.cpp" />
     <ClCompile Include="ValidityCheck.cpp" />
     <ClCompile Include="ActionFilter.cpp" />
+    <ClCompile Include="CalculateGPA.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\GUI.h">
@@ -276,6 +277,7 @@
     <ClInclude Include="ActionChangeCourse.h" />
     <ClInclude Include="ValidityCheck.h" />
     <ClInclude Include="ActionFilter.h" />
+    <ClInclude Include="CalculateGPA.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="GUI\CMUgraphicsLib\Manual.txt">
@@ -298,6 +300,8 @@
     </Text>
     <Text Include="Default Study Plans\CIE.txt" />
     <Text Include="Rules.txt" />
+    <Text Include="..\..\..\Downloads\Catalog - 2020 12 19.txt" />
+    <Text Include="Source.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

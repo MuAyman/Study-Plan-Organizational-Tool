@@ -12,6 +12,14 @@ Course::Course(Course_Code r_code, string r_title, int crd, string Type) : code(
 	type = Type;
 }
 
+string Course::getType()const
+{
+	return type;
+}
+void Course::setType(string t)
+{
+	type = t;
+}
 
 Course_Code Course::getCode() const
 {
@@ -61,10 +69,6 @@ void Course::setQp()
 	QP = credits * gradePoints;
 }
 
-string Course::getType() const
-{
-	return type;
-}
 void Course::DrawMe(GUI* pG) const
 {
 	pG->DrawCourse(this);

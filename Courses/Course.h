@@ -24,6 +24,7 @@ class Course : public Drawable
 public:
 	Course(Course_Code r_code,string r_title, int crd);
 	Course(Course_Code r_code, string r_title, int crd, string Type); // Added to make the programer able to set the type
+	void setType(string t);
 	string getTitle() const;
 	string getCode() const;
 	int getCredits() const;
@@ -31,7 +32,6 @@ public:
 	void setGradePoints();
 	void setQp();
 	void setGradeLetter(CourseGradeLetter x);
-
 	void DrawMe(GUI*) const;
 	void DrawInfo(GUI* pG) const;
 	bool select(int x, int y);
