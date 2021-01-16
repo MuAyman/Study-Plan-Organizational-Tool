@@ -35,30 +35,26 @@ bool Registrar::ExecuteOfferings()					//OFFEREINGS ****************************
 	char* psc = nullptr;
 	const int size = 100;
 	char line[size];
+	AcademicYearOfferings as;
 
 	while (OfferingsData.getline(line, size))
 	{
-		AcademicYearOfferings as;
-		this->RegRules.OffringsList.push_back(as);
 		int static i = 0; i++;
 		char* context = nullptr;							// YEAR
 		psc = strtok_s(line, ",", &context);
 		as.Year = psc;
 		cout << as.Year << endl;
-		char* context2 = nullptr;							// FALL
+		char* context2 = nullptr;							// FALL/SPRING/SUMMER
 		psc = strtok_s(context, ",", &context2);
-		char* context3 = nullptr;
+
 		while (psc != NULL)							// FALL/SPRING/SUMMER COURSES
 		{
-			cout << "before: " << psc << endl;
 			psc = strtok_s(NULL, ",", &context2);
 			if (psc != NULL)
-			{
-				cout << "after: " << psc << endl;
 				as.Offerings[i - 1].push_back(psc);
-			}
 		}
 	}
+	this->RegRules.OffringsList.push_back(as);
 	OfferingsData.close();
 	return true;
 }
