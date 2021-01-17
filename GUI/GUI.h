@@ -31,9 +31,9 @@ class GUI
 
 		ITM_LOAD,
 
-		ITM_UNDO,
+		ITM_DONE,
 
-		ITM_REDO,
+		ITM_FILTER,
 		//TODO: Add more items names here
 		ITM_EXIT,		//Exit item
 
@@ -81,7 +81,7 @@ public:
 	void DrawCourseInfo(const Course* pCrs) const;
 	void DrawNotes() const;
 	void DrawLiveMessage(const Course*) const;
-	
+	void DisplayReport() const;
 	//input functions
 	ActionData GUI::GetUserAction(string msg = "") const;
 	string GetSrting() const;

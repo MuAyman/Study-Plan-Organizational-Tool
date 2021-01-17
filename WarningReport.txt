@@ -1,0 +1,30 @@
+Error in Total credits
+ Error in unversity credits
+Error in major credits
+Error in track credits
+Credits of Fall semester in year 1is greater than Max credits 
+Credits of Spring semester in year 1is greater than Max credits 
+Credits of Fall semester in year 2is greater than Max credits 
+Credits of Spring semester in year 2is greater than Max credits 
+Credits of Fall semester in year 3is greater than Max credits 
+Credits of Spring semester in year 3is greater than Max credits 
+Credits of Fall semester in year 4is greater than Max credits 
+Credits of Spring semester in year 4is greater than Max credits 
+Error in Total credits
+Error in unversity credits
+Error in major credits
+Error in track credits
+Credits of Fall semester in year 4is greater than Max credits 
+Credits of Spring semester in year 4is greater than Max credits 
+Error in Total credits
+Error in unversity credits
+Error in major credits
+Error in track credits
+Credits of Fall semester in year 1is greater than Max credits 
+Credits of Spring semester in year 1is greater than Max credits 
+Credits of Fall semester in year 2is greater than Max credits 
+Credits of Spring semester in year 2is greater than Max credits 
+Credits of Fall semester in year 3is greater than Max credits 
+Credits of Spring semester in year 3is greater than Max credits 
+Credits of Fall semester in year 4is greater than Max credits 
+Credits of Spring semester in year 4is greater than Max credits 
