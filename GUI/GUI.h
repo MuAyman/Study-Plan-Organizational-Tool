@@ -35,12 +35,17 @@ class GUI
 
 		ITM_REDO,
 		//TODO: Add more items names here
+		ITM_GPA,
+
+		ITM_DMajor,
+
+		ITM_DConcentration,
+
 		ITM_EXIT,		//Exit item
 
 
 
 		ITM_CNT			//no. of menu items ==> This should be the last line in this en   um
-
 	};
 
 	//Some constants for GUI

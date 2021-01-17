@@ -21,6 +21,7 @@ public:
 	void Highlight(int x, int y) const;
 	void SaveStudyPlan(string filename);
 	bool DeleteCourse(Course*, int x, int y);
+	double CalculateGPA();
 	bool DeleteImportPlan();
 	int getYear(int x, int y);
 	SEMESTER getSemester(int x, int y);

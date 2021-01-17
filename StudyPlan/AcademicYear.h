@@ -30,6 +30,7 @@ public:
 	Course* select(int x, int y) const;
 	void Highlight(int x, int y) const;
 	bool DeleteCourse(Course*, int x, int y);
+	//double CalculateGPA();
 	bool DeleteYear();
 	SEMESTER getSemester(int x, int y);
 	//ValidityCheck checkk;

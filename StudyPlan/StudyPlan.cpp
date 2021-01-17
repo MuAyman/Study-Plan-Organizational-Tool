@@ -85,6 +85,8 @@ Course* StudyPlan::select(int x, int y) const
 	}
 	return NULL;
 }
+
+
 void StudyPlan::Highlight(int x, int y) const
 {
 
@@ -106,6 +108,16 @@ bool StudyPlan::DeleteCourse(Course* pC, int x, int y)
 
 	return true;
 }
+
+//double StudyPlan::CalculateGPA(Course* pC)
+//{
+//	for (int i = 0; i < plan.size(); i++)
+//	{
+//		plan[i]->CalculateGPA(pC);
+//	}
+//	return 1;
+//}
+
 int StudyPlan::getYear(int x, int y)
 {
 	int year = 10;

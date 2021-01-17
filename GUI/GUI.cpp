@@ -54,8 +54,11 @@ void GUI::CreateMenu() const
 	MenuItemImages[ITM_REPLACE] = "GUI\\Images\\Menu\\replace.jpg";
 	MenuItemImages[ITM_SAVE] = "GUI\\Images\\Menu\\save.jpg";
 	MenuItemImages[ITM_LOAD] = "GUI\\Images\\Menu\\upload.jpg";
+	MenuItemImages[ITM_GPA] = "GUI\\Images\\Menu\\exit.jpg";
+	MenuItemImages[ITM_DMajor] = "GUI\\Images\\Menu\\exit.jpg";
+	MenuItemImages[ITM_DConcentration] = "GUI\\Images\\Menu\\exit.jpg";
 	MenuItemImages[ITM_EXIT] = "GUI\\Images\\Menu\\exit.jpg";
-
+	
 	//TODO: Prepare image for each menu item and add it to the list
 
 	//Draw menu items one image at a time
@@ -261,7 +264,7 @@ ActionData GUI::GetUserAction(string msg) const
 				case ITM_EXIT: return ActionData{ EXIT };		//Exit
 				case ITM_ADD_NOTES: return ActionData{ NOTES };		//Notes
 				case ITM_OFFER: return ActionData{ OFFER };		//Notes
-
+				case ITM_GPA: return ActionData{ GPA };
 
 				default: return ActionData{ MENU_BAR };	//A click on empty place in menu bar
 				}
@@ -348,7 +351,7 @@ void GUI::DrawCourseInfo(const Course* pCrs) const  /////Me
 	{
 		pWind->DrawLine(ix, iy + INFO_HEIGHT * i / 3, ix + INFO_WIDTH, iy + INFO_HEIGHT * i / 3);
 	}
-	///Write the course code and credit hours.
+	//Write the course code and credit hours.
 	int Info_x = ix + INFO_WIDTH * 0.07;
 	int Info_y = iy + INFO_HEIGHT * 0.1;
 	pWind->SetFont(INFO_HEIGHT * 0.15, BOLD, BY_NAME, "Gramound");
@@ -357,11 +360,11 @@ void GUI::DrawCourseInfo(const Course* pCrs) const  /////Me
 	ostringstream Title;
 	ostringstream Code;
 	ostringstream Credits;
-	Code << "Cource Code:" << pCrs->getCode();
+	Code << "Course Code:" << pCrs->getCode();
 	pWind->DrawString(Info_x, Info_y, Code.str());
-	Credits << "Cource Credits:" << pCrs->getCredits();
+	Credits << "Course Credits:" << pCrs->getCredits();
 	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT / 3, Credits.str());
-	Title << "Cource Title:" << pCrs->getTitle();
+	Title << "Course Title:" << pCrs->getTitle();
 	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT * 2 / 3, Title.str());
 }
 

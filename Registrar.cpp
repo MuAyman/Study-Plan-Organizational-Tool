@@ -11,6 +11,9 @@
 #include "ActionDeleteCourse.h"
 #include "Drag_DropAction.h"
 #include "ActionChangeCourse.h"
+#include "CalculateGPA.h"
+#include "ActionDoubleMajor.h"
+#include "ActionDoubleConcentration.h"
 #include <sstream>
 #include <cctype>
 
@@ -390,53 +393,51 @@ bool Registrar::RulesReset(Rules& R)
 
 bool Registrar::ExecuteRules()
 {
-	string major;
 	pGUI = this->getGUI();
-	pGUI->PrintMsg("enter your major name: ");
-	major = pGUI->GetSrting();
+	pGUI->PrintMsg("Enter your major name: ");
+	major1 = pGUI->GetSrting();
 
-	for (int i = 0; i < major.length(); i++)
+	for (int i = 0; i < major1.length(); i++)
 	{
-		major[i] = toupper(major[i]);
+		major1[i] = toupper(major1[i]);
 	}
 
-	while (major != "CIE"
-		&& major != "SPC"
-		&& major != "ENV"
-		&& major != "REE"
-		&& major != "BMS"
-		&& major != "PEU"
-		&& major != "NANENG"
-		&& major != "NANSCIE"
-		&& major != "MATSCIE")
+	while (major1 != "CIE"
+		&& major1 != "SPC"
+		&& major1 != "ENV"
+		&& major1 != "REE"
+		&& major1 != "BMS"
+		&& major1 != "PEU"
+		&& major1 != "NANENG"
+		&& major1 != "NANSCIE"
+		&& major1 != "MATSCIE")
 	{
-		pGUI->PrintMsg("enter a valid major name");
-		major = pGUI->GetSrting();
+		pGUI->PrintMsg("Enter a valid major name: ");
+		major1 = pGUI->GetSrting();
 	}
 	RulesReset(RegRules);
 
 	ifstream input;
-	if (major == "CIE")
+	if (major1 == "CIE")
 	{
-		RulesRead(input, "Rules.txt", RegRules);
-	}
-		
-	else if (major == "SPC")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "ENV")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "REE")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "BMS")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "PEU")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "NANENG")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "NANSCIE")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "MATSCIE")
-		RulesRead(input, "Rules.txt", RegRules);
+		RulesRead(input, "CIE-Requirements.txt", RegRules);
+	}	
+	else if (major1 == "SPC")
+		RulesRead(input, "SPC-Requirements.txt", RegRules);
+	else if (major1 == "ENV")
+		RulesRead(input, "ENV-Requirements.txt", RegRules);
+	else if (major1 == "REE")
+		RulesRead(input, "REE-Requirements.txt", RegRules);
+	else if (major1 == "BMS")
+		RulesRead(input, "BMS-Requirements.txt", RegRules);
+	else if (major1 == "PEU")
+		RulesRead(input, "PEU-Requirements.txt", RegRules);
+	else if (major1 == "NANENG")
+		RulesRead(input, "NANENG-Requirements.txt", RegRules);
+	else if (major1 == "NANSCIE")
+		RulesRead(input, "NANSCIE-Requirements.txt", RegRules);
+	else if (major1 == "MATSCIE")
+		RulesRead(input, "MATSCIE-Requirements.txt", RegRules);
 
 	input.close();
 	
@@ -447,8 +448,64 @@ bool Registrar::ExecuteRules()
 	return true;
 }
 
+bool Registrar::ExecuteDoubleMajors()
+{
+	pGUI = this->getGUI();
+	pGUI->PrintMsg("Enter major name: ");
+	major2 = pGUI->GetSrting();
+	for (int i = 0; i < major2.length(); i++)
+	{
+		major2[i] = toupper(major2[i]);
+	}
+
+	while (major2 != "CIE"
+		&& major2 != "SPC"
+		&& major2 != "ENV"
+		&& major2 != "REE"
+		&& major2 != "BMS"
+		&& major2 != "PEU"
+		&& major2 != "NANENG"
+		&& major2 != "NANSCIE"
+		&& major2 != "MATSCIE")
+	{
+		pGUI->PrintMsg("Enter a valid major name: ");
+		major2 = pGUI->GetSrting();
+	}
+	ifstream input;
+	if (major1 == "CIE")
+	{
+		RulesRead(input, "CIE-Requirements.txt", RegRules2);
+	}
+	else if (major1 == "SPC")
+		RulesRead(input, "SPC-Requirements.txt", RegRules2);
+	else if (major1 == "ENV")
+		RulesRead(input, "ENV-Requirements.txt", RegRules2);
+	else if (major1 == "REE")
+		RulesRead(input, "REE-Requirements.txt", RegRules2);
+	else if (major1 == "BMS")
+		RulesRead(input, "BMS-Requirements.txt", RegRules2);
+	else if (major1 == "PEU")
+		RulesRead(input, "PEU-Requirements.txt", RegRules2);
+	else if (major1 == "NANENG")
+		RulesRead(input, "NANENG-Requirements.txt", RegRules2);
+	else if (major1 == "NANSCIE")
+		RulesRead(input, "NANSCIE-Requirements.txt", RegRules2);
+	else if (major1 == "MATSCIE")
+		RulesRead(input, "MATSCIE-Requirements.txt", RegRules2);
+
+	input.close();
+
+	ifstream catalogFile;
+	catalogRead(catalogFile, "Source.txt", RegRules);
+	catalogFile.close();
 
 
+}
+
+bool Registrar::ExecuteDoubleConcentrations()
+{
+
+}
 
 Action* Registrar::CreateRequiredAction() 
 {	
@@ -490,6 +547,15 @@ Action* Registrar::CreateRequiredAction()
 		break;
 	case REDO:	//Redo action
 		RequiredAction = new ActionRedo(this);
+		break;
+	case GPA:	//GPA action
+		//RequiredAction = new CalculateGPA(this);
+		break;
+	case doubleMajor:
+		RequiredAction = new ActionDoubleMajor(this);
+		break;
+	case doubleConcentration:
+		RequiredAction = new ActionDoubleConcentration(this);
 		break;
 	//case OFFER:	//Import offering courses data file from user
 	//	RequiredAction = new ActionAddRules(this);

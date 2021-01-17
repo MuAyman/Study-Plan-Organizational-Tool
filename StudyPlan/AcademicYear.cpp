@@ -1,5 +1,6 @@
 #include "AcademicYear.h"
 #include "../GUI/GUI.h"
+//#include "Courses/Course.h"
 #include <iostream>
 //using namespace std;
 
@@ -193,6 +194,38 @@ bool AcademicYear::DeleteCourse(Course* pC, int x, int y)
 
 	return true;
 }
+
+//double AcademicYear::CalculateGPA(Course* pC)
+//{
+//
+//}
+
+// double AcademicYear::CalculateGPA()
+//{
+//	////SEMESTER sem = getSemester(x, y);
+//	// pGUI->PrintMsg("Add the letter grade: ");
+//	 GUI* pGUI;
+//	 CourseGradeLetter gradeLetter;
+//	 for (int i = 0; i < gradeLetter.length(); i++)
+//		 gradeLetter[i] = toupper(gradeLetter[i]);
+//	 for (int i = 0; i < SEM_CNT; i++)
+//	 {
+//		 for (auto it = YearCourses[i].begin(); it != YearCourses[i].end(); ++it)
+//		 {
+//			 //pGUI->PrintMsg("Add the letter grade: ");
+//			 /*gradeLetter = pGUI->GetSrting();
+//			 for (int i = 0; i < gradeLetter.length(); i++)
+//				 gradeLetter[i] = toupper(gradeLetter[i]);*/
+//			 //setGradePoints();
+//			//(*it)->
+//		 }
+//	 }
+//	
+//
+//	//TotalCredits -= pC->getCredits();
+//	 return 1;
+//}
+
 SEMESTER AcademicYear::getSemester(int x, int y)
 {
 

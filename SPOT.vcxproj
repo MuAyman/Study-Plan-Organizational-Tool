@@ -122,6 +122,8 @@
     <ClCompile Include="ActionAddNotes.cpp" />
     <ClCompile Include="ActionChangeCourse.cpp" />
     <ClCompile Include="ActionDeleteCourse.cpp" />
+    <ClCompile Include="ActionDoubleConcentration.cpp" />
+    <ClCompile Include="ActionDoubleMajor.cpp" />
     <ClCompile Include="ActionExit.cpp" />
     <ClCompile Include="ActionFilter.cpp" />
     <ClCompile Include="ActionImportPlan.cpp" />
@@ -180,6 +182,8 @@
     <ClInclude Include="ActionAddNotes.h" />
     <ClInclude Include="ActionChangeCourse.h" />
     <ClInclude Include="ActionDeleteCourse.h" />
+    <ClInclude Include="ActionDoubleConcentration.h" />
+    <ClInclude Include="ActionDoubleMajor.h" />
     <ClInclude Include="ActionExit.h" />
     <ClInclude Include="ActionFilter.h" />
     <ClInclude Include="ActionImportPlan.h" />
@@ -221,7 +225,6 @@
     <ClInclude Include="ValidityCheck.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\Downloads\Catalog - 2020 12 19.txt" />
     <Text Include="Default Study Plans\CIE.txt" />
     <Text Include="Default Study Plans\ENV.txt" />
     <Text Include="Default Study Plans\NAN.txt" />
@@ -229,6 +232,12 @@
     <Text Include="Default Study Plans\SPC.txt" />
     <Text Include="GUI\CMUgraphicsLib\Manual.txt" />
     <Text Include="GUI\CMUgraphicsLib\Readme.txt" />
+    <Text Include="Requirements\CIE-Requirements.txt" />
+    <Text Include="Requirements\ENV-Requirements.txt" />
+    <Text Include="Requirements\NANENG-Requirements.txt" />
+    <Text Include="Requirements\PEU-Requirements.txt" />
+    <Text Include="Requirements\REE-Requirements.txt" />
+    <Text Include="Requirements\SPC-Requirements.txt" />
     <Text Include="Rules.txt" />
     <Text Include="Source.txt" />
   </ItemGroup>

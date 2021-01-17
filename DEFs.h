@@ -67,7 +67,9 @@ enum ActionType
 
 	DRAG,
 	DROP,
-
+	GPA,
+	doubleMajor,
+	doubleConcentration
 	//TODO: Add more action types
 
 };
