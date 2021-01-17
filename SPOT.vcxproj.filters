@@ -22,6 +22,9 @@
     <Filter Include="Default Study Plans">
       <UniqueIdentifier>{022caa05-d0a1-4338-9e4f-7d9744537ae8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Requirements">
+      <UniqueIdentifier>{c4d32759-f5e2-41ca-b0d0-c01764f01e62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -158,6 +161,12 @@
     <ClCompile Include="ActionExit.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="ActionUndo.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionRedo.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
     <ClCompile Include="Drag_DropAction.cpp" />
     <ClCompile Include="ActionInfo.cpp" />
     <ClCompile Include="ActionDeleteCourse.cpp" />
@@ -166,7 +175,8 @@
     <ClCompile Include="ValidityCheck.cpp" />
     <ClCompile Include="ActionFilter.cpp" />
     <ClCompile Include="CalculateGPA.cpp" />
-    <ClCompile Include="ActionCheckReport.cpp" />
+    <ClCompile Include="ActionDoubleMajor.cpp" />
+    <ClCompile Include="ActionDoubleConcentration.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\GUI.h">
@@ -259,6 +269,12 @@
     <ClInclude Include="ActionExit.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="ActionUndo.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionRedo.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
     <ClInclude Include="Drag_DropAction.h" />
     <ClInclude Include="ActionInfo.h" />
     <ClInclude Include="ActionDeleteCourse.h" />
@@ -267,7 +283,8 @@
     <ClInclude Include="ValidityCheck.h" />
     <ClInclude Include="ActionFilter.h" />
     <ClInclude Include="CalculateGPA.h" />
-    <ClInclude Include="ActionCheckReport.h" />
+    <ClInclude Include="ActionDoubleMajor.h" />
+    <ClInclude Include="ActionDoubleConcentration.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="GUI\CMUgraphicsLib\Manual.txt">
@@ -290,14 +307,25 @@
     </Text>
     <Text Include="Default Study Plans\CIE.txt" />
     <Text Include="Rules.txt" />
-    <Text Include="..\..\..\Downloads\Catalog - 2020 12 19.txt" />
     <Text Include="Source.txt" />
-    <Text Include="REE-Requirements.txt" />
-    <Text Include="SPC-Requirements.txt" />
-    <Text Include="CIE-Requirements.txt" />
-    <Text Include="ENV-Requirements.txt" />
-    <Text Include="NANENG-Requirements.txt" />
-    <Text Include="PEU-Requirements.txt" />
+    <Text Include="Requirements\CIE-Requirements.txt">
+      <Filter>Requirements</Filter>
+    </Text>
+    <Text Include="Requirements\ENV-Requirements.txt">
+      <Filter>Requirements</Filter>
+    </Text>
+    <Text Include="Requirements\NANENG-Requirements.txt">
+      <Filter>Requirements</Filter>
+    </Text>
+    <Text Include="Requirements\PEU-Requirements.txt">
+      <Filter>Requirements</Filter>
+    </Text>
+    <Text Include="Requirements\REE-Requirements.txt">
+      <Filter>Requirements</Filter>
+    </Text>
+    <Text Include="Requirements\SPC-Requirements.txt">
+      <Filter>Requirements</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -16,6 +16,6 @@ public:
 	//bool ValidityCheck::petition(int SemCredits);
 	//bool ValidityCheck::CreditsCheck(int SemCredits);
 	~ValidityCheck();
-	
+
 
 };

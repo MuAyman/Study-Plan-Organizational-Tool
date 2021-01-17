@@ -23,6 +23,7 @@ class Course : public Drawable
 	bool OffValid = true;
 	bool PreIssue = true;
 	bool CoIssue = true;
+
 public:
 	Course(Course_Code r_code,string r_title, int crd);
 	Course(Course_Code r_code, string r_title, int crd, string Type); // Added to make the programer able to set the type
@@ -52,72 +53,4 @@ public:
 	list<Course_Code> getPreReq();
 
 	virtual ~Course();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 };

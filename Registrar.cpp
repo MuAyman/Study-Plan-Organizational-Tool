@@ -11,6 +11,9 @@
 #include "ActionChangeCourse.h"
 #include "ValidityCheck.h"
 #include "ActionFilter.h"
+#include "CalculateGPA.h"
+#include "ActionDoubleMajor.h"
+#include "ActionDoubleConcentration.h"
 #include <sstream>
 #include <cctype>
 
@@ -26,7 +29,7 @@ GUI* Registrar::getGUI() const
 	return pGUI;
 }
 
-bool Registrar::ExecuteOfferings()					//OFFEREINGS **************************************		AYMAN
+ool Registrar::ExecuteOfferings()     //OFFEREINGS **********************************  AYMAN
 {
 	GUI* pGUI = this->getGUI();
 	ifstream OfferingsData;
@@ -46,15 +49,15 @@ bool Registrar::ExecuteOfferings()					//OFFEREINGS ****************************
 		{
 
 			int static i = 0; i++;
-			char* context = nullptr;							// YEAR
+			char* context = nullptr;       // YEAR
 			psc = strtok_s(line, ",", &context);
 			as.Year = psc;
 			cout << as.Year << endl;
 			cout << i << endl;
-			char* context2 = nullptr;							// FALL
+			char* context2 = nullptr;       // FALL
 			psc = strtok_s(context, ",", &context2);
 			char* context3 = nullptr;
-			while (psc != NULL)							// FALL/SPRING/SUMMER COURSES
+			while (psc != NULL)       // FALL/SPRING/SUMMER COURSES
 			{
 				cout << "before: " << psc << endl;
 				psc = strtok_s(NULL, ",", &context2);
@@ -71,7 +74,7 @@ bool Registrar::ExecuteOfferings()					//OFFEREINGS ****************************
 		OfferingsData.close();
 		return true;
 	}
-	
+
 }
 
 //returns the study plan
@@ -392,6 +395,7 @@ bool Registrar::RulesRead(ifstream& File, string name, Rules& R1)
 	}
 	return true;
 }
+
 bool Registrar::RulesReset(Rules& R)
 {
 	R.CourseCatalog.clear();
@@ -475,8 +479,65 @@ bool Registrar::ExecuteRules()
 
 	return true;
 }
+	
+bool Registrar::ExecuteDoubleMajors()
+{
+	pGUI = this->getGUI();
+	pGUI->PrintMsg("Enter major name: ");
+	major2 = pGUI->GetSrting();
+	for (int i = 0; i < major2.length(); i++)
+	{
+		major2[i] = toupper(major2[i]);
+	}
+
+	while (major2 != "CIE"
+		&& major2 != "SPC"
+		&& major2 != "ENV"
+		&& major2 != "REE"
+		&& major2 != "BMS"
+		&& major2 != "PEU"
+		&& major2 != "NANENG"
+		&& major2 != "NANSCIE"
+		&& major2 != "MATSCIE")
+	{
+		pGUI->PrintMsg("Enter a valid major name: ");
+		major2 = pGUI->GetSrting();
+	}
+	ifstream input;
+	if (major1 == "CIE")
+	{
+		RulesRead(input, "CIE-Requirements.txt", RegRules2);
+	}
+	else if (major1 == "SPC")
+		RulesRead(input, "SPC-Requirements.txt", RegRules2);
+	else if (major1 == "ENV")
+		RulesRead(input, "ENV-Requirements.txt", RegRules2);
+	else if (major1 == "REE")
+		RulesRead(input, "REE-Requirements.txt", RegRules2);
+	else if (major1 == "BMS")
+		RulesRead(input, "BMS-Requirements.txt", RegRules2);
+	else if (major1 == "PEU")
+		RulesRead(input, "PEU-Requirements.txt", RegRules2);
+	else if (major1 == "NANENG")
+		RulesRead(input, "NANENG-Requirements.txt", RegRules2);
+	else if (major1 == "NANSCIE")
+		RulesRead(input, "NANSCIE-Requirements.txt", RegRules2);
+	else if (major1 == "MATSCIE")
+		RulesRead(input, "MATSCIE-Requirements.txt", RegRules2);
+
+	input.close();
+
+	ifstream catalogFile;
+	catalogRead(catalogFile, "Source.txt", RegRules);
+	catalogFile.close();
 
 
+}
+
+bool Registrar::ExecuteDoubleConcentrations()
+{
+
+}
 
 Action* Registrar::CreateRequiredAction() 
 {	
@@ -507,6 +568,7 @@ Action* Registrar::CreateRequiredAction()
 	case DEL_CRS :	//Delete_course action
 		RequiredAction = new ActionDeleteCourse(this);
 		break;
+
 	case REP_CRS:	//replace course action
 		RequiredAction = new ActionChangeCourse(this);
 		break;
@@ -518,6 +580,15 @@ Action* Registrar::CreateRequiredAction()
 		break;
 	case DONE:  //Check done
 		RequiredAction = new ValidityCheck(this);
+		break;
+	case GPA:	//GPA action
+		//RequiredAction = new CalculateGPA(this);
+		break;
+	case doubleMajor:
+		RequiredAction = new ActionDoubleMajor(this);
+		break;
+	case doubleConcentration:
+		RequiredAction = new ActionDoubleConcentration(this);
 		break;
 	case EXIT:
 		RequiredAction = new ActionExit(this);
@@ -574,7 +645,7 @@ void Registrar::UpdateInterface()
 	pSPlan->DrawMe(pGUI);		//make study plan draw itself
 	if (actData.actType == DRAW_AREA)
 		pSPlan->DrawInfo(pGUI, actData.x, actData.y);
-	
+
 }
 
 

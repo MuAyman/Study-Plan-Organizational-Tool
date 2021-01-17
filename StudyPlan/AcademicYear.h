@@ -57,4 +57,5 @@ public:
 	bool SpringCredits();
 	bool SummerCredits();
 	
+	double CalculateGPA();
 };

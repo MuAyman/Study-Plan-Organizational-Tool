@@ -29,6 +29,7 @@ struct AcademicYearOfferings
 	//So Offerings[SUMMER] is a vector of courses offered in SUMMER in THAT year
 	vector<Course_Code> Offerings[SEM_CNT];
 };
+
 struct Concentration
 {
 	vector<Course_Code> CompulsoryCourses;
@@ -36,6 +37,7 @@ struct Concentration
 	int comp_credits;
 	int elective_credits;
 };
+
 struct Rules	//contains all objects for registrations rules
 {
 	//TODO: add more fields if needed
@@ -44,15 +46,14 @@ struct Rules	//contains all objects for registrations rules
 	vector<AcademicYearOfferings> OffringsList;	//all offerings for all acedmic years
 
 	int TotalCredits;		//total no. of credits req by university courses
-
 	int UnivCompCredits;		//total no. of credits req by compulsory courses
 	int UnivElectiveCredits;		//total no. of credits req by elective courses
 	int CompTrackCredits;	//total no. of credits compulsory by Track courses
-
 	int MajCommonCompCredits;	//total no. of Magor common compulsory credits
 	int MajCommonElecCredits;	//total no. of Magor common Elective credits
 
 	int NumOfConcent;			 // Number of concentrations
+
 
 	vector<Course_Code> UnivCompulsory;	//Univ Compulsory courses
 	vector<Course_Code> UnivElective;	//Univ Elective courses

@@ -1,5 +1,6 @@
 #include "AcademicYear.h"
 #include "../GUI/GUI.h"
+
 #include <iostream>
 //using namespace std;
 
@@ -26,6 +27,7 @@ Course* AcademicYear::getCourse(Course_Code code) //youssef
 		}
 	}
 }
+
 void AcademicYear::SetPreIssue(string course)
 {
 	for (int sem = FALL; sem < SEM_CNT; sem++)
@@ -43,6 +45,7 @@ void AcademicYear::SetPreIssue(string course)
 		}
 	}
 }
+
 void AcademicYear::SetCoIssue(string course)
 {
 	for (int sem = FALL; sem < SEM_CNT; sem++)
@@ -122,8 +125,8 @@ bool AcademicYear::AddCourse(Course* pC, int x, int y)
 
 		return true;
 	}
-
 }
+
 void AcademicYear::SaveAcadYear(int year, string filename)
 {
 	fstream StudyPlan;
@@ -182,6 +185,7 @@ void AcademicYear::DrawMe(GUI* pGUI) const
 		}
 	}
 }
+
 bool AcademicYear::AddSemester(int x, int y)
 {
 	for (int sem = FALL; sem < SEM_CNT; sem++)
@@ -220,6 +224,7 @@ bool AcademicYear::SemOriginal()
 	}
 	return true;
 }
+
 Course* AcademicYear::select(int x, int y) const
 {
 	//Draw all semesters inside this year by iterating on each semester list
@@ -281,6 +286,38 @@ bool AcademicYear::DeleteCourse(Course* pC, int x, int y)
 
 	return true;
 }
+
+//double AcademicYear::CalculateGPA(Course* pC)
+//{
+//
+//}
+
+// double AcademicYear::CalculateGPA()
+//{
+//	////SEMESTER sem = getSemester(x, y);
+//	// pGUI->PrintMsg("Add the letter grade: ");
+//	 GUI* pGUI;
+//	 CourseGradeLetter gradeLetter;
+//	 for (int i = 0; i < gradeLetter.length(); i++)
+//		 gradeLetter[i] = toupper(gradeLetter[i]);
+//	 for (int i = 0; i < SEM_CNT; i++)
+//	 {
+//		 for (auto it = YearCourses[i].begin(); it != YearCourses[i].end(); ++it)
+//		 {
+//			 //pGUI->PrintMsg("Add the letter grade: ");
+//			 /*gradeLetter = pGUI->GetSrting();
+//			 for (int i = 0; i < gradeLetter.length(); i++)
+//				 gradeLetter[i] = toupper(gradeLetter[i]);*/
+//			 //setGradePoints();
+//			//(*it)->
+//		 }
+//	 }
+//	
+//
+//	//TotalCredits -= pC->getCredits();
+//	 return 1;
+//}
+
 SEMESTER AcademicYear::getSemester(int x, int y)
 {
 
@@ -329,7 +366,6 @@ void AcademicYear::DrawInfo(GUI* pGUI, int x, int y)
 		}
 
 	}
-
 }
 bool AcademicYear::CreditsCheck(int SemCredits)
 {

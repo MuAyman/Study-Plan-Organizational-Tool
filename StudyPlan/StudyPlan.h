@@ -34,6 +34,7 @@ public:
 	void SaveStudyPlan(string filename);
 	void WarningReport();
 	bool DeleteCourse(Course*, int x, int y);
+	double CalculateGPA();
 	bool DeleteImportPlan();
 	int getYear(int x, int y);
 	SEMESTER getSemester(int x, int y);
@@ -50,12 +51,10 @@ public:
 	int getTotalTrackCredits();
 	int getTotalConcentrationCredits();
 	int getTotalMinorCredits();
-	
 	void Set_Total_credits_Check(bool);
 	void Set_unversity_credits_Check(bool);
 	void Set_Major_credits_Check(bool);
 	void Set_Track_credits_Check(bool);
-
 	bool CheckRepeatance(Course* pC);
 	void ResetIntegers();
 	virtual ~StudyPlan();

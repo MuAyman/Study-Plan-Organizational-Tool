@@ -31,10 +31,19 @@ class GUI
 
 		ITM_LOAD,
 
+
 		ITM_DONE,
 
 		ITM_FILTER,
 		//TODO: Add more items names here
+
+		//TODO: Add more items names here
+		ITM_GPA,
+
+		ITM_DMajor,
+
+		ITM_DConcentration,
+
 		ITM_EXIT,		//Exit item
 
 
@@ -85,9 +94,6 @@ public:
 	//input functions
 	ActionData GUI::GetUserAction(string msg = "") const;
 	string GetSrting() const;
-
-
-
 
 	~GUI();
 };

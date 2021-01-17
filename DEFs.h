@@ -55,6 +55,7 @@ enum ActionType
 
 	EXIT,		//Exit the applicationS
 
+
 	STATUS_BAR,	//A click on the status bar
 	MENU_BAR,	//A click on an empty place in the menu bar
 	DRAW_AREA,	//A click in the drawing area
@@ -67,6 +68,10 @@ enum ActionType
 
 	DRAG,
 	DROP,
+
+	GPA,
+	doubleMajor,
+	doubleConcentration
 
 	//TODO: Add more action types
 

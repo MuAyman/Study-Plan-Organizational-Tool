@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Actions/Action.h"
 class ActionFilter : public Action
 {
@@ -7,5 +8,9 @@ public:
 	bool virtual Execute();
 	virtual ~ActionFilter();
 	
+
+class ActionFilter
+{
+
 };
 
