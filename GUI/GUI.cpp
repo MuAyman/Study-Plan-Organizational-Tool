@@ -48,14 +48,16 @@ void GUI::CreateMenu() const
 	MenuItemImages[ITM_ADD] = "GUI\\Images\\Menu\\add.jpg";
 	MenuItemImages[ITM_ADD_NOTES] = "GUI\\Images\\Menu\\display.jpg";
 	MenuItemImages[ITM_OFFER] = "GUI\\Images\\Menu\\offer.jpg";
-	MenuItemImages[ITM_REDO] = "GUI\\Images\\Menu\\redo.jpg";
-	MenuItemImages[ITM_UNDO] = "GUI\\Images\\Menu\\undo.jpg";
+	MenuItemImages[ITM_FILTER] = "GUI\\Images\\Menu\\redo.jpg";
+	MenuItemImages[ITM_DONE] = "GUI\\Images\\Menu\\undo.jpg";
 	MenuItemImages[ITM_DELETE] = "GUI\\Images\\Menu\\delete.jpg";
 	MenuItemImages[ITM_REPLACE] = "GUI\\Images\\Menu\\replace.jpg";
 	MenuItemImages[ITM_SAVE] = "GUI\\Images\\Menu\\save.jpg";
 	MenuItemImages[ITM_LOAD] = "GUI\\Images\\Menu\\upload.jpg";
+	MenuItemImages[ITM_GPA] = "GUI\\Images\\Menu\\exit.jpg";
+	MenuItemImages[ITM_DMajor] = "GUI\\Images\\Menu\\exit.jpg";
+	MenuItemImages[ITM_DConcentration] = "GUI\\Images\\Menu\\exit.jpg";
 	MenuItemImages[ITM_EXIT] = "GUI\\Images\\Menu\\exit.jpg";
-
 	//TODO: Prepare image for each menu item and add it to the list
 
 	//Draw menu items one image at a time
@@ -104,19 +106,15 @@ void GUI::DrawCourse(const Course* pCrs)
 	else
 	{
 		pWind->SetPen(BLACK, 2);
-		if (!pCrs->IsOfferingsValid())
-		{
-			pWind->SetPen(ORANGE, 2);
-		}
-		if (pCrs->getType() == "University")
+		if (pCrs->getType() == "UnivCompulsory" || pCrs->getType() == "UnivElective")
 		{
 			pWind->SetPen(PINK, 2);
 		}
-		else if (pCrs->getType() == "Track")
+		else if (pCrs->getType() == "TrackCompulsory" || pCrs->getType() == "TrackElective")
 		{
 			pWind->SetPen(BLUE, 2);
 		}
-		else if (pCrs->getType() == "Major")
+		else if (pCrs->getType() == "MajorCompulsory" || pCrs->getType() == "MajorElective")
 		{
 			pWind->SetPen(PURPLE, 2);
 		}
@@ -135,10 +133,20 @@ void GUI::DrawCourse(const Course* pCrs)
 		
 	}
 	pWind->SetBrush(DARKGREEN);
-	graphicsInfo gInfo = pCrs->getGfxInfo();
-	if (pCrs->getType() == "elective")
+	if (pCrs->IsOfferingsValid() == false)
 	{
-		pWind->DrawRectangle(gInfo.x, gInfo.y, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT, FILLED, 5, 5);
+		pWind->SetBrush(YELLOW);
+	}
+	if (pCrs ->IsPreValid() == false || pCrs->IsCoValid() == false)
+	{
+		pWind->SetBrush(RED);
+	}
+	
+	graphicsInfo gInfo = pCrs->getGfxInfo();
+	
+	if (pCrs->getType() == "UnivElective" || pCrs->getType() == "TrackElective" || pCrs->getType() == "MajorElective")
+	{
+		pWind->DrawRectangle(gInfo.x, gInfo.y, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT, FILLED, 7, 7);
 	}
 	else
 	{
@@ -152,7 +160,10 @@ void GUI::DrawCourse(const Course* pCrs)
 	int Code_y = gInfo.y + CRS_HEIGHT * 0.05;
 	pWind->SetFont(CRS_HEIGHT * 0.4, BOLD, BY_NAME, "Gramound");
 	pWind->SetPen(WHITE);
-
+	if (pCrs->IsOfferingsValid() == false)
+	{
+		pWind->SetPen(BLACK);
+	}
 	ostringstream crd;
 	crd << "crd:" << pCrs->getCredits();
 	pWind->DrawString(Code_x, Code_y, pCrs->getCode());
@@ -256,12 +267,12 @@ ActionData GUI::GetUserAction(string msg) const
 				case ITM_REPLACE: return ActionData{ REP_CRS }; //Replace course
 				case ITM_SAVE: return ActionData{ SAVE };	//Save the data to a file
 				case ITM_LOAD: return ActionData{ LOAD };	//Load the data from a file
-				case ITM_UNDO: return ActionData{ UNDO };	//Undo
-				case ITM_REDO: return ActionData{ REDO };	//Redo
+				case ITM_DONE: return ActionData{ DONE };	//DONE Check
+				case ITM_FILTER: return ActionData{ FILTER };	//Redo
 				case ITM_EXIT: return ActionData{ EXIT };		//Exit
 				case ITM_ADD_NOTES: return ActionData{ NOTES };		//Notes
 				case ITM_OFFER: return ActionData{ OFFER };		//Notes
-
+				case ITM_GPA: return ActionData{ GPA };
 
 				default: return ActionData{ MENU_BAR };	//A click on empty place in menu bar
 				}
@@ -349,6 +360,7 @@ void GUI::DrawCourseInfo(const Course* pCrs) const  /////Me
 		pWind->DrawLine(ix, iy + INFO_HEIGHT * i / 3, ix + INFO_WIDTH, iy + INFO_HEIGHT * i / 3);
 	}
 	///Write the course code and credit hours.
+
 	int Info_x = ix + INFO_WIDTH * 0.07;
 	int Info_y = iy + INFO_HEIGHT * 0.1;
 	pWind->SetFont(INFO_HEIGHT * 0.15, BOLD, BY_NAME, "Gramound");
@@ -407,15 +419,15 @@ void GUI::DrawLiveMessage(const Course* pC) const
 {
 	int ix = WindWidth - 360;
 	int Info_x = ix + INFO_WIDTH * 0.07;
-	int Info_y = 302 ;
-	pWind->SetFont(INFO_HEIGHT * 0.15, BOLD, BY_NAME, "Gramound");
+	int Info_y = 330 ;
+	pWind->SetFont(INFO_HEIGHT * 0.2, BOLD, BY_NAME, "Gramound");
 	pWind->SetPen(WHITE);
 	pWind->SetBrush(GREY);
 	pWind->DrawRectangle(ix, 302, ix + INFO_WIDTH, 300 + SEM_CNT * PLAN_SEMESTER_HEIGHT);
 	if (pC->ModerateIssue() == true)
 	{
 		pWind->SetBrush(RED);
-		pWind->DrawRectangle(ix+ 5, 302, ix + INFO_WIDTH - 5 , (300 + SEM_CNT * PLAN_SEMESTER_HEIGHT)/2);
+		pWind->DrawRectangle(ix + 5, 302, ix + INFO_WIDTH - 5 , (300 + SEM_CNT * PLAN_SEMESTER_HEIGHT));
 		pWind->DrawString(Info_x, Info_y, "Moderate Issue");
 	}
 	if (pC -> CriticalIssue() == true)
@@ -426,7 +438,47 @@ void GUI::DrawLiveMessage(const Course* pC) const
 	}
 
 }
+
+void GUI::DisplayReport() const
+{
+	int WindW = 700;
+	int WindH = 700;
+	window*pWind1 = new window(WindW, WindH, wx, wy);
+	pWind1->ChangeTitle("Warnings Report");
+	pWind1->SetBrush(BkGrndColor);
+	pWind1->SetPen(BkGrndColor);
+	pWind1->DrawRectangle(0, 0, WindW, WindH);
+	char* Warning;
+	// display Report
+	fstream Warnings;
+	Warnings.open("WarningReport.txt", ios::in);
+	pWind1->SetPen(YELLOW);
+	char* context = nullptr;
+	const int size = 800;
+	char line[size];
+	int Info_x =  15;
+	int Info_y =  5;
+	while (Warnings.getline(line, size))
+	{
+		pWind1->SetFont(INFO_HEIGHT * 0.1, BOLD, BY_NAME, "Gramound");
+		pWind1->SetPen(WHITE);
+		Warning = strtok_s(line, "", &context);
+		///Write the warning on the screen
+
+		pWind1->DrawString(Info_x, Info_y, Warning);
+		pWind1->SetPen(YELLOW);
+		for (int i = 1; i < 20; i++)
+		{
+			pWind1->DrawLine(0,  WindH * i / 20,  WindW, WindH * i / 20);
+		}
+		Info_y = Info_y + 36;
+	}
+	Warnings.close();
+	Warnings.clear();
+	//delete pWind1;
+}
 GUI::~GUI()
 {
 	delete pWind;
+	
 }

@@ -22,7 +22,7 @@ bool ActionChangeCourse::Execute()
 	int crd = 0;
 	Course* pC = new Course(code, Title, crd);
 
-	// Added to check the offerings Validity 
+	// Added to check the offerings Validity
 
 	int year = pS->getYear(actData.x, actData.y);
 	SEMESTER sem = pS->getSemester(actData.x, actData.y);
