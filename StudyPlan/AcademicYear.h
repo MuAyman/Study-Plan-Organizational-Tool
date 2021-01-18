@@ -17,6 +17,7 @@ class AcademicYear :public Drawable
 	//So YearCourses[SPRING] is the list of SPRING course in that year
 	//So YearCourses[SUMMER] is the list of SUMMER course in that year
 	list<Course*> YearCourses[SEM_CNT];
+	list<Course*> DummyYearCourses[SEM_CNT];
 	Course* pCRS;
 
 public:
@@ -32,7 +33,28 @@ public:
 	bool DeleteCourse(Course*, int x, int y);
 	bool DeleteYear();
 	SEMESTER getSemester(int x, int y);
-	//ValidityCheck checkk;
+	bool AddSemester(int x, int y);
+	bool SemOriginal();
+	bool AddType(string type);
+	//ValidityCheck check;
 	Course* getCourse(Course_Code code);
 	void virtual DrawMe(GUI*) const;
+
+	bool CreditsCheck(int SemCredits);
+	bool SummerCredits(int credits);
+	void SetPreIssue(string course);
+	void SetCoIssue(string course);
+	int getTotalcredits();
+	int getTotalUnivCredits();
+	int getTotalMajorCredits();
+	int getTotalTrackCredits();
+	int getTotalConcentrationCredits();
+	int getTotalMinorCredits();
+	void PlanCourses();
+	list<Course*> AllCourses;
+	//helmy added
+	bool FallCredits();
+	bool SpringCredits();
+	bool SummerCredits();
+	
 };

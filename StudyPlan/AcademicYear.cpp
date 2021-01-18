@@ -26,8 +26,40 @@ Course* AcademicYear::getCourse(Course_Code code) //youssef
 		}
 	}
 }
-
-
+void AcademicYear::SetPreIssue(string course)
+{
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+		{
+			if (course  == (*it)->getCode())
+			{
+				 (*it) ->SetPreIssue(false);
+			}
+			else
+			{
+				 (*it)->SetPreIssue(true);
+			}
+		}
+	}
+}
+void AcademicYear::SetCoIssue(string course)
+{
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+		{
+			if (course == (*it)->getCode())
+			{
+				(*it)->SetCoIssue(false);
+			}
+			else
+			{
+				(*it)->SetCoIssue(true);
+			}
+		}
+	}
+}
 
 //Adds a course to this year in the spesified semester
 bool AcademicYear::AddCourse(Course* pC, SEMESTER sem)
@@ -70,9 +102,27 @@ bool AcademicYear::AddCourse(Course* pC, int x, int y)
 	else
 	{
 		AddCourse(pC, sem);
+		//TotalUnivCredits
+		if (pC->getType() == "UnivCompulsory" || pC->getType() == "UnivElective")
+			TotalUnivCredits += pC->getCredits();
+		//TotalTrackCredits
+		else if (pC->getType() == "TrackCompulsory" || pC->getType() == "TrackElective")
+			TotalTrackCredits += pC->getCredits();
+		//TotalMajorCredits
+		else if (pC->getType() == "MajorCompulsory" || pC->getType() == "MajorElective")
+			TotalMajorCredits += pC->getCredits();
+		//not filled yet
+		//TotalMinoredits
+		else if (pC->getType() == "Minor")
+			TotalMinorCredits += pC->getCredits();
+		//TotalConcentrationCredits
+		else if (pC->getType() == "Concentration")
+			TotalConcentrationCredits += pC->getCredits();
+
+
 		return true;
 	}
-	
+
 }
 void AcademicYear::SaveAcadYear(int year, string filename)
 {
@@ -131,6 +181,44 @@ void AcademicYear::DrawMe(GUI* pGUI) const
 			CRS_NUM++;
 		}
 	}
+}
+bool AcademicYear::AddSemester(int x, int y)
+{
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		DummyYearCourses[sem] = YearCourses[sem];
+	}
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		YearCourses[sem].clear();
+	}
+	int sem = getSemester(x, y);
+	YearCourses[sem] = DummyYearCourses[sem];
+	return true;
+}
+//bool AcademicYear::AddType(string type)
+//{
+//	for (int sem = FALL; sem < SEM_CNT; sem++)
+//	{
+//		DummyYearCourses[sem] = YearCourses[sem];
+//	}
+//	//cleaaaaaaaaaaaaar YearCourses
+//	for (int sem = FALL; sem < SEM_CNT; sem++)
+//	{
+//		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+//		{
+//			if ((*it)->getType() == type)
+//				YearCourses[sem].push_back(*it);
+//		}
+//	}
+//}
+bool AcademicYear::SemOriginal()
+{
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		YearCourses[sem]= DummyYearCourses[sem];
+	}
+	return true;
 }
 Course* AcademicYear::select(int x, int y) const
 {
@@ -242,4 +330,91 @@ void AcademicYear::DrawInfo(GUI* pGUI, int x, int y)
 
 	}
 
+}
+bool AcademicYear::CreditsCheck(int SemCredits)
+{
+	if (SemCredits > 21)
+	{
+		cout << "Credits is greater than Max credits";
+		return false;
+		//cout << "Credits in semester " << semester << " Year " << year << " is greater than Max_credits";
+	}
+	else if (SemCredits < 12)
+	{
+		//cout << "Credits in semester " << semester << " Year " << year << " is less than Min_credits";
+		cout << "Credits is less than Min credits";
+		return false;
+	}
+	else
+		return true;
+}
+bool AcademicYear::SummerCredits(int credits)
+{
+	if (credits > 6)
+	{
+		cout << "Credits is greater than Max credits";
+		return false;
+	}
+	else
+		return true;
+}
+void AcademicYear::PlanCourses()
+{
+	AllCourses.clear();
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+		{
+			AllCourses.push_back(*it);
+		}
+	}
+}
+bool AcademicYear::FallCredits()
+{
+	if (!CreditsCheck(FALLCredits))
+	{
+		return false;
+	}
+	return true;
+}
+bool AcademicYear::SpringCredits()
+{
+	if (!CreditsCheck(SPRINGCredits))
+	{
+		return false;
+	}
+	return true;
+}
+bool AcademicYear::SummerCredits()
+{
+	if (!SummerCredits(SUMMERCredits))
+	{
+		return false;
+	}
+	return true;
+}
+int AcademicYear::getTotalcredits()
+{
+
+	return TotalCredits;
+}
+int AcademicYear::getTotalUnivCredits()
+{
+	return TotalUnivCredits;
+}
+int AcademicYear::getTotalMajorCredits()
+{
+	return TotalMajorCredits;
+}
+int AcademicYear::getTotalTrackCredits()
+{
+	return TotalTrackCredits;
+}
+int AcademicYear::getTotalConcentrationCredits()
+{
+	return TotalConcentrationCredits;
+}
+int AcademicYear::getTotalMinorCredits()
+{
+	return TotalMinorCredits;
 }
