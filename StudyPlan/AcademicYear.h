@@ -3,7 +3,7 @@
 
 #include "..\Courses\Course.h"
 #include "../GUI/Drawable.h"
-//#include"F:\ZC\2\C++\GitHub\SPOT\ValidityCheck.h"
+
 //Represent one year in the student's study plan
 class AcademicYear :public Drawable
 {
@@ -17,9 +17,13 @@ class AcademicYear :public Drawable
 	//So YearCourses[SPRING] is the list of SPRING course in that year
 	//So YearCourses[SUMMER] is the list of SUMMER course in that year
 	list<Course*> YearCourses[SEM_CNT];
+	list<Course*> DummyYearCourses[SEM_CNT];
 	Course* pCRS;
 
 public:
+	bool FallGreater;
+	bool SpringGreater;
+	bool SummerGreater;
 	AcademicYear();
 	virtual ~AcademicYear();
 	bool AddCourse(Course*, SEMESTER);
@@ -32,7 +36,32 @@ public:
 	bool DeleteCourse(Course*, int x, int y);
 	bool DeleteYear();
 	SEMESTER getSemester(int x, int y);
-	//ValidityCheck checkk;
+	bool AddSemester(int x, int y);
+	bool SemOriginal();
+	bool AddType(string type);
+	//ValidityCheck check;
 	Course* getCourse(Course_Code code);
 	void virtual DrawMe(GUI*) const;
+	void virtual DrawConnectLine(GUI*) const;
+	void DrawLiveMessage(GUI* pGUI, string) const;
+	bool CreditsCheck(int SemCredits, SEMESTER sem);
+	void SetPreIssue(string course,bool);
+	void SetCoIssue(string course,bool);
+	int getTotalcredits();
+	int getTotalUnivCredits();
+	int getTotalMajorCredits();
+	int getTotalTrackCredits();
+	int getTotalConcentrationCredits();
+	int getTotalMinorCredits();
+	void PlanCourses();
+	list<Course*> AllCourses;
+	bool FallCredits();
+	bool SpringCredits();
+	bool SummerCredits();
+	////////////////////update status helper functions
+	bool setYearStatus(CourseStatus status);
+	bool setSemsterStatus(int sem, CourseStatus status);
+	bool setCourseStatus(Course_Code coursecode, CourseStatus status);
+	void getSemCrd(int SemCourses[]);
+	bool isCourse(Course_Code coursecose);
 };

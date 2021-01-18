@@ -1,6 +1,3 @@
-This team is extremly gamed
-hello world
-Hassan is here
-Ahmed
-
-HELLO
+hello
+this is a project 
+hi

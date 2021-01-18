@@ -3,7 +3,6 @@
 ActionImportPlan::ActionImportPlan(Registrar* pReg) :Action(pReg)
 {
 }
-
 bool ActionImportPlan::FileRead(ifstream& File, string name)
 {
 	File.open(name, ios::in);
@@ -20,13 +19,17 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 		int semester_i;
 		int year;
 		int s = 0, ye = 0;
-
+		Rules RegRules = pReg->getRules();
 		Course_Code code;
 		string Title;
 		int crd;
 		while (File.getline(line, size))
 		{
 			int i = 0;
+			//For each line:
+			//i = 1: Year
+			//i = 2: Semester
+			//i > 2: Course_Codes; This step includes Validation process + filling the right data for the course
 			psc = strtok_s(line, ",", &context);
 			i++;
 
@@ -64,41 +67,48 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 					ye++;
 				}
 
-			
+
 				while (psc != NULL)
 				{
 					if (i > 2)
 					{
-							courses.push_back(psc);
-							cout << "PSC:  " << psc << "||"<<endl;
+						courses.push_back(psc);
+						//filling the course with its data from the course catalouge
+						for (auto it = (RegRules.CourseCatalog.begin()); it != (RegRules.CourseCatalog.end()); it++)
+						{
+							//cout << "PSC:  " << psc << "||" << "it: " << *it;
 
-							//filling the course with its data from the course catalouge
-							for (auto it = (pReg->RegRules.CourseCatalog.begin()); it != (pReg->RegRules.CourseCatalog.end()); it++)
+							if ((*it)->Code == psc)
 							{
-								//cout << "PSC:  " << psc << "||" << "it: " << *it;
+								code = (*it)->Code;
+								Title = (*it)->Title;
+								crd = (*it)->Credits;
+								Course* CRS = new Course((*it)->Code, Title, crd);
 
-								if (it->Code == psc)
+								if (pReg->getStudyPlay()->CheckRepeatance(CRS) == true)
+
+									//Check whether the course is already entered before or not 
 								{
-									code = it->Code;
-									Title = it->Title;
-									crd = it->Credits;
-									Course* CRS = new Course(it->Code, Title, crd);
-									CRS->setCoReq(it->CoReqList);
-									CRS->setPreReq(it->PreReqList);
-									pReg->checkType(CRS); //new
-									//pReg->getStudyPlay()->AddCourse(CRS, year, sem);
-										//This  is to check the Validity of the offerings
-									Rules pR = pReg->RegRules;
+
+									CRS->setCoReqC((*it)->CoReqC);
+									CRS->setPreReqC((*it)->PreReqC);
+									CRS->setCoReq((*it)->CoReqList);
+									CRS->setPreReq((*it)->PreReqList);
+									pReg->checkType(CRS);
+
+									//This  is to check the Validity of the offerings
 									if (pReg->getStudyPlay()->AddCourse(CRS, year, sem) == true)
 									{
 
 										// This is a offering_time validation check for the course
-										for (int i = 0; i < pR.OffringsList[1].Offerings[sem].size(); i++)
+										for (int i = 0; i < RegRules.OffringsList[0].Offerings[sem].size(); i++)
 										{
-											if (code == pR.OffringsList[1].Offerings[sem][i])
+											if (code == RegRules.OffringsList[0].Offerings[sem][i])
 											{
 												// set the course as valid
 												CRS->SetOfferingsValid(true);
+												// Setting course status as done (default value)
+												pReg->getStudyPlay()->setStatus(5, FALL, code, Done);		
 												break;
 											}
 											else
@@ -106,19 +116,15 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 												//set the course as in valid
 												CRS->SetOfferingsValid(false);
 											}
-											
-										}
-										
-									}
 
-									/*else
-									{
-										return false;
-									}*/
-									//break;
+										}
+
+									}
 								}
+
 							}
-						
+						}
+
 					}
 					psc = strtok_s(NULL, ",", &context);
 					i++;

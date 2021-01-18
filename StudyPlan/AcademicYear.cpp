@@ -1,7 +1,6 @@
 #include "AcademicYear.h"
 #include "../GUI/GUI.h"
 #include <iostream>
-//using namespace std;
 
 AcademicYear::AcademicYear()
 {
@@ -9,9 +8,6 @@ AcademicYear::AcademicYear()
 }
 
 
-AcademicYear::~AcademicYear()
-{
-}
 
 Course* AcademicYear::getCourse(Course_Code code) //youssef
 {
@@ -26,9 +22,36 @@ Course* AcademicYear::getCourse(Course_Code code) //youssef
 		}
 	}
 }
-
-
-
+void AcademicYear::SetPreIssue(string course,bool state)
+{
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+		{
+			if (course  == (*it)->getCode())
+			{
+				 (*it) ->SetPreIssue(state);
+			}
+		}
+	}
+}
+void AcademicYear::SetCoIssue(string course, bool state)
+{
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+		{
+			if (course == (*it)->getCode())
+			{
+				(*it)->SetCoIssue(state);
+			}
+		}
+	}
+}
+void AcademicYear::DrawLiveMessage(GUI* pGUI, string str) const
+{
+	pGUI->DrawLiveMessage(str);
+}
 //Adds a course to this year in the spesified semester
 bool AcademicYear::AddCourse(Course* pC, SEMESTER sem)
 {
@@ -70,9 +93,27 @@ bool AcademicYear::AddCourse(Course* pC, int x, int y)
 	else
 	{
 		AddCourse(pC, sem);
+		//TotalUnivCredits
+		if (pC->getType() == "UnivCompulsory" || pC->getType() == "UnivElective")
+			TotalUnivCredits += pC->getCredits();
+		//TotalTrackCredits
+		else if (pC->getType() == "TrackCompulsory" || pC->getType() == "TrackElective")
+			TotalTrackCredits += pC->getCredits();
+		//TotalMajorCredits
+		else if (pC->getType() == "MajorCompulsory" || pC->getType() == "MajorElective")
+			TotalMajorCredits += pC->getCredits();
+		//not filled yet
+		//TotalMinoredits
+		else if (pC->getType() == "Minor")
+			TotalMinorCredits += pC->getCredits();
+		//TotalConcentrationCredits
+		else if (pC->getType() == "Concentration")
+			TotalConcentrationCredits += pC->getCredits();
+
+
 		return true;
 	}
-	
+
 }
 void AcademicYear::SaveAcadYear(int year, string filename)
 {
@@ -131,6 +172,54 @@ void AcademicYear::DrawMe(GUI* pGUI) const
 			CRS_NUM++;
 		}
 	}
+}
+void AcademicYear::DrawConnectLine(GUI* pGUI) const
+{
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+		{
+			(*it)->DrawConnectLine(pGUI);
+		}
+	}
+}
+bool AcademicYear::AddSemester(int x, int y)
+{
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		DummyYearCourses[sem] = YearCourses[sem];
+	}
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		YearCourses[sem].clear();
+	}
+	int sem = getSemester(x, y);
+	YearCourses[sem] = DummyYearCourses[sem];
+	return true;
+}
+//bool AcademicYear::AddType(string type)
+//{
+//	for (int sem = FALL; sem < SEM_CNT; sem++)
+//	{
+//		DummyYearCourses[sem] = YearCourses[sem];
+//	}
+//	//cleaaaaaaaaaaaaar YearCourses
+//	for (int sem = FALL; sem < SEM_CNT; sem++)
+//	{
+//		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+//		{
+//			if ((*it)->getType() == type)
+//				YearCourses[sem].push_back(*it);
+//		}
+//	}
+//}
+bool AcademicYear::SemOriginal()
+{
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		YearCourses[sem]= DummyYearCourses[sem];
+	}
+	return true;
 }
 Course* AcademicYear::select(int x, int y) const
 {
@@ -242,4 +331,176 @@ void AcademicYear::DrawInfo(GUI* pGUI, int x, int y)
 
 	}
 
+}
+bool AcademicYear::CreditsCheck(int SemCredits, SEMESTER sem)
+{
+	if (sem == SUMMER) //semester is summer
+	{
+		if (SemCredits > 6) //credits in summer is greater than max
+		{
+			SummerGreater = 1;
+			return false;
+		}
+		else //credits in summer is valid
+		{
+			SummerGreater = 0;
+			return true;
+		}
+	}
+	else //semester is fall or spring
+	{
+		if (SemCredits > 21) //credits is greater than max
+		{
+			if (sem == FALL) //fall is greater than max
+			{
+				FallGreater = 1;
+				return false;
+			}
+			else // spring is greater than max
+			{
+				SpringGreater = 1;
+				return false;
+			}
+		}
+		else if (SemCredits < 12) //credits is less than min
+		{
+			if (sem == FALL) //fall is less than min
+			{
+				FallGreater = 0;
+				return false;
+			}
+			else //spring is less than min
+			{
+				SpringGreater = 0;
+				return false;
+			}
+
+		}
+		else //no semester violation
+			return true;
+	}
+
+}
+void AcademicYear::PlanCourses()
+{
+	AllCourses.clear();
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+		{
+			AllCourses.push_back(*it);
+		}
+	}
+}
+bool AcademicYear::FallCredits()
+{
+	if (!CreditsCheck(FALLCredits,FALL))
+	{
+		return false;
+	}
+	return true;
+}
+bool AcademicYear::SpringCredits()
+{
+	if (!CreditsCheck(SPRINGCredits,SPRING))
+	{
+		return false;
+	}
+	return true;
+}
+bool AcademicYear::SummerCredits()
+{
+	
+	if (!CreditsCheck(SUMMERCredits, SUMMER))
+	{
+		return false;
+	}
+	return true;
+}
+int AcademicYear::getTotalcredits()
+{
+
+	return TotalCredits;
+}
+int AcademicYear::getTotalUnivCredits()
+{
+	return TotalUnivCredits;
+}
+int AcademicYear::getTotalMajorCredits()
+{
+	return TotalMajorCredits;
+}
+int AcademicYear::getTotalTrackCredits()
+{
+	return TotalTrackCredits;
+}
+int AcademicYear::getTotalConcentrationCredits()
+{
+	return TotalConcentrationCredits;
+}
+int AcademicYear::getTotalMinorCredits()
+{
+	return TotalMinorCredits;
+}
+
+///////////////////helper functions in update status
+bool AcademicYear::setYearStatus(CourseStatus status)
+{
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		for (int x = 0; x < SEM_CNT; x++)
+			setSemsterStatus(x, status);
+		return true;
+	}
+	else
+		return false;
+}
+
+
+bool AcademicYear::setSemsterStatus(int sem, CourseStatus status)
+{
+
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		for (auto i : YearCourses[sem])
+			setCourseStatus(i->getCode(), status);
+		return true;
+	}
+	else
+		return false;
+}
+
+
+bool AcademicYear::setCourseStatus(Course_Code coursecode, CourseStatus status)
+{
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		for (int sem = 0; sem < 3; sem++)
+			for (auto i : YearCourses[sem])
+				if (i->getCode() == coursecode)
+					i->setCourseStatus(status);
+		return true;
+	}
+	else
+		return false;
+}
+
+void AcademicYear::getSemCrd(int SemCourses[])
+{
+	SemCourses[0] = FALLCredits;
+	SemCourses[1] = SPRINGCredits;
+	SemCourses[2] = SUMMERCredits;
+}
+
+bool AcademicYear::isCourse(Course_Code coursecose)
+{
+	for (int y = 0; y < YearCourses->size(); y++)
+		for (auto i = YearCourses[y].begin(); i != YearCourses[y].end(); i++)
+			if (coursecose == (*i)->getCode())
+				return true;
+			else
+				return false;
+}
+AcademicYear::~AcademicYear()
+{
 }

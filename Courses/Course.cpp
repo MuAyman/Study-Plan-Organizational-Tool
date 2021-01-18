@@ -73,7 +73,10 @@ void Course::DrawMe(GUI* pG) const
 {
 	pG->DrawCourse(this);
 }
-
+void Course::DrawConnectLine(GUI* pG) const
+{
+	pG->DrawConnectLine(this);
+}
 bool Course::select(int x, int  y) 
 {
 
@@ -95,6 +98,13 @@ void Course::setPreReq(vector<Course_Code> Pre)
 		PreReq.push_back(*it);
 	}
 }
+void Course::setPreReqC(vector<Course*> Pre)
+{
+	for (auto it = Pre.begin(); it != Pre.end(); it++)
+	{
+		PreReqC.push_back(*it);
+	}
+}
 
 void Course::setCoReq(vector<Course_Code> Cor)
 {
@@ -106,15 +116,26 @@ void Course::setCoReq(vector<Course_Code> Cor)
 	}
 
 }
-list<Course_Code> Course::getPreReq()
+void Course::setCoReqC(vector<Course*> Cor)
 {
-	return PreReq;
-}
+	{
+		for (auto it = Cor.begin(); it != Cor.end(); it++)
+		{
+			//cout << (*it)->getGfxInfo().x;
+			CoReqC.push_back((*it));
+		}
+	}
 
-list<Course_Code> Course::getCoreReq()
-{
-	return CoReq;
 }
+//list<Course_Code> Course::getPreReq()
+//{
+//	return PreReq;
+//}
+//
+//list<Course_Code> Course::getCoreReq()
+//{
+//	return CoReq;
+//}
 
 Course::~Course()
 {
@@ -127,10 +148,25 @@ bool Course::IsOfferingsValid() const
 {
 	return OffValid;
 }
-bool Course::SetOfferingsValid(bool valid)
+bool Course::IsPreValid() const
+{
+	return PreIssue;
+}
+bool Course::IsCoValid() const
+{
+	return CoIssue;
+}
+void Course::SetOfferingsValid(bool valid)
 {
 	OffValid = valid;
-	return true;
+}
+void Course::SetPreIssue(bool state)
+{
+	PreIssue = state;
+}
+void Course::SetCoIssue(bool state)
+{
+	CoIssue = state;
 }
 bool Course::ModerateIssue() const// Moderate Issues Total
 {
@@ -144,6 +180,21 @@ bool Course::CriticalIssue()  const// Critical Issue total
 {
 	// check the statments;
 	return true;
+}
+double Course::getQP()
+{
+	return QP;
+}
+//helper function in update status
+bool Course::setCourseStatus(CourseStatus newstatus)
+{
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		status = newstatus;
+		return true;
+	}
+	else
+		return false;
 }
 void Course::DrawInfo(GUI* pG) const
 {

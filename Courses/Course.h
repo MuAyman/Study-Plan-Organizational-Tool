@@ -18,10 +18,16 @@ class Course : public Drawable
 	int credits;	//no. of course credits
 	string type;	//Univ, track, or major.....etc.
 	bool Done;		//Done or not yet?
-	list<Course_Code> PreReq;	//list of prerequisites
-	list<Course_Code> CoReq;	//list of prerequisites
-	bool OffValid;
+	
+	bool OffValid = true;
+	bool PreIssue = true;
+	bool CoIssue = true;
 public:
+	CourseStatus status;
+	list<Course_Code> PreReq;	//list of prerequisites
+	list<Course*> PreReqC;	//list of prerequisites
+	list<Course_Code> CoReq;	//list of Corequisites
+	list<Course*> CoReqC;	//list of Corequisites
 	Course(Course_Code r_code,string r_title, int crd);
 	Course(Course_Code r_code, string r_title, int crd, string Type); // Added to make the programer able to set the type
 	void setType(string t);
@@ -33,18 +39,23 @@ public:
 	void setQp();
 	void setGradeLetter(CourseGradeLetter x);
 	void DrawMe(GUI*) const;
+	void DrawConnectLine(GUI* pG) const;
 	void DrawInfo(GUI* pG) const;
 	bool select(int x, int y);
 	bool IsOfferingsValid() const;
-	bool SetOfferingsValid(bool valid);
+	bool IsPreValid() const;
+	bool IsCoValid() const;
+	void SetOfferingsValid(bool valid);
+	void SetPreIssue(bool state);
+	void SetCoIssue(bool state);
 	bool ModerateIssue() const;
 	bool CriticalIssue() const;
-
+	void setCoReqC(vector<Course*> Cor);
+	void setPreReqC(vector<Course*> Cor);
 	void setPreReq(vector<Course_Code> Pre);
 	void setCoReq(vector<Course_Code> Cor);
-	list<Course_Code> getCoreReq();
-	list<Course_Code> getPreReq();
-
+	double getQP();
+	bool setCourseStatus(CourseStatus status);
 	virtual ~Course();
 
 

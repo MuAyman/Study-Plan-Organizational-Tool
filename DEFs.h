@@ -50,10 +50,10 @@ enum ActionType
 	SAVE,		//Save a study plan to file
 	LOAD,		//Load a study plan from a file
 
-	UNDO,		//Undo the last Action preformed
-	REDO,		//Redo the last Action canceled
+	DONE,		//Check Done
+	FILTER,		//Filter major, year ,semester
 
-	EXIT,		//Exit the application
+	EXIT,		//Exit the applicationS
 
 	STATUS_BAR,	//A click on the status bar
 	MENU_BAR,	//A click on an empty place in the menu bar
@@ -63,10 +63,21 @@ enum ActionType
 
 	NOTES,		//Add Notes 
 
-	OFFER,		//Import the coffering courses from the user 
+	LINKS,		//Draw line connection between the pre co requisite
 
-	DRAG,
-	DROP,
+	DRAG,		//Drag and drop action
+
+	GPA,		//Calculate GPA
+
+	DOUBLECONCENT,	//Double concentration
+
+	DOUBLEMAJOR,  //Double Major
+	
+	ADDMINOR,	//Add Minor courses
+
+	LEVEL,
+
+	STATUS
 
 	//TODO: Add more action types
 
@@ -87,3 +98,10 @@ struct MajorType
 };
 
 
+// Course Status
+enum CourseStatus
+{
+	Done,
+	InProgress,
+	Pending
+};

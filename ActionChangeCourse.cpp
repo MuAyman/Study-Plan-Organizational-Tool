@@ -26,7 +26,7 @@ bool ActionChangeCourse::Execute()
 
 	int year = pS->getYear(actData.x, actData.y);
 	SEMESTER sem = pS->getSemester(actData.x, actData.y);
-	Rules pR = pReg->RegRules;
+	Rules pR = pReg->getRules();
 	if (pS->AddCourse(pC, actData.x, actData.y) == true)
 	{
 
