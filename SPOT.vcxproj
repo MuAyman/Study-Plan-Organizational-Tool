@@ -122,15 +122,14 @@
     <ClCompile Include="ActionAddMinor.cpp" />
     <ClCompile Include="ActionAddNotes.cpp" />
     <ClCompile Include="ActionChangeCourse.cpp" />
+    <ClCompile Include="ActionCheckReport.cpp" />
     <ClCompile Include="ActionDeleteCourse.cpp" />
     <ClCompile Include="ActionExit.cpp" />
     <ClCompile Include="ActionFilter.cpp" />
     <ClCompile Include="ActionImportPlan.cpp" />
     <ClCompile Include="ActionInfo.cpp" />
-    <ClCompile Include="ActionRedo.cpp" />
     <ClCompile Include="ActionSavePlan.cpp" />
     <ClCompile Include="Actions\ActionAddCourse.cpp" />
-    <ClCompile Include="ActionUndo.cpp" />
     <ClCompile Include="CalculateGPA.cpp" />
     <ClCompile Include="Courses\Course.cpp" />
     <ClCompile Include="Drag_DropAction.cpp" />
@@ -181,16 +180,15 @@
     <ClInclude Include="ActionAddMinor.h" />
     <ClInclude Include="ActionAddNotes.h" />
     <ClInclude Include="ActionChangeCourse.h" />
+    <ClInclude Include="ActionCheckReport.h" />
     <ClInclude Include="ActionDeleteCourse.h" />
     <ClInclude Include="ActionExit.h" />
     <ClInclude Include="ActionFilter.h" />
     <ClInclude Include="ActionImportPlan.h" />
     <ClInclude Include="ActionInfo.h" />
-    <ClInclude Include="ActionRedo.h" />
     <ClInclude Include="ActionSavePlan.h" />
     <ClInclude Include="Actions\Action.h" />
     <ClInclude Include="Actions\ActionAddCourse.h" />
-    <ClInclude Include="ActionUndo.h" />
     <ClInclude Include="CalculateGPA.h" />
     <ClInclude Include="Courses\Course.h" />
     <ClInclude Include="Drag_DropAction.h" />
@@ -224,15 +222,21 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\Downloads\Catalog - 2020 12 19.txt" />
+    <Text Include="CIE-Requirements.txt" />
     <Text Include="Default Study Plans\CIE.txt" />
     <Text Include="Default Study Plans\ENV.txt" />
     <Text Include="Default Study Plans\NAN.txt" />
     <Text Include="Default Study Plans\REE.txt" />
     <Text Include="Default Study Plans\SPC.txt" />
+    <Text Include="ENV-Requirements.txt" />
     <Text Include="GUI\CMUgraphicsLib\Manual.txt" />
     <Text Include="GUI\CMUgraphicsLib\Readme.txt" />
+    <Text Include="NANENG-Requirements.txt" />
+    <Text Include="PEU-Requirements.txt" />
+    <Text Include="REE-Requirements.txt" />
     <Text Include="Rules.txt" />
     <Text Include="Source.txt" />
+    <Text Include="SPC-Requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

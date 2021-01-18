@@ -158,12 +158,6 @@
     <ClCompile Include="ActionExit.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
-    <ClCompile Include="ActionUndo.cpp">
-      <Filter>Actions</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionRedo.cpp">
-      <Filter>Actions</Filter>
-    </ClCompile>
     <ClCompile Include="Drag_DropAction.cpp" />
     <ClCompile Include="ActionInfo.cpp" />
     <ClCompile Include="ActionDeleteCourse.cpp" />
@@ -172,7 +166,10 @@
     <ClCompile Include="ValidityCheck.cpp" />
     <ClCompile Include="ActionFilter.cpp" />
     <ClCompile Include="CalculateGPA.cpp" />
+
     <ClCompile Include="ActionAddMinor.cpp" />
+    <ClCompile Include="ActionCheckReport.cpp" />
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\GUI.h">
@@ -265,12 +262,6 @@
     <ClInclude Include="ActionExit.h">
       <Filter>Actions</Filter>
     </ClInclude>
-    <ClInclude Include="ActionUndo.h">
-      <Filter>Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionRedo.h">
-      <Filter>Actions</Filter>
-    </ClInclude>
     <ClInclude Include="Drag_DropAction.h" />
     <ClInclude Include="ActionInfo.h" />
     <ClInclude Include="ActionDeleteCourse.h" />
@@ -280,6 +271,8 @@
     <ClInclude Include="ActionFilter.h" />
     <ClInclude Include="CalculateGPA.h" />
     <ClInclude Include="ActionAddMinor.h" />
+    <ClInclude Include="ActionCheckReport.h" />
+
   </ItemGroup>
   <ItemGroup>
     <Text Include="GUI\CMUgraphicsLib\Manual.txt">
@@ -304,6 +297,12 @@
     <Text Include="Rules.txt" />
     <Text Include="..\..\..\Downloads\Catalog - 2020 12 19.txt" />
     <Text Include="Source.txt" />
+    <Text Include="REE-Requirements.txt" />
+    <Text Include="SPC-Requirements.txt" />
+    <Text Include="CIE-Requirements.txt" />
+    <Text Include="ENV-Requirements.txt" />
+    <Text Include="NANENG-Requirements.txt" />
+    <Text Include="PEU-Requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
