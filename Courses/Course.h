@@ -20,6 +20,7 @@ class Course : public Drawable
 	bool Done;		//Done or not yet?
 	list<Course_Code> PreReq;	//list of prerequisites
 	list<Course_Code> CoReq;	//list of prerequisites
+
 	bool OffValid;
 public:
 	Course(Course_Code r_code,string r_title, int crd);

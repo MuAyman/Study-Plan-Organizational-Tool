@@ -93,9 +93,9 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 									{
 
 										// This is a offering_time validation check for the course
-										for (int i = 0; i < pR.OffringsList[1].Offerings[sem].size(); i++)
+										for (int i = 0; i < pR.OffringsList[0].Offerings[sem].size(); i++)
 										{
-											if (code == pR.OffringsList[1].Offerings[sem][i])
+											if (code == pR.OffringsList[0].Offerings[sem][i])
 											{
 												// set the course as valid
 												CRS->SetOfferingsValid(true);
@@ -164,7 +164,7 @@ bool  ActionImportPlan::Execute()
 	GUI* pGUI = pReg->getGUI();
 	pGUI->PrintMsg("Enter File path(e.g. CIE.txt):");
 	string name = pGUI->GetSrting();
-
+	major = name;	
 	FileRead(input, name);
 	input.close();
 	return true;

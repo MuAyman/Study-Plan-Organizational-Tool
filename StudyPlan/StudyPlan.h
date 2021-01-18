@@ -11,9 +11,11 @@ class StudyPlan :public Drawable
 		TotalMinorCredits = 0;
 
 	vector<AcademicYear*> plan;	//plan is a list of academic years
+		
 
 public:
 	StudyPlan();
+	void AddMinor(char* minorCourses);
 	bool AddCourse(Course*, int year, SEMESTER);
 	bool AddCourse(Course*, int x, int y);
 	void virtual DrawMe(GUI*) const;
@@ -21,8 +23,10 @@ public:
 	void Highlight(int x, int y) const;
 	void SaveStudyPlan(string filename);
 	bool DeleteCourse(Course*, int x, int y);
+	bool isCourse(char* coursecode);
 	bool DeleteImportPlan();
 	int getYear(int x, int y);
+	void getYearCrd(int* semcrd[]);
 	SEMESTER getSemester(int x, int y);
 	Course* getCourse(Course_Code code);
 	void virtual DrawInfo(GUI* pGUI, int x, int y);

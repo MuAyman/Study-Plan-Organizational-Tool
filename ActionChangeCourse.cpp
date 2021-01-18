@@ -31,9 +31,9 @@ bool ActionChangeCourse::Execute()
 	{
 
 		// This is a offering_time validation check for the course
-		for (int i = 0; i < pR.OffringsList[1].Offerings[sem].size(); i++)
+		for (int i = 0; i < pR.OffringsList[0].Offerings[sem].size(); i++)
 		{
-			if (pC->getCode() == pR.OffringsList[1].Offerings[sem][i])
+			if (pC->getCode() == pR.OffringsList[0].Offerings[sem][i])
 			{
 				// set the course as valid
 				pC->SetOfferingsValid(true);

@@ -22,6 +22,7 @@ class AcademicYear :public Drawable
 public:
 	AcademicYear();
 	virtual ~AcademicYear();
+	void AddMinor(char* minorCourses);
 	bool AddCourse(Course*, SEMESTER);
 	bool AddCourse(Course*, int x, int y);
 	void SaveAcadYear(int year, string filename);
@@ -31,6 +32,8 @@ public:
 	void Highlight(int x, int y) const;
 	bool DeleteCourse(Course*, int x, int y);
 	bool DeleteYear();
+	void getSemCrd(int SemCourses[]);
+	bool isCourse(char* coursecose);
 	SEMESTER getSemester(int x, int y);
 	//ValidityCheck checkk;
 	Course* getCourse(Course_Code code);

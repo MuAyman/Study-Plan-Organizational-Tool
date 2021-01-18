@@ -55,6 +55,20 @@ void StudyPlan::SaveStudyPlan(string filename)
 		plan[i]->SaveAcadYear(i, filename);
 	}
 }
+
+void StudyPlan::AddMinor(char* minorCourses)
+{	
+	
+	
+	int TotalCredits = 0;		//total no. of credit hours for courses registred in this year
+	int TotalUnivCredits = 0, TotalMajorCredits = 0,
+		TotalTrackCredits = 0, TotalConcentrationCredits = 0,
+		TotalMinorCredits = 0;
+
+
+}
+
+
 Course* StudyPlan::getCourse(Course_Code code) 
 {
 	for (int i = 0; i < plan.size(); i++)
@@ -63,6 +77,21 @@ Course* StudyPlan::getCourse(Course_Code code)
 	}
 
 }
+
+void StudyPlan::getYearCrd(int* semcrd[])
+{
+	for (int i = 0; i < plan.size(); i++)
+	{
+		plan[i]->getSemCrd(semcrd[i]);
+	}
+}
+
+bool StudyPlan::isCourse(char* coursecode)
+{
+	for (int i = 0; i < plan.size(); i++)
+		return plan[i]->isCourse(coursecode);
+}
+
 void StudyPlan::DrawMe(GUI* pGUI) const
 {
 	//Plan draws all year inside it.
@@ -106,6 +135,8 @@ bool StudyPlan::DeleteCourse(Course* pC, int x, int y)
 
 	return true;
 }
+
+
 int StudyPlan::getYear(int x, int y)
 {
 	int year = 10;

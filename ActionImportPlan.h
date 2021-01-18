@@ -9,6 +9,7 @@ class ActionImportPlan : public  Action
 {
 
 public:
+	string major;
 	ActionImportPlan(Registrar*);
 	bool virtual Execute();
 	virtual ~ActionImportPlan();

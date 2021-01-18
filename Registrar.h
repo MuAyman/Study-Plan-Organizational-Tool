@@ -1,10 +1,13 @@
 #pragma once
 #include "GUI\GUI.h"
 #include "Actions\Action.h"
+
 #include "Rules.h"
 #include "StudyPlan/StudyPlan.h"
 #include <fstream>
 #include <vector>
+
+class ActionImportPlan;
 
 //The maestro class for the application
 class Registrar

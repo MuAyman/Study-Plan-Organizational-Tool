@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionAddMinor.cpp" />
     <ClCompile Include="ActionAddNotes.cpp" />
     <ClCompile Include="ActionChangeCourse.cpp" />
     <ClCompile Include="ActionDeleteCourse.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="ValidityCheck.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionAddMinor.h" />
     <ClInclude Include="ActionAddNotes.h" />
     <ClInclude Include="ActionChangeCourse.h" />
     <ClInclude Include="ActionDeleteCourse.h" />

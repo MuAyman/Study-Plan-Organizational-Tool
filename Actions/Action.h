@@ -1,5 +1,4 @@
 #pragma once
-
 class Registrar; //forward class declaration
 
 //Base class for all possible actions (abstract class)
@@ -7,7 +6,7 @@ class Action
 {
 protected:
 	Registrar* pReg;
-
+	
 public:
 	Action(Registrar* p) { pReg = p; }
 	

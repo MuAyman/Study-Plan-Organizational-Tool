@@ -18,14 +18,15 @@ bool ActionAddCourse::Execute()
 	int crd = 0;
 	
 
-
+	pGUI->PrintMsg("Add Course to plan: Enter course Code(e.g. CIE202):");
+	string coursecode = pGUI->GetSrting();
 
 	while (!check)
 	{
-		pGUI->PrintMsg("Add Course to plan: Enter course Code(e.g. CIE202):");
+		
 		for (auto it = pReg->RegRules.CourseCatalog.begin(); it != pReg->RegRules.CourseCatalog.end(); it++)
 		{
-			if (it->Code == pGUI->GetSrting());
+			if (it->Code == coursecode)
 			{
 				code = it->Code;
 				Title = it->Title;
@@ -52,11 +53,10 @@ bool ActionAddCourse::Execute()
 					SEMESTER sem = pS->getSemester(x, y);
 					if (pS->AddCourse(pC, x, y) == true)
 					{
-
 						// This is a offering_time validation check for the course
-						for (int i = 0; i < pR.OffringsList[1].Offerings[sem].size(); i++)
+						for (int i = 0; i < pR.OffringsList[0].Offerings[sem].size(); i++)
 						{
-							if (pC->getCode() == pR.OffringsList[1].Offerings[sem][i])
+							if (pC->getCode() == pR.OffringsList[0].Offerings[sem][i])
 							{
 								// set the course as valid
 								pC->SetOfferingsValid(true);

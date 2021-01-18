@@ -28,37 +28,35 @@ GUI* Registrar::getGUI() const
 
 bool Registrar::ExecuteOfferings()					//OFFEREINGS **************************************		AYMAN
 {
-	GUI* pGUI = this->getGUI();
 	ifstream OfferingsData;
 	OfferingsData.open("tt.txt");
-
 	char* psc = nullptr;
-	const int size = 100;
+	const int size = 5000;		//IT'S EXACTLY 951	*******************
+	int i = 0;
 	char line[size];
+	AcademicYearOfferings as;
 
 	while (OfferingsData.getline(line, size))
 	{
-		AcademicYearOfferings as;
-		this->RegRules.OffringsList.push_back(as);
-		int static i = 0; i++;
 		char* context = nullptr;							// YEAR
 		psc = strtok_s(line, ",", &context);
 		as.Year = psc;
-		cout << as.Year << endl;
+		cout << "\n" << as.Year << endl;
 		char* context2 = nullptr;							// FALL
 		psc = strtok_s(context, ",", &context2);
-		char* context3 = nullptr;
+		cout << "Fall:-" << psc << endl;
 		while (psc != NULL)							// FALL/SPRING/SUMMER COURSES
 		{
-			cout << "before: " << psc << endl;
 			psc = strtok_s(NULL, ",", &context2);
 			if (psc != NULL)
-			{
-				cout << "after: " << psc << endl;
-				as.Offerings[i - 1].push_back(psc);
-			}
+				as.Offerings[i].push_back(psc);
 		}
+		cout << "as.Offerings[i].size() " << as.Offerings[i].size() << " //offerings:-";
+		for (size_t j = 0; j < as.Offerings[i].size(); j++)
+			cout  << as.Offerings[i][j] << ",";
+		cout << endl; i++;
 	}
+	this->RegRules.OffringsList.push_back(as);
 	OfferingsData.close();
 	return true;
 }
@@ -412,30 +410,24 @@ bool Registrar::ExecuteRules()
 	{
 		pGUI->PrintMsg("enter a valid major name");
 		major = pGUI->GetSrting();
+		for (int i = 0; i < major.length(); i++)
+		{
+			major[i] = toupper(major[i]);
+		}
 	}
 	RulesReset(RegRules);
 
 	ifstream input;
-	if (major == "CIE")
-	{
-		RulesRead(input, "Rules.txt", RegRules);
-	}
-		
-	else if (major == "SPC")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "ENV")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "REE")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "BMS")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "PEU")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "NANENG")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "NANSCIE")
-		RulesRead(input, "Rules.txt", RegRules);
-	else if (major == "MATSCIE")
+
+	if (major == "CIE"
+		|| major == "SPC"
+		|| major == "ENV"
+		|| major == "REE"
+		|| major == "BMS"
+		|| major == "PEU"
+		|| major == "NANENG"
+		|| major == "NANSCIE"
+		|| major == "MATSCIE")
 		RulesRead(input, "Rules.txt", RegRules);
 
 	input.close();
@@ -462,12 +454,10 @@ Action* Registrar::CreateRequiredAction()
 	{
 	case ADD_CRS:	//add_course action
 		RequiredAction = new ActionAddCourse(this);
-		Memory.push_back(ADD_CRS);
 		//RequiredAction = new ActionAddRules(this);
 		break;
 	case LOAD:	//add_course action
 		RequiredAction = new ActionImportPlan(this);
-		Memory.push_back(LOAD);
 		break;
 	case SAVE:	//save study plan action
 		RequiredAction = new ActionSavePlan(this);
@@ -491,9 +481,6 @@ Action* Registrar::CreateRequiredAction()
 	case REDO:	//Redo action
 		RequiredAction = new ActionRedo(this);
 		break;
-	//case OFFER:	//Import offering courses data file from user
-	//	RequiredAction = new ActionAddRules(this);
-	//	break;
 	case EXIT:
 		RequiredAction = new ActionExit(this);
 		break;

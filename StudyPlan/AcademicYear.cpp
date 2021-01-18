@@ -13,6 +13,7 @@ AcademicYear::~AcademicYear()
 {
 }
 
+
 Course* AcademicYear::getCourse(Course_Code code) //youssef
 {
 	for (int sem = FALL; sem < SEM_CNT; sem++)
@@ -96,6 +97,31 @@ void AcademicYear::SaveAcadYear(int year, string filename)
 
 	StudyPlan << endl;
 	StudyPlan.close();
+
+}
+
+void AcademicYear::getSemCrd(int SemCourses[])
+{
+	for (int i = 0; i < 3; i++)
+	{
+		SemCourses[i] = YearCourses->size();
+	}
+	return;
+}
+
+bool AcademicYear::isCourse(char* coursecose)
+{
+	for (int y = 0; y < YearCourses->size(); y++)
+		for (auto i = YearCourses[y].begin(); i != YearCourses[y].end(); i++)
+			if (coursecose == (*i)->getCode())
+				return true;
+			else
+				return false;
+}
+
+void AcademicYear::AddMinor(char* minorCourses)
+{
+
 
 }
 
