@@ -127,25 +127,10 @@ bool Course::IsOfferingsValid() const
 {
 	return OffValid;
 }
-bool Course::IsPreValid() const
-{
-	return PreIssue;
-}
-bool Course::IsCoValid() const
-{
-	return CoIssue;
-}
-void Course::SetOfferingsValid(bool valid)
+bool Course::SetOfferingsValid(bool valid)
 {
 	OffValid = valid;
-}
-void Course::SetPreIssue(bool state)
-{
-	PreIssue = state;
-}
-void Course::SetCoIssue(bool state)
-{
-	CoIssue = state;
+	return true;
 }
 bool Course::ModerateIssue() const// Moderate Issues Total
 {

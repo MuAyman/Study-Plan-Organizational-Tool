@@ -20,10 +20,8 @@ class Course : public Drawable
 	bool Done;		//Done or not yet?
 	list<Course_Code> PreReq;	//list of prerequisites
 	list<Course_Code> CoReq;	//list of prerequisites
-	bool OffValid = true;
-	bool PreIssue = true;
-	bool CoIssue = true;
 
+	bool OffValid;
 public:
 	Course(Course_Code r_code,string r_title, int crd);
 	Course(Course_Code r_code, string r_title, int crd, string Type); // Added to make the programer able to set the type
@@ -39,11 +37,7 @@ public:
 	void DrawInfo(GUI* pG) const;
 	bool select(int x, int y);
 	bool IsOfferingsValid() const;
-	bool IsPreValid() const;
-	bool IsCoValid() const;
-	void SetOfferingsValid(bool valid);
-	void SetPreIssue(bool state);
-	void SetCoIssue(bool state);
+	bool SetOfferingsValid(bool valid);
 	bool ModerateIssue() const;
 	bool CriticalIssue() const;
 
@@ -53,4 +47,72 @@ public:
 	list<Course_Code> getPreReq();
 
 	virtual ~Course();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 };

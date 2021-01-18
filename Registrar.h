@@ -12,17 +12,16 @@ class ActionImportPlan;
 //The maestro class for the application
 class Registrar
 {
-	GUI *pGUI;	//pointer to GUI
+	GUI *pGUI;	//pointer to GUI 
 
 	StudyPlan *pSPlan;
 
 	ActionData actData;
 
 public:
-	string major1, major2;
+
 	//Major getMajortype();
 	Rules RegRules;	//Registration rules
-	Rules RegRules2;
 	Registrar();
 	GUI* getGUI() const;
 	Action* CreateRequiredAction();
@@ -36,11 +35,10 @@ public:
 	bool RulesRead(ifstream& File, string name, Rules& R1);
 	//bool Execute();
 	bool ExecuteRules();
-	bool ExecuteDoubleMajors();
-	bool ExecuteDoubleConcentrations();
 	bool ExecuteOfferings();
 
 	void Run();
 
 	~Registrar();
 };
+

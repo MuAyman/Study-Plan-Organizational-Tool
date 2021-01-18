@@ -1,8 +1,6 @@
 #pragma once
 #include "Actions/Action.h"
-
-//Class responsible for delete course action
-
+//Class responsible for adding course action
 class ActionDeleteCourse : public Action
 {
 public:

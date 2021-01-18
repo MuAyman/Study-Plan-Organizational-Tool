@@ -50,11 +50,10 @@ enum ActionType
 	SAVE,		//Save a study plan to file
 	LOAD,		//Load a study plan from a file
 
-	DONE,		//Check Done
-	FILTER,		//Filter major, year ,semester
+	UNDO,		//Undo the last Action preformed
+	REDO,		//Redo the last Action canceled
 
-	EXIT,		//Exit the applicationS
-
+	EXIT,		//Exit the application
 
 	STATUS_BAR,	//A click on the status bar
 	MENU_BAR,	//A click on an empty place in the menu bar
@@ -68,10 +67,6 @@ enum ActionType
 
 	DRAG,
 	DROP,
-
-	GPA,
-	doubleMajor,
-	doubleConcentration
 
 	//TODO: Add more action types
 

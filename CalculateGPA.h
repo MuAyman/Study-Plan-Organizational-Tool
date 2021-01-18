@@ -1,9 +1,7 @@
 //#pragma once
 //#include "Actions/Action.h"
-//
-//class CalculateGPA : public Action
+//class CalculateGPA
 //{
-//public:
 //	CalculateGPA(Registrar*);
 //	bool virtual Execute();
 //	virtual ~CalculateGPA();
