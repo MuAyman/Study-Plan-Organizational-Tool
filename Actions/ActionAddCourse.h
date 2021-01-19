@@ -1,5 +1,7 @@
 #pragma once
 #include "Action.h"
+#include <string>
+
 //Class responsible for adding course action
 class ActionAddCourse : public Action
 {
@@ -9,4 +11,3 @@ public:
 	bool virtual Execute();
 	virtual ~ActionAddCourse();
 };
-

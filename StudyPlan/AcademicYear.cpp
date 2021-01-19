@@ -5,6 +5,7 @@
 
 AcademicYear::AcademicYear()
 {
+	pCRS = nullptr;
 	//TODO: make all necessary initializations
 }
 
@@ -125,6 +126,48 @@ bool AcademicYear::AddCourse(Course* pC, int x, int y)
 	}
 
 }
+
+bool AcademicYear::setYearStatus(CourseStatus status)
+{
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		for (int x = 0; x < SEM_CNT; x++)
+			setSemsterStatus(x, status);
+		return true;
+	}
+	else
+		return false;
+}
+
+
+bool AcademicYear::setSemsterStatus(int sem, CourseStatus status)
+{
+
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		for (auto i : YearCourses[sem])
+			setCourseStatus(i->getCode(), status);
+		return true;
+	}
+	else
+		return false;
+}
+
+bool AcademicYear::setCourseStatus(Course_Code coursecode, CourseStatus status)
+{
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		for (int sem = 0; sem < 3; sem++)
+			for (auto i : YearCourses[sem])
+				if (i->getCode() == coursecode)
+					i->setCourseStatus(status);		 
+		 return true;
+	}
+	else
+		return false;
+}
+
+
 void AcademicYear::SaveAcadYear(int year, string filename)
 {
 	fstream StudyPlan;
@@ -152,14 +195,12 @@ void AcademicYear::SaveAcadYear(int year, string filename)
 
 void AcademicYear::getSemCrd(int SemCourses[])
 {
-	for (int i = 0; i < 3; i++)
-	{
-		SemCourses[i] = YearCourses->size();
-	}
-	return;
+	SemCourses[0] = FALLCredits;
+	SemCourses[1] = SPRINGCredits;
+	SemCourses[2] = SUMMERCredits;
 }
 
-bool AcademicYear::isCourse(char* coursecose)
+bool AcademicYear::isCourse(Course_Code coursecose)
 {
 	for (int y = 0; y < YearCourses->size(); y++)
 		for (auto i = YearCourses[y].begin(); i != YearCourses[y].end(); i++)
@@ -169,11 +210,6 @@ bool AcademicYear::isCourse(char* coursecose)
 				return false;
 }
 
-void AcademicYear::AddMinor(char* minorCourses)
-{
-
-
-}
 
 bool AcademicYear::DeleteYear()
 {
@@ -208,6 +244,19 @@ void AcademicYear::DrawMe(GUI* pGUI) const
 		}
 	}
 }
+
+void AcademicYear::PlanCourses()
+{
+	AllCourses.clear();
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+		{
+			AllCourses.push_back(*it);
+		}
+	}
+}
+
 bool AcademicYear::AddSemester(int x, int y)
 {
 	for (int sem = FALL; sem < SEM_CNT; sem++)

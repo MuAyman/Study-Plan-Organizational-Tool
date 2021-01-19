@@ -23,7 +23,10 @@ class Course : public Drawable
 	bool OffValid = true;
 	bool PreIssue = true;
 	bool CoIssue = true;
+
 public:
+	CourseStatus status;
+	bool setCourseStatus(CourseStatus status);
 	Course(Course_Code r_code,string r_title, int crd);
 	Course(Course_Code r_code, string r_title, int crd, string Type); // Added to make the programer able to set the type
 	void setType(string t);

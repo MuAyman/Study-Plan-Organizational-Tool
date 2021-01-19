@@ -10,7 +10,7 @@ Drag_DropAction::Drag_DropAction(Registrar* pReg, int newx, int newy) : Action(p
 bool Drag_DropAction::Execute()
 {
 	GUI* pGUI = pReg->getGUI();
-	StudyPlan* pS = pReg->getStudyPlay();
+	StudyPlan* pS = pReg->getStudyPlan();
 	window* pWind = pGUI->getWindow();
 	const button butt = RIGHT_BUTTON;
 	buttonstate buttstate;

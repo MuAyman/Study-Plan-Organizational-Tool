@@ -11,140 +11,67 @@ ValidityCheck::ValidityCheck(Registrar* pReg) :Action(pReg)
 
 bool ValidityCheck::ConcenReq(string major)
 {
-	int LineNum = 1, NoOfConcen = 0;
 
-	const int size = 5000;
-	char line[size];
-	char* psc = nullptr;
-	char* context = nullptr;
-	major = pIP->major;
-	for (int i = 0; i < major.length(); i++)
-	{
-		major[i] = toupper(major[i]);
-	}
-
-	if (major == "CIE"
-		|| major == "SPC"
-		|| major == "ENV"
-		|| major == "REE"
-		|| major == "BMS"
-		|| major == "PEU"
-		|| major == "NANENG"
-		|| major == "NANSCIE"
-		|| major == "MATSCIE")
-		major = major + "-Requirements.txt";
-	else
-		return false;
-
-	ifstream ReqFile;
-	ReqFile.open(major);
-
-	/****************************************  The filling process ****************************************/
-
-	while (ReqFile.getline(line, size))
-	{
-		if (LineNum == 5)
-		{
-			ReqFile >> NoOfConcen;
-			Concen->resize(NoOfConcen);
-		}
-
-		if (LineNum == 6)
-		{
-			psc = strtok_s(line, ",", &context);
-			while (psc != NULL)
-			{
-				int a = 0; int static b = 0;
-				double static y = 0;
-				stringstream geek(psc);		// casting from char to int
-				geek >> a;
-
-				if (b == 0 || b == 1)		// checks b is not our of range
-					Concen[(int)trunc(y)][b].resize(a);
-				else
-				{
-					b = 0;
-					Concen[(int)trunc(y)][b].resize(a);
-				}
-				b++; y = y + 0.5;
-				psc = strtok_s(NULL, ",", &context);
-			}
-		}
-		if (LineNum >= 12)
-		{
-			for (int c = 0; c < NoOfConcen; c++)
-			{
-				if (LineNum == (12 + 2 * c))		// Compulsary courses line
-				{
-					psc = strtok_s(line, ",", &context);
-					while (psc != NULL)
-					{
-						Concen[c][0].push_back(psc);				// filling the compulsary courses vector
-						psc = strtok_s(NULL, ",", &context);
-					}
-				}
-				if (LineNum == (12 + (2 * c) + 1))	// elective courses line
-				{
-					psc = strtok_s(line, ",", &context);
-					while (psc != NULL)
-					{
-						Concen[c][1].push_back(psc);				// filling the elective courses vector
-						psc = strtok_s(NULL, ",", &context);
-					}
-				}
-			}
-		}
-		LineNum++;
-	}
-	/****************************************  The Checking process ****************************************/
+	int NoOfConcen = pReg->RegRules.NumOfConcent;
 
 	for (int x = 0; x < NoOfConcen; x++)
 	{
-		for (auto y : Concen[x][0])		// looping on the compulsary courses vector
+		cout << "pReg->RegRules.ConcRequirements[x].CompulsoryCourses: ";
+		for (int y = 0;  y < pReg->RegRules.ConcRequirements[x].CompulsoryCourses.size(); y++)		// looping on the compulsory courses vector
+			cout << pReg->RegRules.ConcRequirements[x].CompulsoryCourses[y] << endl;
+		for (auto y : pReg->RegRules.ConcRequirements[x].CompulsoryCourses)		// looping on the compulsory courses vector
 		{
-			if (pReg->getStudyPlay()->isCourse(y))
+			if (pReg->getStudyPlan()->isCourse(y))
 				return true;
 			else
 				return false;
 		}
-		for (auto y : Concen[x][1])		// looping on the elective courses vector
+
+		cout << "pReg->RegRules.ConcRequirements[x].ElectiveCourses: ";
+		for (int y = 0; y < pReg->RegRules.ConcRequirements[x].ElectiveCourses.size(); y++)		// looping on the compulsory courses vector
+			cout << pReg->RegRules.ConcRequirements[x].ElectiveCourses[y] << endl;
+		for (auto y : pReg->RegRules.ConcRequirements[x].ElectiveCourses)		// looping on the elective courses vector
 		{
-			if (pReg->getStudyPlay()->isCourse(y))
+			if (pReg->getStudyPlan()->isCourse(y))
 				return true;
 			else
 				return false;
 		}
 	}
-
 }
 
 bool ValidityCheck::OverUnderLoadPetition()
 {
-	pReg->getStudyPlay()->getYearCrd(semcrd);
-	int cr_min = pReg->RegRules.SemMinCredit;
-	int cr_max = pReg->RegRules.SemMaxCredit;
+	GUI* pGUI = pReg->getGUI();
+	int* semcrd[4];					// semcrd [year][sem] => num of crd in that sem of that year
+
+	pReg->getStudyPlan()->getYearCrd(semcrd);
+	int cr_min = 12;
+	int cr_max = 18;
 	for (int z = 0; z < 4; z++)
 		for (int c = 0; c < 4; c++)
 			if (semcrd[z][c] > cr_max)
 			{
-				pGUI->PrintMsg("Credits is greater than Max credits in year");		// year z+1 & sem c+1	??!!
-				return true;
+				pReg->getStudyPlan()->OverUnderLoad_up_down_Check(1);	// to inform him it is overload
+				pReg->getStudyPlan()->OverUnderLoad_Check_Check(0);
+				return false;
 			}
 			else if (semcrd[z][c] < cr_min)
 			{
-				pGUI->PrintMsg("Credits is less than Min credits");					// year z+1 & sem c+1	??!!
-				return true;
+				pReg->getStudyPlan()->OverUnderLoad_up_down_Check(0);	// to inform him it is underload
+				pReg->getStudyPlan()->OverUnderLoad_Check_Check(0);
+				return false;
 			}
 			else
-				return false;
+				return true;
 }
 
 
-bool ValidityCheck::CreditsCheck(int SemCredits)
-{
-
-
-}
+//bool ValidityCheck::CreditsCheck(int SemCredits)
+//{
+//
+//
+//}
 bool ValidityCheck::checkTotalCred(int cr)
 {
 	if (cr == pReg->RegRules.TotalCredits)
@@ -178,32 +105,32 @@ bool  ValidityCheck::Execute()
 {
 	//Number of credits per semester
 	//Corequisite, and Prerequisite courses
-	StudyPlan* pS = pReg->getStudyPlay();
+	StudyPlan* pS = pReg->getStudyPlan();
 	//pS->check();
 	//program requirements
 
-	if (!checkTotalCred(pReg->getStudyPlay()->getTotalcredits()))			//Total credits
+	if (!checkTotalCred(pReg->getStudyPlan()->getTotalcredits()))			//Total credits
 	{
 		pS->Set_Total_credits_Check(0);
 		cout << "Error in Total credits" << endl;
 	}
 
 
-	if (!checkUnivCred(pReg->getStudyPlay()->getTotalUnivCredits()))		//unversity credits
+	if (!checkUnivCred(pReg->getStudyPlan()->getTotalUnivCredits()))		//unversity credits
 	{
 		pS->Set_unversity_credits_Check(0);
 		cout << "Error in unversity credits" << endl;
 	}
 
 
-	if (!checkMajCred(pReg->getStudyPlay()->getTotalMajorCredits()))		//Major credits
+	if (!checkMajCred(pReg->getStudyPlan()->getTotalMajorCredits()))		//Major credits
 	{
 		pS->Set_Major_credits_Check(0);
 		cout << "Error in Major credits" << endl;
 	}
 
 
-	if (!checkTrackCred(pReg->getStudyPlay()->getTotalTrackCredits()))		//Track credits
+	if (!checkTrackCred(pReg->getStudyPlan()->getTotalTrackCredits()))		//Track credits
 	{
 		pS->Set_Track_credits_Check(0);
 		cout << "Error in Track credits" << endl;
@@ -231,7 +158,7 @@ ValidityCheck::~ValidityCheck()
 //	for (auto pre = PreReq.begin(); pre != PreReq.end(); pre++)
 //	{
 //		delete prerequisite;
-//		prerequisite = pReg->getStudyPlay()->getCourse(*pre);
+//		prerequisite = pReg->getStudyPlan()->getCourse(*pre);
 //		if (y_sem > prerequisite->getGfxInfo().y)
 //			cout << "Error in prerequisite " << *pre << " and course " << pC->getCode() << endl;
 //	}
@@ -239,7 +166,7 @@ ValidityCheck::~ValidityCheck()
 //	for (auto cor = CoReq.begin(); cor != CoReq.end(); cor++)
 //	{
 //		delete corequisite;
-//		corequisite = pReg->getStudyPlay()->getCourse(*cor);
+//		corequisite = pReg->getStudyPlan()->getCourse(*cor);
 //		if (y_sem != corequisite->getGfxInfo().y && x_sem != corequisite->getGfxInfo().x)
 //			cout << "Error in corequisite " << *cor << " and course " << pC->getCode();
 //	}

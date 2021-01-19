@@ -9,7 +9,7 @@ ActionCheckReport::ActionCheckReport(Registrar* p) :Action(p)
 
 bool ActionCheckReport::Execute()
 {
-	StudyPlan* pSPlan = pReg->getStudyPlay();
+	StudyPlan* pSPlan = pReg->getStudyPlan();
 	GUI* pGUI = pReg->getGUI();
 
 	pGUI->PrintMsg("Enter the file name with adding .txt: ");

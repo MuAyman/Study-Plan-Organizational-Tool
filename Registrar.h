@@ -1,25 +1,20 @@
 #pragma once
 #include "GUI\GUI.h"
 #include "Actions\Action.h"
-
 #include "Rules.h"
 #include "StudyPlan/StudyPlan.h"
 #include <fstream>
 #include <vector>
 
-class ActionImportPlan;
 
 //The maestro class for the application
 class Registrar
 {
 	GUI *pGUI;	//pointer to GUI 
-
 	StudyPlan *pSPlan;
-
 	ActionData actData;
 
 public:
-
 	//Major getMajortype();
 	Rules RegRules;	//Registration rules
 	Registrar();
@@ -27,7 +22,7 @@ public:
 	Action* CreateRequiredAction();
 	bool ExecuteAction(Action*);
 	void UpdateInterface();
-	StudyPlan* getStudyPlay() const;
+	StudyPlan* getStudyPlan() const;
 	vector <ActionType> Memory;
 	bool RulesReset(Rules& R);
 	void checkType(Course* pC); //new

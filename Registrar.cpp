@@ -4,6 +4,7 @@
 #include "ActionImportPlan.h"
 #include "ActionExit.h"
 #include "ActionAddNotes.h"
+#include "Actions/ActionAddCourse.h"
 #include "ActionSavePlan.h"
 #include "ActionInfo.h"
 #include "ActionDeleteCourse.h"
@@ -11,6 +12,8 @@
 #include "ActionChangeCourse.h"
 #include "ValidityCheck.h"
 #include "ActionFilter.h"
+#include "ActionAddMinor.h"
+#include "ActionUpdateStatus.h"
 #include <sstream>
 #include <cctype>
 
@@ -62,7 +65,7 @@ bool Registrar::ExecuteOfferings()					//OFFEREINGS ****************************
 }
 
 //returns the study plan
-StudyPlan* Registrar::getStudyPlay() const
+StudyPlan* Registrar::getStudyPlan() const
 {
 	return pSPlan;
 }
@@ -479,14 +482,13 @@ Action* Registrar::CreateRequiredAction()
 		RequiredAction = new ActionAddCourse(this);
 		//RequiredAction = new ActionAddRules(this);
 		break;
-	case LOAD:	//add_course action
+	case LOAD:	//Import plan action
 		RequiredAction = new ActionImportPlan(this);
 		break;
 	case SAVE:	//save study plan action
 		RequiredAction = new ActionSavePlan(this);
 		break;
-	//TODO: Add case for each action
-	case NOTES:	//add_course action
+	case NOTES:	//add notes action
 		RequiredAction = new ActionAddNotes(this);
 		break;
 	case DEL_CRS :	//Delete_course action
@@ -495,7 +497,7 @@ Action* Registrar::CreateRequiredAction()
 	case REP_CRS:	//replace course action
 		RequiredAction = new ActionChangeCourse(this);
 		break;
-	case DRAG:	//Undo action
+	case DRAG:	//drag and drop action
 		RequiredAction = new Drag_DropAction(this, actData.x, actData.y);
 		break;
 	case FILTER:	//Filter action
@@ -507,8 +509,15 @@ Action* Registrar::CreateRequiredAction()
 	case EXIT:
 		RequiredAction = new ActionExit(this);
 		break;
-	case DRAW_AREA:
+	case Upd_Status:		// update status of year or sem
+		RequiredAction = new ActionUpdateStatus(this, actData.x, actData.y);
+		break;
+	case DRAW_AREA:		// select action
 		RequiredAction = new ActionInfo(this, actData.x, actData.y);
+		break;
+	
+	case ADD_MINOR:		// Action add minor
+		RequiredAction = new ActionAddMinor(this);
 		break;
 	}
 	return RequiredAction;

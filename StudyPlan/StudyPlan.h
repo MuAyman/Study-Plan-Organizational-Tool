@@ -2,6 +2,7 @@
 #include <vector>
 #include "AcademicYear.h"
 #include "../GUI/Drawable.h"
+
 //A full study plan for as student
 class StudyPlan :public Drawable
 {
@@ -13,29 +14,38 @@ class StudyPlan :public Drawable
 	bool unversity_credits_Check = 1;
 	bool Major_credits_Check = 1;
 	bool Track_credits_Check = 1;
+	bool Concentratioin_Check = 1;
+	bool OverUnderLoad_Check = 1;
+	bool OverUnderLoad_up_Check = 1;
+
 	vector<AcademicYear*> plan;	//plan is a list of academic years
 	vector<AcademicYear*> DummyPaln;	//Dummy plan is a list of academic years
 	vector<string> CourseCoString;
 	vector<string> CoursePreString;
 	vector<bool> Pre;
 	vector<bool> Co;
+	list<Course*> AllCoursesNeeded;
 public:
+
 	StudyPlan();
-	void AddMinor(char* minorCourses);
+	list<Course*> PlanCoursesNeeded();
+	bool setStatus(int year, SEMESTER sem, Course_Code code, CourseStatus status);
 	bool AddCourse(Course*, int year, SEMESTER);
 	bool AddCourse(Course*, int x, int y);
 	bool AddYear(int x, int y);
 	bool AddSemester(int x, int y);
-	bool AddType(string type);
 	bool original();
 	bool SemOriginal();
+	void OverUnderLoad_Check_Check(bool Check);
+	void OverUnderLoad_up_down_Check(bool Check);
+	void Concentratioin_Check_Check(bool Check);
 	void virtual DrawMe(GUI*) const;
 	Course* select(int x, int y) const;
 	void Highlight(int x, int y) const;
 	void SaveStudyPlan(string filename);
 	void WarningReport();
 	bool DeleteCourse(Course*, int x, int y);
-	bool isCourse(char* coursecode);
+	bool isCourse(Course_Code coursecode);
 	bool DeleteImportPlan();
 	int getYear(int x, int y);
 	void getYearCrd(int* semcrd[]);

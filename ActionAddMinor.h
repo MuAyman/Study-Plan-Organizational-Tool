@@ -1,13 +1,10 @@
 #pragma once
 #include "Actions/Action.h"
 
-
 class ActionAddMinor :  public Action
 {
-
 public:
-	ActionAddMinor();
+	ActionAddMinor(Registrar*);
 	bool virtual Execute();
 	virtual ~ActionAddMinor();
 };
-

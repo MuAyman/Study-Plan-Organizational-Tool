@@ -1,17 +1,17 @@
 #include "ActionAddCourse.h"
 #include "..\Registrar.h"
 #include "../Courses/UnivCourse.h"
-
+#include <string>
 #include <iostream>
+
+
 ActionAddCourse::ActionAddCourse(Registrar* p) :Action(p)
 {
-
 }
 
 bool ActionAddCourse::Execute()
 {
 	GUI* pGUI = pReg->getGUI();
-
 	bool check = false;
 	Course_Code code;
 	string Title = "Test101";
@@ -19,10 +19,11 @@ bool ActionAddCourse::Execute()
 
 	while (!check)
 	{
-		pGUI->PrintMsg("Add Course to plan: Enter course Code(e.g. CIE202):");
-		string coursecode = pGUI->GetSrting();
+		pGUI->PrintMsg("Add Course to plan: Enter course Code(e.g. CIE202): ");
+		Course_Code coursecode = pGUI->GetSrting();
 		for (int i = 0; i < coursecode.length(); i++)
 			coursecode[i] = toupper(coursecode[i]);
+
 		for (auto it = pReg->RegRules.CourseCatalog.begin(); it != pReg->RegRules.CourseCatalog.end(); it++)
 		{
 			if (it->Code == coursecode) //course found in course catalouge
@@ -31,7 +32,7 @@ bool ActionAddCourse::Execute()
 				Title = it->Title;
 				crd = it->Credits;
 				Course* pC = new Course(code, Title, crd);
-				if (pReg->getStudyPlay()->CheckRepeatance(pC) == true)
+				if (pReg->getStudyPlan()->CheckRepeatance(pC) == true)
 					//Check whether the course is already entered before or not
 				{
 					pC->setCoReq(it->CoReqList);
@@ -46,8 +47,9 @@ bool ActionAddCourse::Execute()
 						//get coord where user clicked
 						x = actData.x;
 						y = actData.y;
+
 						graphicsInfo gInfo{ x, y };
-						StudyPlan* pS = pReg->getStudyPlay();
+						StudyPlan* pS = pReg->getStudyPlan();
 						Rules pR = pReg->RegRules;
 						int year = pS->getYear(x, y);
 						SEMESTER sem = pS->getSemester(x, y);
@@ -61,6 +63,12 @@ bool ActionAddCourse::Execute()
 								{
 									// set the course as valid
 									pC->SetOfferingsValid(true);
+									if (pReg->RegRules.Minor)
+									{
+										pReg->RegRules.MinorCompulsory.push_back(coursecode);		// Adding the course to the minor compulsory courses vector
+										pReg->RegRules.TotalCredits += pC->getCredits();		// Adding the minor course crd to hte total
+									}
+									pReg->getStudyPlan()->setStatus((year+10), FALL , pC->getCode(), Done);		// Setting course status as done (default value)
 								}
 								else
 								{
@@ -80,25 +88,6 @@ bool ActionAddCourse::Execute()
 			}
 		}
 	}
-
-	//TODO: add input validation
-
-		////For the seke of demo, we will add the course to the 1st year, 1st semester
-
-		//TODO: given course code, get course title, crd hours from registrar
-		//For now, we will add any dummy values
-
-
-		//TODO: Ask registrar to add course to the year selected by the user
-		//TODO: add the course to the correct year obtained from registrar
-
-
-
-
-
-	//TODO:
-
-
 	return true;
 }
 

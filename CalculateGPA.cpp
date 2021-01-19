@@ -15,7 +15,7 @@
 //	int x, y;
 //	x = actData.x;
 //	y = actData.y;
-//	StudyPlan* pS = pReg->getStudyPlay();
+//	StudyPlan* pS = pReg->getStudyPlan();
 //	pGUI->PrintMsg("Add the letter grade: ");
 //	CourseGradeLetter gradeLetter = pGUI->GetSrting();
 //	//Course* pC = new Course();

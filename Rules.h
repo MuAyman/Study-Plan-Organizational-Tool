@@ -49,8 +49,8 @@ struct Rules	//contains all objects for registrations rules
 	int UnivElectiveCredits;		//total no. of credits req by elective courses
 	int CompTrackCredits;	//total no. of credits compulsory by Track courses
 
-	int MajCommonCompCredits;	//total no. of Magor common compulsory credits
-	int MajCommonElecCredits;	//total no. of Magor common Elective credits
+	int MajCommonCompCredits;	//total no. of Major common compulsory credits
+	int MajCommonElecCredits;	//total no. of Major common Elective credits
 
 	int NumOfConcent;			 // Number of concentrations
 
@@ -62,6 +62,10 @@ struct Rules	//contains all objects for registrations rules
 
 	vector<Course_Code> MajorCompulsory;	//Major Compulsory courses
 	vector<Course_Code> MajorElective;		//Major Elective courses
+
+	bool Minor = false;
+	vector<Course_Code> MinorCompulsory;		//Minor Compulsory courses
+
 
 	vector<Concentration> ConcRequirements; //concentration requirements
 	//Number of elements is the number of concentrations

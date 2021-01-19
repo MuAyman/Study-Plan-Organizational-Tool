@@ -8,6 +8,14 @@ typedef string CourseGradeLetter;
 typedef string TrackType;
 
 
+// Course Status
+enum CourseStatus
+{
+	Done,
+	InProgress,
+	Pending 
+};
+
 //Track 
 enum Track
 {
@@ -58,6 +66,9 @@ enum ActionType
 	STATUS_BAR,	//A click on the status bar
 	MENU_BAR,	//A click on an empty place in the menu bar
 	DRAW_AREA,	//A click in the drawing area
+	ADD_MINOR,	// Add minor option
+	Upd_Status,		// Update year / sem status
+
 
 	CANCEL,		//ESC key is pressed
 

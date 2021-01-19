@@ -19,13 +19,19 @@ class AcademicYear :public Drawable
 	list<Course*> YearCourses[SEM_CNT];
 	list<Course*> DummyYearCourses[SEM_CNT];
 	Course* pCRS;
+	CourseStatus coursestatus;
+
 
 public:
+
 	AcademicYear();
 	virtual ~AcademicYear();
-	void AddMinor(char* minorCourses);
+	void PlanCourses();
 	bool AddCourse(Course*, SEMESTER);
 	bool AddCourse(Course*, int x, int y);
+	bool setCourseStatus(Course_Code coursecode, CourseStatus status);
+	bool setSemsterStatus(int sem, CourseStatus status);
+	bool setYearStatus(CourseStatus status);
 	void SaveAcadYear(int year, string filename);
 	void DrawInfo(GUI* pGUI, int x, int y);
 	void DrawYear(GUI* pGUI, int i) const;
@@ -34,7 +40,7 @@ public:
 	bool DeleteCourse(Course*, int x, int y);
 	bool DeleteYear();
 	void getSemCrd(int SemCourses[]);
-	bool isCourse(char* coursecose);
+	bool isCourse(Course_Code coursecose);
 	SEMESTER getSemester(int x, int y);
 	bool AddSemester(int x, int y);
 	bool SemOriginal();
@@ -53,7 +59,6 @@ public:
 	int getTotalTrackCredits();
 	int getTotalConcentrationCredits();
 	int getTotalMinorCredits();
-	void PlanCourses();
 	list<Course*> AllCourses;
 	//helmy added
 	bool FallCredits();

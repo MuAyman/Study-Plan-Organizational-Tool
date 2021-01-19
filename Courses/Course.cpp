@@ -12,6 +12,18 @@ Course::Course(Course_Code r_code, string r_title, int crd, string Type) : code(
 	type = Type;
 }
 
+bool Course::setCourseStatus(CourseStatus newstatus)
+{
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		status = newstatus;
+		return true;
+	}
+	else
+		return false;
+}
+
+
 string Course::getType()const
 {
 	return type;

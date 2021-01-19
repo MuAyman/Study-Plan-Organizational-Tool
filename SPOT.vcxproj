@@ -129,7 +129,9 @@
     <ClCompile Include="ActionImportPlan.cpp" />
     <ClCompile Include="ActionInfo.cpp" />
     <ClCompile Include="ActionSavePlan.cpp" />
+    <ClCompile Include="ActionStudentLevel.cpp" />
     <ClCompile Include="Actions\ActionAddCourse.cpp" />
+    <ClCompile Include="ActionUpdateStatus.cpp" />
     <ClCompile Include="CalculateGPA.cpp" />
     <ClCompile Include="Courses\Course.cpp" />
     <ClCompile Include="Drag_DropAction.cpp" />
@@ -187,8 +189,10 @@
     <ClInclude Include="ActionImportPlan.h" />
     <ClInclude Include="ActionInfo.h" />
     <ClInclude Include="ActionSavePlan.h" />
+    <ClInclude Include="ActionStudentLevel.h" />
     <ClInclude Include="Actions\Action.h" />
     <ClInclude Include="Actions\ActionAddCourse.h" />
+    <ClInclude Include="ActionUpdateStatus.h" />
     <ClInclude Include="CalculateGPA.h" />
     <ClInclude Include="Courses\Course.h" />
     <ClInclude Include="Drag_DropAction.h" />

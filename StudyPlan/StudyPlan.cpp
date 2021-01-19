@@ -19,6 +19,39 @@ StudyPlan::StudyPlan()
 	}
 
 }
+
+
+bool StudyPlan::setStatus(int year, SEMESTER sem, Course_Code code, CourseStatus status)
+{
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		if (year == 5)		// seting the whole plan to status
+		{
+			for (int i = 0; i < plan.size(); i++)
+				plan[i]->setYearStatus(status);
+			return true;
+		}
+		else if (year < 5)		// setting that year to status
+		{
+			plan[year]->setYearStatus(status);
+			return true;
+		}
+		else if (year > 20)		// setting that sem to status
+		{
+			plan[year - 20]->setSemsterStatus(sem, status);
+			return true;
+		}
+		else if (year > 9)		// setting that course to status
+		{
+			plan[year - 10]->setCourseStatus(code, status);
+			return true;
+		}
+	}
+	else
+		return false;
+}
+
+
 //adds a course to the study plan in certain year, semester
 //year idetifies year number to add course to 1=first, 2 = 2nd,....
 bool StudyPlan::AddCourse(Course* pC, int year, SEMESTER sem)
@@ -40,6 +73,7 @@ bool StudyPlan::AddCourse(Course* pC, int x, int y)
 
 	return true;
 }
+
 bool StudyPlan::AddYear(int x, int y)
 {
 	for (int i = 0; i < plan.size(); i++)
@@ -61,12 +95,15 @@ bool StudyPlan::AddYear(int x, int y)
 		graphicsInfo gInfo{ ix ,iy };
 		newyear->setGfxInfo(gInfo);
 		plan.push_back(newyear);
+
+
 	}
 	plan[year - 1] = DummyPaln[year - 1];
 	cout << plan.size() << endl;
 	cout << DummyPaln.size() << endl;
 
 }
+
 bool StudyPlan::AddSemester(int x, int y)
 {
 
@@ -76,18 +113,7 @@ bool StudyPlan::AddSemester(int x, int y)
 	}
 	return true;
 }
-//bool StudyPlan::AddType(string type)
-//{
-//	for (int i = 0; i < plan.size(); i++)
-//	{
-//		DummyPaln[i] = plan[i];
-//	}
-//	plan.clear();
-//	for (int i = 0; i < DummyPaln.size(); i++)
-//	{
-//		//plan[i]->AddCourse(type);
-//	}
-//}
+
 bool StudyPlan::original()
 {
 	for (int i = 0; i < DummyPaln.size(); i++)
@@ -119,24 +145,6 @@ void StudyPlan::SaveStudyPlan(string filename)
 	{
 		plan[i]->SaveAcadYear(i, filename);
 	}
-}
-
-void StudyPlan::AddMinor(char* minorCourses)
-{
-
-
-	int TotalCredits = 0;		//total no. of credit hours for courses registred in this year
-	int TotalUnivCredits = 0, TotalMajorCredits = 0,
-		TotalTrackCredits = 0, TotalConcentrationCredits = 0,
-		TotalMinorCredits = 0;
-
-
-}
-
-
-Course* StudyPlan::getCourse(Course_Code code)
-{
-
 }
 
 void StudyPlan::SetPreCoIssue()
@@ -194,6 +202,7 @@ void StudyPlan::WarningReport()
 	}
 
 }
+
 Course* StudyPlan::getCourse(Course_Code code)
 {
 	for (int i = 0; i < plan.size(); i++)
@@ -214,7 +223,7 @@ void StudyPlan::getYearCrd(int* semcrd[])
 	}
 }
 
-bool StudyPlan::isCourse(char* coursecode)
+bool StudyPlan::isCourse(Course_Code coursecode)
 {
 	for (int i = 0; i < plan.size(); i++)
 		return plan[i]->isCourse(coursecode);
@@ -295,6 +304,20 @@ SEMESTER StudyPlan::getSemester(int x, int y)
 StudyPlan::~StudyPlan()
 {
 }
+
+list<Course*> StudyPlan::PlanCoursesNeeded()
+{
+	for (int i = 0; i < plan.size(); i++)
+	{
+		plan[i]->PlanCourses();
+		for (auto it = plan[i]->AllCourses.begin(); it != plan[i]->AllCourses.end(); it++)
+		{
+			AllCoursesNeeded.push_back(*it);
+		}
+	}
+	return AllCoursesNeeded;
+}
+
 
 bool StudyPlan::PreReqError(bool valid)
 {
@@ -438,6 +461,21 @@ void StudyPlan::Set_Total_credits_Check(bool Check)
 {
 	Total_credits_Check = Check;
 }
+
+void StudyPlan::Concentratioin_Check_Check(bool Check)
+{
+	Concentratioin_Check = Check;
+}
+void StudyPlan::OverUnderLoad_Check_Check(bool Check)
+{
+	OverUnderLoad_Check = Check;
+}
+void StudyPlan::OverUnderLoad_up_down_Check(bool Check)
+{
+	OverUnderLoad_up_Check = Check;
+}
+
+
 void StudyPlan::Set_unversity_credits_Check(bool Check)
 {
 	unversity_credits_Check = Check;

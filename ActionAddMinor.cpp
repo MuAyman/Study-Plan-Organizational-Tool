@@ -1,14 +1,28 @@
 #include "ActionAddMinor.h"
+#include "Registrar.h"
+#include "Actions/ActionAddCourse.h"
 
 
-
-ActionAddMinor::ActionAddMinor() : Action(pReg)
+ActionAddMinor::ActionAddMinor(Registrar* p) : Action(p)
 {
 };
 
 bool ActionAddMinor::Execute()
 {
-
+	GUI* pGUI = pReg->getGUI();
+		
+	pGUI->PrintMsg("Do you want to add minor courses (5 courses)? y/n ");
+	string minor1 = pGUI->GetSrting();
+	if (minor1 == "y")
+	{
+		pReg->RegRules.Minor = true;
+		Action* RequiredAction = nullptr;
+		RequiredAction = new ActionAddCourse(pReg);
+		for (int x = 0; x < 5; x++)
+				pReg->ExecuteAction(RequiredAction);						//drawing the minor course
+		pReg->RegRules.Minor = false;
+	}
+	return true;
 }
 
 

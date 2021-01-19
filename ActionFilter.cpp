@@ -11,7 +11,7 @@ bool ActionFilter::Execute()
 	int x, y;
 	x = actData.x;
 	y = actData.y;
-	StudyPlan* pS = pReg->getStudyPlay();
+	StudyPlan* pS = pReg->getStudyPlan();
 	//Course* CRs = pS->select(x, y);
 	/*if (CRs != NULL)
 	{

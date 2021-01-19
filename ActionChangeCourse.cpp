@@ -9,10 +9,10 @@ ActionChangeCourse::ActionChangeCourse(Registrar* p) : Action(p)
 
 bool ActionChangeCourse::Execute()
 {
-
+	
 	GUI* pGUI = pReg->getGUI();
 
-	StudyPlan* pS = pReg->getStudyPlay();
+	StudyPlan* pS = pReg->getStudyPlan();
 	ActionData actData = pGUI->GetUserAction("Choose the course you want to change");
 	pGUI->PrintMsg("Enter the new course code if you want to replace this course: ");
 	Course_Code code = pGUI->GetSrting();

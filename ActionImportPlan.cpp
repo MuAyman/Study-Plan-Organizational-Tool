@@ -83,17 +83,17 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 								Title = it->Title;
 								crd = it->Credits;
 								Course* CRS = new Course(it->Code, Title, crd);
-								if (pReg->getStudyPlay()->CheckRepeatance(CRS) == true)
+								if (pReg->getStudyPlan()->CheckRepeatance(CRS) == true)
 
 									//Check whether the course is already entered before or not 
 								{
 									CRS->setCoReq(it->CoReqList);
 									CRS->setPreReq(it->PreReqList);
 									pReg->checkType(CRS); //new
-														  //pReg->getStudyPlay()->AddCourse(CRS, year, sem);
+														  //pReg->getStudyPlan()->AddCourse(CRS, year, sem);
 														  //This  is to check the Validity of the offerings
 									Rules pR = pReg->RegRules;
-									if (pReg->getStudyPlay()->AddCourse(CRS, year, sem) == true)
+									if (pReg->getStudyPlan()->AddCourse(CRS, year, sem) == true)
 									{
 
 										// This is a offering_time validation check for the course
@@ -103,6 +103,7 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 											{
 												// set the course as valid
 												CRS->SetOfferingsValid(true);
+												pReg->getStudyPlan()->setStatus(5, FALL , code, Done);		// Setting course status as done (default value)
 												break;
 											}
 											else
@@ -158,7 +159,7 @@ bool ActionImportPlan::FileRead(ifstream& File, string name)
 }
 bool  ActionImportPlan::Execute()
 {
-	pReg->getStudyPlay()->DeleteImportPlan();
+	pReg->getStudyPlan()->DeleteImportPlan();
 	ifstream input;
 	GUI* pGUI = pReg->getGUI();
 	pGUI->PrintMsg("Enter File path(e.g. CIE.txt):");

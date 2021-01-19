@@ -166,10 +166,10 @@
     <ClCompile Include="ValidityCheck.cpp" />
     <ClCompile Include="ActionFilter.cpp" />
     <ClCompile Include="CalculateGPA.cpp" />
-
     <ClCompile Include="ActionAddMinor.cpp" />
     <ClCompile Include="ActionCheckReport.cpp" />
-
+    <ClCompile Include="ActionUpdateStatus.cpp" />
+    <ClCompile Include="ActionStudentLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\GUI.h">
@@ -272,7 +272,8 @@
     <ClInclude Include="CalculateGPA.h" />
     <ClInclude Include="ActionAddMinor.h" />
     <ClInclude Include="ActionCheckReport.h" />
-
+    <ClInclude Include="ActionUpdateStatus.h" />
+    <ClInclude Include="ActionStudentLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="GUI\CMUgraphicsLib\Manual.txt">
