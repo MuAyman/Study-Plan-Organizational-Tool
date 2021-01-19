@@ -18,7 +18,6 @@ window* GUI::getWindow() const
 }
 
 
-//Clears the status bar
 void GUI::ClearDrawingArea() const
 {
 	pWind->SetBrush(BkGrndColor);
@@ -27,6 +26,7 @@ void GUI::ClearDrawingArea() const
 
 }
 
+//Clears the status bar
 void GUI::ClearStatusBar() const
 {
 	pWind->SetBrush(StatusBarColor);
@@ -47,7 +47,7 @@ void GUI::CreateMenu() const
 	string MenuItemImages[ITM_CNT];
 	MenuItemImages[ITM_ADD] = "GUI\\Images\\Menu\\add.jpg";
 	MenuItemImages[ITM_ADD_NOTES] = "GUI\\Images\\Menu\\display.jpg";
-	MenuItemImages[ITM_OFFER] = "GUI\\Images\\Menu\\offer.jpg";
+	MenuItemImages[ITM_LINKS] = "GUI\\Images\\Menu\\offer.jpg";
 	MenuItemImages[ITM_FILTER] = "GUI\\Images\\Menu\\redo.jpg";
 	MenuItemImages[ITM_DONE] = "GUI\\Images\\Menu\\undo.jpg";
 	MenuItemImages[ITM_DELETE] = "GUI\\Images\\Menu\\delete.jpg";
@@ -55,6 +55,15 @@ void GUI::CreateMenu() const
 	MenuItemImages[ITM_SAVE] = "GUI\\Images\\Menu\\save.jpg";
 	MenuItemImages[ITM_LOAD] = "GUI\\Images\\Menu\\upload.jpg";
 	MenuItemImages[ITM_EXIT] = "GUI\\Images\\Menu\\exit.jpg";
+	MenuItemImages[ITM_MINOR] = "GUI\\Images\\Menu\\AddMinor.jpg";
+	MenuItemImages[ITM_MAJOR] = "GUI\\Images\\Menu\\DoubleMajor.jpg";
+	MenuItemImages[ITM_CONCENT] = "GUI\\Images\\Menu\\DoubleConcentration.jpg";
+	MenuItemImages[ITM_GPA] = "GUI\\Images\\Menu\\GPA.jpg";
+	MenuItemImages[ITM_LEVEL] = "GUI\\Images\\Menu\\LEVEL.jpg";
+	MenuItemImages[ITM_STATUS] = "GUI\\Images\\Menu\\STATUS.jpg";
+
+
+
 
 	//TODO: Prepare image for each menu item and add it to the list
 
@@ -96,7 +105,7 @@ void GUI::UpdateInterface() const
 ////////////////////////    Drawing functions    ///////////////////
 void GUI::DrawCourse(const Course* pCrs)
 {
-	
+
 	if (pCrs->isSelected())
 	{
 		pWind->SetPen(HiColor, 2);
@@ -128,7 +137,7 @@ void GUI::DrawCourse(const Course* pCrs)
 		{
 			pWind->SetPen(DARKGOLDENROD, 2);
 		}
-		
+
 	}
 	pWind->SetBrush(DARKGREEN);
 	if (pCrs->IsOfferingsValid() == false)
@@ -139,9 +148,9 @@ void GUI::DrawCourse(const Course* pCrs)
 	{
 		pWind->SetBrush(RED);
 	}
-	
+
 	graphicsInfo gInfo = pCrs->getGfxInfo();
-	
+
 	if (pCrs->getType() == "UnivElective" || pCrs->getType() == "TrackElective" || pCrs->getType() == "MajorElective")
 	{
 		pWind->DrawRectangle(gInfo.x, gInfo.y, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT, FILLED, 7, 7);
@@ -150,9 +159,9 @@ void GUI::DrawCourse(const Course* pCrs)
 	{
 		pWind->DrawRectangle(gInfo.x, gInfo.y, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT);
 	}
-	
+
 	pWind->DrawLine(gInfo.x, gInfo.y + CRS_HEIGHT / 2, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT / 2);
-	
+
 	//Write the course code and credit hours.
 	int Code_x = gInfo.x + CRS_WIDTH * 0.15;
 	int Code_y = gInfo.y + CRS_HEIGHT * 0.05;
@@ -170,7 +179,31 @@ void GUI::DrawCourse(const Course* pCrs)
 
 }
 
+//Draw link lines betwenn the related course (co & pre requisites)
+void GUI::DrawConnectLine(const Course* pCrs)
+{
+	pWind->SetPen(HiColor, 2);
 
+	if (!pCrs->PreReqC.empty())
+	{
+		for (auto i = pCrs->PreReqC.begin(); i != pCrs->PreReqC.end(); i++)
+		{
+			pWind->DrawLine(pCrs->getGfxInfo().x + (CRS_WIDTH / 2), pCrs->getGfxInfo().y + (CRS_HEIGHT/2), (*i)->getGfxInfo().x + (CRS_WIDTH / 2), (*i)->getGfxInfo().y + (CRS_HEIGHT / 2));
+		}
+	}
+	if (!pCrs->CoReqC.empty())
+	{
+		for (auto i = pCrs->CoReqC.begin(); i != pCrs->CoReqC.end(); i++)
+		{
+			pWind->DrawLine(pCrs->getGfxInfo().x + (CRS_WIDTH /2), pCrs->getGfxInfo().y + (CRS_HEIGHT / 2), (*i)->getGfxInfo().x + (CRS_WIDTH / 2), (*i)->getGfxInfo().y + (CRS_HEIGHT / 2));
+		}
+
+	}
+
+
+}
+
+//Draw the year with 3 semester
 void GUI::DrawAcademicYear(const AcademicYear* pY)
 {
 	graphicsInfo gInfo = pY->getGfxInfo();
@@ -207,7 +240,7 @@ void GUI::DrawAcademicYear(const AcademicYear* pY)
 	}
 }
 
-
+//Draw the block that have the year number
 void GUI::DrawYearBlock(int year)
 {
 	int ix = 200;
@@ -219,6 +252,175 @@ void GUI::DrawYearBlock(int year)
 	pWind->DrawString(ix - 165, iy - 15 + (PLAN_SEMESTER_HEIGHT * 3) / 2, Year.str());
 }
 
+//Draw rectangle of course info on the screen when the user click on the course
+void GUI::DrawCourseInfo(const Course* pCrs) const  /////Me
+{
+	//Draw a rectangle for the info
+	pWind->SetBrush(DARKGREEN);
+	pWind->SetPen(YELLOW);
+	int ix = WindWidth - 360;
+	int iy = 86;
+	pWind->DrawRectangle(ix, iy, ix + INFO_WIDTH, iy + INFO_HEIGHT);/*200 should be changed according to the gInfo that should be specified */
+
+	int NumData = 3;
+	for (int i = 1; i < 3; i++)
+	{
+		pWind->DrawLine(ix, iy + INFO_HEIGHT * i / 3, ix + INFO_WIDTH, iy + INFO_HEIGHT * i / 3);
+	}
+	///Write the course code and credit hours.
+	int Info_x = ix + INFO_WIDTH * 0.07;
+	int Info_y = iy + INFO_HEIGHT * 0.1;
+	pWind->SetFont(INFO_HEIGHT * 0.15, BOLD, BY_NAME, "Gramound");
+	pWind->SetPen(WHITE);
+
+	ostringstream Title;
+	ostringstream Code;
+	ostringstream Credits;
+	Code << "Cource Code:" << pCrs->getCode();
+	pWind->DrawString(Info_x, Info_y, Code.str());
+	Credits << "Cource Credits:" << pCrs->getCredits();
+	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT / 3, Credits.str());
+	Title << "Cource Title:" << pCrs->getTitle();
+	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT * 2 / 3, Title.str());
+}
+
+//function to read the file notes and display it on the screen
+void GUI::DrawNotes() const
+{
+	char* note;
+	// display notes
+	fstream Notes;
+	Notes.open("Notes.txt", ios::in);
+
+	//Draw a rectangle for the Notes
+	pWind->SetBrush(DARKGREEN);
+	pWind->SetPen(YELLOW);
+	int ix = WindWidth - 360;
+	int iy = 116 + 3 * SEM_CNT * PLAN_SEMESTER_HEIGHT;
+	pWind->DrawRectangle(ix, iy, ix + INFO_WIDTH, iy + INFO_HEIGHT);
+
+
+	char* context = nullptr;
+	const int size = 300;
+	char line[size];
+	int Info_x = ix + 15;
+	int Info_y = iy + 5;
+	//read the file of notes line by line
+	while (Notes.getline(line, size))
+	{
+		pWind->SetFont(INFO_HEIGHT * 0.1, BOLD, BY_NAME, "Gramound");
+		pWind->SetPen(WHITE);
+		note = strtok_s(line, "", &context);
+		///Write the Notes
+
+		pWind->DrawString(Info_x, Info_y, note);
+		pWind->SetPen(YELLOW);
+		for (int i = 1; i < 7; i++)
+		{
+			pWind->DrawLine(ix, iy + INFO_HEIGHT * i / 7, ix + INFO_WIDTH, iy + INFO_HEIGHT * i / 7);
+		}
+		Info_y = Info_y + 29;
+	}
+	Notes.close();
+
+}
+
+//function to be as a life error on the screen when there is error critical or Moderate
+void GUI::DrawLiveMessage(string Issue) const
+{
+	int ix = WindWidth - 360;
+	int Info_x = ix + INFO_WIDTH * 0.07;
+	int Info_y = 310 ;
+	pWind->SetFont(INFO_HEIGHT * 0.15, BOLD, BY_NAME, "Gramound");
+	pWind->SetPen(WHITE);
+	pWind->SetBrush(GREY);
+	// when there is a moderate issue in the course
+	if (Issue == "Moderate")
+	{
+		pWind->SetPen(BLACK);
+		pWind->SetBrush(YELLOW);
+		pWind->DrawRectangle(ix + 5, 302, ix + INFO_WIDTH - 5, (300 + SEM_CNT * PLAN_SEMESTER_HEIGHT) - (((300 + SEM_CNT * PLAN_SEMESTER_HEIGHT) - 302) / 2));
+		pWind->DrawString(Info_x, Info_y, "Moderate Issue");
+	}
+	//when there is a critical issue in the course
+	if (Issue == "Critical")
+	{
+		pWind->SetBrush(RED);
+		pWind->DrawRectangle(ix + 5, (305 + SEM_CNT * PLAN_SEMESTER_HEIGHT) - (((300 + SEM_CNT * PLAN_SEMESTER_HEIGHT) - 302) / 2), ix + INFO_WIDTH - 5, (300 + SEM_CNT * PLAN_SEMESTER_HEIGHT));
+		pWind->DrawString(Info_x, Info_y + 55, "Critical Issue");
+	}
+
+}
+
+//function to create window and draw the file report on it
+void GUI::DisplayReport()
+{
+
+	int WindW = 1400;
+	int WindH = 700;
+	pWind1 = new window(WindW, WindH, 0, 0);
+	pWind1->ChangeTitle("Warnings Report");
+	pWind1->SetBrush(BkGrndColor);
+	pWind1->SetPen(BkGrndColor);
+	pWind1->DrawRectangle(0, 0, WindW, WindH);
+	char* Warning;
+	// display Report
+	fstream Warnings;
+	Warnings.open("WarningReport.txt", ios::in);
+	pWind1->SetPen(YELLOW);
+	char* context = nullptr;
+	const int size = 800;
+	char line[size];
+	int Info_x =  15;
+	int Info_y =  5;
+	// get what inside the report line by line and draw it
+	while (Warnings.getline(line, size))
+	{
+		pWind1->SetFont(INFO_HEIGHT * 0.05, BOLD, BY_NAME, "Gramound");
+		pWind1->SetPen(WHITE);
+		Warning = strtok_s(line, "", &context);
+		///Write the warning on the screen
+
+		pWind1->DrawString(Info_x, Info_y, Warning);
+		pWind1->SetPen(YELLOW);
+		for (int i = 1; i < 50; i++)
+		{
+			pWind1->DrawLine(0,  WindH * i / 50,  WindW, WindH * i / 50);
+		}
+		Info_y = Info_y + 14;
+	}
+	Warnings.close();
+
+	//Warnings.clear();
+	//delete pWind1;
+	//pWind1 = nullptr;
+}
+
+//Draw GPA
+void GUI::DrawGPA() const
+{
+	int Info_x = 0 + INFO_WIDTH * 0.07;
+	int Info_y = MenuBarHeight + 4;
+	pWind->SetFont(INFO_HEIGHT * 0.14, BOLD, BY_NAME, "Gramound");
+	pWind->SetPen(BLACK);
+	pWind->SetBrush(GRAY);
+	pWind->SetPen(BLACK);
+	pWind->DrawRectangle(0, MenuBarHeight + 5, WindWidth / 2, MenuBarHeight + 30); //
+	pWind->DrawString(Info_x, Info_y, newGPA);
+}
+
+//Draw Level
+void GUI::DrawLevel() const
+{
+	int Info_x = 0 + INFO_WIDTH * 0.07;
+	int Info_y = MenuBarHeight + 4;
+	pWind->SetFont(INFO_HEIGHT * 0.14, BOLD, BY_NAME, "Gramound");
+	pWind->SetPen(BLACK);
+	pWind->SetBrush(GRAY);
+	pWind->SetPen(BLACK);
+	pWind->DrawRectangle(WindWidth / 2, MenuBarHeight + 5, WindWidth, MenuBarHeight + 30); //
+	pWind->DrawString(Info_x, Info_y, level);
+}
 ////////////////////////    Input functions    ///////////////////
 //This function reads the position where the user clicks to determine the desired action
 //If action is done by mouse, actData will be the filled by mouse position
@@ -269,7 +471,13 @@ ActionData GUI::GetUserAction(string msg) const
 				case ITM_FILTER: return ActionData{ FILTER };	//Redo
 				case ITM_EXIT: return ActionData{ EXIT };		//Exit
 				case ITM_ADD_NOTES: return ActionData{ NOTES };		//Notes
-				case ITM_OFFER: return ActionData{ OFFER };		//Notes
+				case ITM_LINKS: return ActionData{ LINKS };		//Draw links between co and pre requisite courses
+				case ITM_MINOR: return ActionData{ ADDMINOR };
+				case ITM_MAJOR: return ActionData{DOUBLEMAJOR};
+				case ITM_CONCENT: return ActionData{ DOUBLECONCENT };
+				case ITM_GPA: return ActionData{GPA};
+				case ITM_LEVEL: return ActionData{LEVEL};
+				case ITM_STATUS: return ActionData{STATUS};
 
 
 				default: return ActionData{ MENU_BAR };	//A click on empty place in menu bar
@@ -285,7 +493,7 @@ ActionData GUI::GetUserAction(string msg) const
 			//[3] User clicks on the status bar
 			return ActionData{ STATUS_BAR };
 		}
-
+		// to make the drag and drop valid in every time
 		if (buttstate == BUTTON_DOWN)
 		{
 			if (y >= MenuBarHeight && y < WindHeight - StatusBarHeight)
@@ -293,18 +501,13 @@ ActionData GUI::GetUserAction(string msg) const
 				return ActionData{ DRAG,x,y };	//user want clicks inside drawing area
 			}
 		}
-		if (ctInput == RIGHT_CLICK)
-		{
-			if (y >= MenuBarHeight && y < WindHeight - StatusBarHeight)
-			{
-				return ActionData{ DROP,x,y };	//user want clicks inside drawing area
-			}
-		}
 
 
 	}//end while
 
 }
+
+//to make the user programer get string from the user in different places
 string GUI::GetSrting() const
 {
 	//Reads a complete string from the user until the user presses "ENTER".
@@ -343,139 +546,10 @@ string GUI::GetSrting() const
 
 }
 
-void GUI::DrawCourseInfo(const Course* pCrs) const  /////Me
-{
-	//Draw a rectangle for the info
-	pWind->SetBrush(DARKGREEN);
-	pWind->SetPen(YELLOW);
-	int ix = WindWidth - 360;
-	int iy = 86;
-	pWind->DrawRectangle(ix, iy, ix + INFO_WIDTH, iy + INFO_HEIGHT);/*200 should be changed according to the gInfo that should be specified */
-	
-	int NumData = 3;
-	for (int i = 1; i < 3; i++)
-	{
-		pWind->DrawLine(ix, iy + INFO_HEIGHT * i / 3, ix + INFO_WIDTH, iy + INFO_HEIGHT * i / 3);
-	}
-	///Write the course code and credit hours.
-	int Info_x = ix + INFO_WIDTH * 0.07;
-	int Info_y = iy + INFO_HEIGHT * 0.1;
-	pWind->SetFont(INFO_HEIGHT * 0.15, BOLD, BY_NAME, "Gramound");
-	pWind->SetPen(WHITE);
 
-	ostringstream Title;
-	ostringstream Code;
-	ostringstream Credits;
-	Code << "Cource Code:" << pCrs->getCode();
-	pWind->DrawString(Info_x, Info_y, Code.str());
-	Credits << "Cource Credits:" << pCrs->getCredits();
-	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT / 3, Credits.str());
-	Title << "Cource Title:" << pCrs->getTitle();
-	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT * 2 / 3, Title.str());
-}
-
-void GUI::DrawNotes() const
-{
-	char* note;
-	// display notes
-	fstream Notes;
-	Notes.open("Notes.txt", ios::in);
-
-	//Draw a rectangle for the Notes
-	pWind->SetBrush(DARKGREEN);
-	pWind->SetPen(YELLOW);
-	int ix = WindWidth - 360;
-	int iy = 116 + 3 * SEM_CNT * PLAN_SEMESTER_HEIGHT;
-	pWind->DrawRectangle(ix, iy, ix + INFO_WIDTH, iy + INFO_HEIGHT);
-	
-
-	char* context = nullptr;
-	const int size = 300;
-	char line[size];
-	int Info_x = ix + 15;
-	int Info_y = iy + 5;
-	while (Notes.getline(line, size))
-	{
-		pWind->SetFont(INFO_HEIGHT * 0.1, BOLD, BY_NAME, "Gramound");
-		pWind->SetPen(WHITE);
-		note = strtok_s(line, "", &context);
-		///Write the Notes
-
-		pWind->DrawString(Info_x, Info_y, note);
-		pWind->SetPen(YELLOW);
-		for (int i = 1; i < 7; i++)
-		{
-			pWind->DrawLine(ix, iy + INFO_HEIGHT * i / 7, ix + INFO_WIDTH, iy + INFO_HEIGHT * i / 7);
-		}
-		Info_y = Info_y + 29;
-	}
-	Notes.close();
-	
-}
-
-void GUI::DrawLiveMessage(const Course* pC) const
-{
-	int ix = WindWidth - 360;
-	int Info_x = ix + INFO_WIDTH * 0.07;
-	int Info_y = 330 ;
-	pWind->SetFont(INFO_HEIGHT * 0.2, BOLD, BY_NAME, "Gramound");
-	pWind->SetPen(WHITE);
-	pWind->SetBrush(GREY);
-	pWind->DrawRectangle(ix, 302, ix + INFO_WIDTH, 300 + SEM_CNT * PLAN_SEMESTER_HEIGHT);
-	if (pC->ModerateIssue() == true)
-	{
-		pWind->SetBrush(RED);
-		pWind->DrawRectangle(ix + 5, 302, ix + INFO_WIDTH - 5 , (300 + SEM_CNT * PLAN_SEMESTER_HEIGHT));
-		pWind->DrawString(Info_x, Info_y, "Moderate Issue");
-	}
-	if (pC -> CriticalIssue() == true)
-	{
-		pWind->SetBrush(YELLOW);
-		pWind->DrawRectangle(ix + 5, (300 + SEM_CNT * PLAN_SEMESTER_HEIGHT) / 2, ix + INFO_WIDTH - 5 , 300 + SEM_CNT * PLAN_SEMESTER_HEIGHT);
-		pWind->DrawString(Info_x, Info_y + (300 + SEM_CNT * PLAN_SEMESTER_HEIGHT) / 2, "Critical Issue");
-	}
-
-}
-void GUI::DisplayReport() const
-{
-	int WindW = 700;
-	int WindH = 700;
-	window*pWind1 = new window(WindW, WindH, wx, wy);
-	pWind1->ChangeTitle("Warnings Report");
-	pWind1->SetBrush(BkGrndColor);
-	pWind1->SetPen(BkGrndColor);
-	pWind1->DrawRectangle(0, 0, WindW, WindH);
-	char* Warning;
-	// display Report
-	fstream Warnings;
-	Warnings.open("WarningReport.txt", ios::in);
-	pWind1->SetPen(YELLOW);
-	char* context = nullptr;
-	const int size = 800;
-	char line[size];
-	int Info_x =  15;
-	int Info_y =  5;
-	while (Warnings.getline(line, size))
-	{
-		pWind1->SetFont(INFO_HEIGHT * 0.1, BOLD, BY_NAME, "Gramound");
-		pWind1->SetPen(WHITE);
-		Warning = strtok_s(line, "", &context);
-		///Write the warning on the screen
-
-		pWind1->DrawString(Info_x, Info_y, Warning);
-		pWind1->SetPen(YELLOW);
-		for (int i = 1; i < 20; i++)
-		{
-			pWind1->DrawLine(0,  WindH * i / 20,  WindW, WindH * i / 20);
-		}
-		Info_y = Info_y + 36;
-	}
-	Warnings.close();
-	Warnings.clear();
-	//delete pWind1;
-}
+//destructor to delete the dynamic allocated
 GUI::~GUI()
 {
 	delete pWind;
-	
+	delete pWind1;
 }

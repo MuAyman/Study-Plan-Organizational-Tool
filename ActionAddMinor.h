@@ -1,7 +1,7 @@
 #pragma once
 #include "Actions/Action.h"
 
-class ActionAddMinor :  public Action
+class ActionAddMinor : public Action
 {
 public:
 	ActionAddMinor(Registrar*);

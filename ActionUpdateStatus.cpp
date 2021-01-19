@@ -48,28 +48,28 @@ bool ActionUpdateStatus::Execute()
 		else if (y > (iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4) && y < (iy - (3 * PLAN_SEMESTER_HEIGHT + 10) * 4) + (PLAN_SEMESTER_HEIGHT * SEM_CNT))
 			year = 5;
 
-		if (/*Year1*/(y >= iy + PLAN_SEMESTER_HEIGHT * 2) && y < (iy + PLAN_SEMESTER_HEIGHT * 3) ||
+		if (/* Year1*/ (y >= iy + PLAN_SEMESTER_HEIGHT * 2) && y < (iy + PLAN_SEMESTER_HEIGHT * 3) ||
 			/*Year2*/ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) + PLAN_SEMESTER_HEIGHT * 2) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) + PLAN_SEMESTER_HEIGHT * 3 ||
 			/*Year 3*/ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 2 + PLAN_SEMESTER_HEIGHT * 2) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 2 + PLAN_SEMESTER_HEIGHT * 3 ||
-			/*Year4*/(y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3 + PLAN_SEMESTER_HEIGHT * 2) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3 + PLAN_SEMESTER_HEIGHT * 3 ||
-			/*Year5*/((y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4 + PLAN_SEMESTER_HEIGHT * 2) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4 + PLAN_SEMESTER_HEIGHT * 3))
+			/*Year4*/ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3 + PLAN_SEMESTER_HEIGHT * 2) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3 + PLAN_SEMESTER_HEIGHT * 3 ||
+			/*Year5*/ ((y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4 + PLAN_SEMESTER_HEIGHT * 2) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4 + PLAN_SEMESTER_HEIGHT * 3))
 
 		{
 			sem = FALL;
 		}
-		else if (/*Year1*/(y >= iy + PLAN_SEMESTER_HEIGHT) && y < (iy + PLAN_SEMESTER_HEIGHT * 2) ||
+		else if (/* Year1*/ (y >= iy + PLAN_SEMESTER_HEIGHT) && y < (iy + PLAN_SEMESTER_HEIGHT * 2) ||
 			/*Year2*/ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) + PLAN_SEMESTER_HEIGHT) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) + PLAN_SEMESTER_HEIGHT * 2 ||
 			/*Year 3*/ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 2 + PLAN_SEMESTER_HEIGHT) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 2 + PLAN_SEMESTER_HEIGHT * 2 ||
-			/*Year4*/(y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3 + PLAN_SEMESTER_HEIGHT) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3 + PLAN_SEMESTER_HEIGHT * 2 ||
-			/*Year5*/((y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4 + PLAN_SEMESTER_HEIGHT) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4 + PLAN_SEMESTER_HEIGHT * 2))
+			/*Year4*/ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3 + PLAN_SEMESTER_HEIGHT) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3 + PLAN_SEMESTER_HEIGHT * 2 ||
+			/*Year5*/ ((y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4 + PLAN_SEMESTER_HEIGHT) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4 + PLAN_SEMESTER_HEIGHT * 2))
 		{
 			sem = SPRING;
 		}
-		else if ((/*Year1*/(y >= iy && y < iy + PLAN_SEMESTER_HEIGHT)) ||
+		else if ((/*Year1 */ (y >= iy && y < iy + PLAN_SEMESTER_HEIGHT)) ||
 			/*Year2*/ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) && y < iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) + PLAN_SEMESTER_HEIGHT) ||
-			/*Year3*/ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 2 && y < (iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 2) + PLAN_SEMESTER_HEIGHT) ||
-			/*Year4*/(y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3 && y < (iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3) + PLAN_SEMESTER_HEIGHT) ||
-			/*Year5*/(y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4 && y < (iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4) + PLAN_SEMESTER_HEIGHT))
+			/*Year3 */ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 2 && y < (iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 2) + PLAN_SEMESTER_HEIGHT) ||
+			/*Year4*/ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3 && y < (iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 3) + PLAN_SEMESTER_HEIGHT) ||
+			/*Year5*/ (y >= iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4 && y < (iy - (SEM_CNT * PLAN_SEMESTER_HEIGHT + 10) * 4) + PLAN_SEMESTER_HEIGHT))
 		{
 			sem = SUMMER;
 		}
@@ -120,6 +120,3 @@ ActionUpdateStatus::~ActionUpdateStatus()
 {
 
 }
-
-
-

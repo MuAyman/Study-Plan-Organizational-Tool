@@ -11,7 +11,6 @@ protected:
 public:
 	ActionUpdateStatus(Registrar* p, int newx, int newy);
 	bool virtual Execute();
-	virtual ~ActionUpdateStatus();	
+	virtual ~ActionUpdateStatus();
 
 };
-

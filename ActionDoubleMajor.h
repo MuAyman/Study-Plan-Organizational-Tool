@@ -8,4 +8,4 @@ public:
 	ActionDoubleMajor(Registrar*);
 	bool virtual Execute();
 	virtual ~ActionDoubleMajor();
-};;
+};

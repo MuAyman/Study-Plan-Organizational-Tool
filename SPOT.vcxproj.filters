@@ -31,9 +31,6 @@
     <ClCompile Include="Courses\Course.cpp">
       <Filter>Courses</Filter>
     </ClCompile>
-    <ClCompile Include="StudyPlan\StudyPlan.cpp">
-      <Filter>StudyPlan</Filter>
-    </ClCompile>
     <ClCompile Include="Actions\ActionAddCourse.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
@@ -166,10 +163,16 @@
     <ClCompile Include="ValidityCheck.cpp" />
     <ClCompile Include="ActionFilter.cpp" />
     <ClCompile Include="CalculateGPA.cpp" />
-    <ClCompile Include="ActionAddMinor.cpp" />
     <ClCompile Include="ActionCheckReport.cpp" />
-    <ClCompile Include="ActionUpdateStatus.cpp" />
+    <ClCompile Include="StudyPlan\StudyPlan.cpp">
+      <Filter>StudyPlan</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionLinks.cpp" />
     <ClCompile Include="ActionStudentLevel.cpp" />
+    <ClCompile Include="ActionDoubleMajor.cpp" />
+    <ClCompile Include="ActionDoubleConcenteration.cpp" />
+    <ClCompile Include="ActionUpdateStatus.cpp" />
+    <ClCompile Include="ActionAddMinor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\GUI.h">
@@ -270,10 +273,13 @@
     <ClInclude Include="ValidityCheck.h" />
     <ClInclude Include="ActionFilter.h" />
     <ClInclude Include="CalculateGPA.h" />
-    <ClInclude Include="ActionAddMinor.h" />
     <ClInclude Include="ActionCheckReport.h" />
-    <ClInclude Include="ActionUpdateStatus.h" />
+    <ClInclude Include="ActionLinks.h" />
     <ClInclude Include="ActionStudentLevel.h" />
+    <ClInclude Include="ActionDoubleMajor.h" />
+    <ClInclude Include="ActionDoubleConcenteration.h" />
+    <ClInclude Include="ActionUpdateStatus.h" />
+    <ClInclude Include="ActionAddMinor.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="GUI\CMUgraphicsLib\Manual.txt">

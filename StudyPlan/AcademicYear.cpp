@@ -1,7 +1,6 @@
 #include "AcademicYear.h"
 #include "../GUI/GUI.h"
 #include <iostream>
-//using namespace std;
 
 AcademicYear::AcademicYear()
 {
@@ -10,9 +9,6 @@ AcademicYear::AcademicYear()
 }
 
 
-AcademicYear::~AcademicYear()
-{
-}
 
 
 Course* AcademicYear::getCourse(Course_Code code) //youssef
@@ -28,7 +24,7 @@ Course* AcademicYear::getCourse(Course_Code code) //youssef
 		}
 	}
 }
-void AcademicYear::SetPreIssue(string course)
+void AcademicYear::SetPreIssue(string course,bool state)
 {
 	for (int sem = FALL; sem < SEM_CNT; sem++)
 	{
@@ -36,16 +32,12 @@ void AcademicYear::SetPreIssue(string course)
 		{
 			if (course  == (*it)->getCode())
 			{
-				 (*it) ->SetPreIssue(false);
-			}
-			else
-			{
-				 (*it)->SetPreIssue(true);
+				 (*it) ->SetPreIssue(state);
 			}
 		}
 	}
 }
-void AcademicYear::SetCoIssue(string course)
+void AcademicYear::SetCoIssue(string course, bool state)
 {
 	for (int sem = FALL; sem < SEM_CNT; sem++)
 	{
@@ -53,16 +45,15 @@ void AcademicYear::SetCoIssue(string course)
 		{
 			if (course == (*it)->getCode())
 			{
-				(*it)->SetCoIssue(false);
-			}
-			else
-			{
-				(*it)->SetCoIssue(true);
+				(*it)->SetCoIssue(state);
 			}
 		}
 	}
 }
-
+void AcademicYear::DrawLiveMessage(GUI* pGUI, string str) const
+{
+	pGUI->DrawLiveMessage(str);
+}
 //Adds a course to this year in the spesified semester
 bool AcademicYear::AddCourse(Course* pC, SEMESTER sem)
 {
@@ -160,7 +151,7 @@ bool AcademicYear::setCourseStatus(Course_Code coursecode, CourseStatus status)
 		for (int sem = 0; sem < 3; sem++)
 			for (auto i : YearCourses[sem])
 				if (i->getCode() == coursecode)
-					i->setCourseStatus(status);		 
+					i->setCourseStatus(status);
 		 return true;
 	}
 	else
@@ -244,19 +235,16 @@ void AcademicYear::DrawMe(GUI* pGUI) const
 		}
 	}
 }
-
-void AcademicYear::PlanCourses()
+void AcademicYear::DrawConnectLine(GUI* pGUI) const
 {
-	AllCourses.clear();
 	for (int sem = FALL; sem < SEM_CNT; sem++)
 	{
 		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
 		{
-			AllCourses.push_back(*it);
+			(*it)->DrawConnectLine(pGUI);
 		}
 	}
 }
-
 bool AcademicYear::AddSemester(int x, int y)
 {
 	for (int sem = FALL; sem < SEM_CNT; sem++)
@@ -406,32 +394,54 @@ void AcademicYear::DrawInfo(GUI* pGUI, int x, int y)
 	}
 
 }
-bool AcademicYear::CreditsCheck(int SemCredits)
+bool AcademicYear::CreditsCheck(int SemCredits, SEMESTER sem)
 {
-	if (SemCredits > 21)
+	if (sem == SUMMER) //semester is summer
 	{
-		cout << "Credits is greater than Max credits";
-		return false;
-		//cout << "Credits in semester " << semester << " Year " << year << " is greater than Max_credits";
+		if (SemCredits > 6) //credits in summer is greater than max
+		{
+			SummerGreater = 1;
+			return false;
+		}
+		else //credits in summer is valid
+		{
+			SummerGreater = 0;
+			return true;
+		}
 	}
-	else if (SemCredits < 12)
+	else //semester is fall or spring
 	{
-		//cout << "Credits in semester " << semester << " Year " << year << " is less than Min_credits";
-		cout << "Credits is less than Min credits";
-		return false;
+		if (SemCredits > 21) //credits is greater than max
+		{
+			if (sem == FALL) //fall is greater than max
+			{
+				FallGreater = 1;
+				return false;
+			}
+			else // spring is greater than max
+			{
+				SpringGreater = 1;
+				return false;
+			}
+		}
+		else if (SemCredits < 12) //credits is less than min
+		{
+			if (sem == FALL) //fall is less than min
+			{
+				FallGreater = 0;
+				return false;
+			}
+			else //spring is less than min
+			{
+				SpringGreater = 0;
+				return false;
+			}
+
+		}
+		else //no semester violation
+			return true;
 	}
-	else
-		return true;
-}
-bool AcademicYear::SummerCredits(int credits)
-{
-	if (credits > 6)
-	{
-		cout << "Credits is greater than Max credits";
-		return false;
-	}
-	else
-		return true;
+
 }
 void AcademicYear::PlanCourses()
 {
@@ -446,7 +456,7 @@ void AcademicYear::PlanCourses()
 }
 bool AcademicYear::FallCredits()
 {
-	if (!CreditsCheck(FALLCredits))
+	if (!CreditsCheck(FALLCredits,FALL))
 	{
 		return false;
 	}
@@ -454,7 +464,7 @@ bool AcademicYear::FallCredits()
 }
 bool AcademicYear::SpringCredits()
 {
-	if (!CreditsCheck(SPRINGCredits))
+	if (!CreditsCheck(SPRINGCredits,SPRING))
 	{
 		return false;
 	}
@@ -462,7 +472,8 @@ bool AcademicYear::SpringCredits()
 }
 bool AcademicYear::SummerCredits()
 {
-	if (!SummerCredits(SUMMERCredits))
+
+	if (!CreditsCheck(SUMMERCredits, SUMMER))
 	{
 		return false;
 	}
@@ -492,4 +503,66 @@ int AcademicYear::getTotalConcentrationCredits()
 int AcademicYear::getTotalMinorCredits()
 {
 	return TotalMinorCredits;
+}
+
+///////////////////helper functions in update status
+bool AcademicYear::setYearStatus(CourseStatus status)
+{
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		for (int x = 0; x < SEM_CNT; x++)
+			setSemsterStatus(x, status);
+		return true;
+	}
+	else
+		return false;
+}
+
+
+bool AcademicYear::setSemsterStatus(int sem, CourseStatus status)
+{
+
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		for (auto i : YearCourses[sem])
+			setCourseStatus(i->getCode(), status);
+		return true;
+	}
+	else
+		return false;
+}
+
+
+bool AcademicYear::setCourseStatus(Course_Code coursecode, CourseStatus status)
+{
+	if (status == Done || status == InProgress || status == Pending)
+	{
+		for (int sem = 0; sem < 3; sem++)
+			for (auto i : YearCourses[sem])
+				if (i->getCode() == coursecode)
+					i->setCourseStatus(status);
+		return true;
+	}
+	else
+		return false;
+}
+
+void AcademicYear::getSemCrd(int SemCourses[])
+{
+	SemCourses[0] = FALLCredits;
+	SemCourses[1] = SPRINGCredits;
+	SemCourses[2] = SUMMERCredits;
+}
+
+bool AcademicYear::isCourse(Course_Code coursecose)
+{
+	for (int y = 0; y < YearCourses->size(); y++)
+		for (auto i = YearCourses[y].begin(); i != YearCourses[y].end(); i++)
+			if (coursecose == (*i)->getCode())
+				return true;
+			else
+				return false;
+}
+AcademicYear::~AcademicYear()
+{
 }

@@ -124,10 +124,13 @@
     <ClCompile Include="ActionChangeCourse.cpp" />
     <ClCompile Include="ActionCheckReport.cpp" />
     <ClCompile Include="ActionDeleteCourse.cpp" />
+    <ClCompile Include="ActionDoubleConcenteration.cpp" />
+    <ClCompile Include="ActionDoubleMajor.cpp" />
     <ClCompile Include="ActionExit.cpp" />
     <ClCompile Include="ActionFilter.cpp" />
     <ClCompile Include="ActionImportPlan.cpp" />
     <ClCompile Include="ActionInfo.cpp" />
+    <ClCompile Include="ActionLinks.cpp" />
     <ClCompile Include="ActionSavePlan.cpp" />
     <ClCompile Include="ActionStudentLevel.cpp" />
     <ClCompile Include="Actions\ActionAddCourse.cpp" />
@@ -184,10 +187,13 @@
     <ClInclude Include="ActionChangeCourse.h" />
     <ClInclude Include="ActionCheckReport.h" />
     <ClInclude Include="ActionDeleteCourse.h" />
+    <ClInclude Include="ActionDoubleConcenteration.h" />
+    <ClInclude Include="ActionDoubleMajor.h" />
     <ClInclude Include="ActionExit.h" />
     <ClInclude Include="ActionFilter.h" />
     <ClInclude Include="ActionImportPlan.h" />
     <ClInclude Include="ActionInfo.h" />
+    <ClInclude Include="ActionLinks.h" />
     <ClInclude Include="ActionSavePlan.h" />
     <ClInclude Include="ActionStudentLevel.h" />
     <ClInclude Include="Actions\Action.h" />

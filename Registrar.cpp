@@ -12,8 +12,13 @@
 #include "ActionChangeCourse.h"
 #include "ValidityCheck.h"
 #include "ActionFilter.h"
-#include "ActionAddMinor.h"
+#include "ActionLinks.h"
+#include "CalculateGPA.h"
+#include "ActionDoubleMajor.h"
+#include "ActionDoubleConcenteration.h"
+#include "ActionStudentLevel.h"
 #include "ActionUpdateStatus.h"
+#include "ActionAddMinor.h"
 #include <sstream>
 #include <cctype>
 
@@ -21,8 +26,8 @@ Registrar::Registrar()
 {
 	pGUI = new GUI;	//create interface object
 	pSPlan = new StudyPlan;	//create a study plan.
-}
 
+}
 //returns a pointer to GUI
 GUI* Registrar::getGUI() const
 {
@@ -59,9 +64,7 @@ bool Registrar::ExecuteOfferings()					//OFFEREINGS ****************************
 			cout  << as.Offerings[i][j] << ",";
 		cout << endl; i++;
 	}
-	this->RegRules.OffringsList.push_back(as);
-	OfferingsData.close();
-	return true;
+
 }
 
 //returns the study plan
@@ -69,7 +72,10 @@ StudyPlan* Registrar::getStudyPlan() const
 {
 	return pSPlan;
 }
-
+Rules Registrar::getRules()
+{
+	return RegRules;
+}
 void Registrar::checkType(Course* pC) //new
 {
 	int t = 0; // variable to check whether the course type is declared or not yet
@@ -142,6 +148,114 @@ void Registrar::checkType(Course* pC) //new
 
 }
 
+//bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
+//{
+//	File.open(name, ios::in);
+//	if (File.fail())
+//		return false;
+//	else
+//	{
+//		char* psc;
+//		char* context1 = nullptr;
+//		const int size = 300;
+//		char line[size];
+//		while (File.getline(line, size))
+//		{
+//			int i = 0, j = 0, k = 0;
+//			psc = strtok_s(line, ",", &context1);
+//			CourseInfo c;
+//			c.Code = psc;
+//			i++;
+//			while (psc != NULL)
+//			{
+//				if (i == 1)
+//				{
+//					psc = strtok_s(NULL, ",", &context1);
+//					c.Title = psc;
+//				}
+//				if (i == 2)
+//				{
+//					psc = strtok_s(NULL, ",", &context1);
+//					const string A = psc;
+//					c.Credits = stoi(A);
+//				}
+//				if (i > 2 && i < 5)
+//				{
+//					while (psc != NULL)
+//					{
+//						psc = strtok_s(NULL, ",", &context1);
+//						if (psc != NULL)
+//						{
+//							string s = psc;
+//							if (s.substr(0, 7) == "Coreq: ")
+//							{
+//								string h = s.substr(7);
+//								stringstream ss(h);
+//								string temp, code, num, m;
+//								int i = 0;
+//								while (ss >> temp)
+//								{
+//									if (temp != "AND")
+//									{
+//										if (isdigit(temp[0]))
+//										{
+//											num = temp;
+//											i++;
+//										}
+//										else
+//										{
+//											code = temp;
+//											i++;
+//										}
+//										if (i == 2)
+//										{
+//											m = code + " " + num;
+//											c.CoReqList.push_back(m);
+//
+//											i = 0;
+//										}
+//									}
+//								}
+//							}
+//							if (s.substr(0, 8) == "Prereq: ")
+//							{
+//								string h = s.substr(8);
+//								stringstream ss(h);
+//								string temp, code, num, m;
+//								int i = 0;
+//								while (ss >> temp)
+//								{
+//									if (temp != "AND")
+//									{
+//										if (isdigit(temp[0]))
+//										{
+//											num = temp;
+//											i++;
+//										}
+//										else
+//										{
+//											code = temp;
+//											i++;
+//										}
+//										if (i == 2)
+//										{
+//											m = code + " " + num;
+//											c.PreReqList.push_back(m);
+//											i = 0;
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
+//				}
+//				i++;
+//			}
+//			R.CourseCatalog.push_back(c);
+//		}
+//	}
+//	return true;
+//}
 bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
 {
 	File.open(name, ios::in);
@@ -157,21 +271,21 @@ bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
 		{
 			int i = 0, j = 0, k = 0;
 			psc = strtok_s(line, ",", &context1);
-			CourseInfo c;
-			c.Code = psc;
+			CourseInfo* c = new CourseInfo;
+			c->Code = psc;
 			i++;
 			while (psc != NULL)
 			{
 				if (i == 1)
 				{
 					psc = strtok_s(NULL, ",", &context1);
-					c.Title = psc;
+					c->Title = psc;
 				}
 				if (i == 2)
 				{
 					psc = strtok_s(NULL, ",", &context1);
 					const string A = psc;
-					c.Credits = stoi(A);
+					c->Credits = stoi(A);
 				}
 				if (i > 2 && i < 5)
 				{
@@ -204,7 +318,8 @@ bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
 										if (i == 2)
 										{
 											m = code + " " + num;
-											c.CoReqList.push_back(m);
+											c->CoReqList.push_back(m);
+
 											i = 0;
 										}
 									}
@@ -233,7 +348,7 @@ bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
 										if (i == 2)
 										{
 											m = code + " " + num;
-											c.PreReqList.push_back(m);
+											c->PreReqList.push_back(m);
 											i = 0;
 										}
 									}
@@ -249,7 +364,33 @@ bool Registrar::catalogRead(ifstream& File, string name, Rules& R)
 	}
 	return true;
 }
+bool Registrar::PreCoCourse(Rules& R)
+{
+	for (int i = 0; i < R.CourseCatalog.size(); i++)
+	{
+		for (auto j = 0; j < R.CourseCatalog[i]->PreReqList.size(); j++)
+		{
+		Course* CRS = pSPlan->getCourse(R.CourseCatalog[i]->PreReqList[j]);
+		if (CRS != NULL)
+		{
+		R.CourseCatalog[i]->PreReqC.push_back(CRS);
+		}
 
+		}
+		for (auto j = 0; j < R.CourseCatalog[i]->CoReqList.size(); j++)
+		{
+			Course* CRS = pSPlan->getCourse(R.CourseCatalog[i]->CoReqList[j]);
+			if (CRS != NULL)
+			{
+			R.CourseCatalog[i]->CoReqC.push_back(CRS);
+			}
+
+		}
+	}
+
+
+	return true;
+}
 bool Registrar::RulesRead(ifstream& File, string name, Rules& R1)
 {
 	File.open(name, ios::in);
@@ -406,7 +547,6 @@ bool Registrar::RulesReset(Rules& R)
 }
 bool Registrar::ExecuteRules()
 {
-	string major;
 	pGUI = this->getGUI();
 	pGUI->PrintMsg("enter your major name: ");
 	major = pGUI->GetSrting();
@@ -497,7 +637,7 @@ Action* Registrar::CreateRequiredAction()
 	case REP_CRS:	//replace course action
 		RequiredAction = new ActionChangeCourse(this);
 		break;
-	case DRAG:	//drag and drop action
+	case DRAG:	//Drag and drop action
 		RequiredAction = new Drag_DropAction(this, actData.x, actData.y);
 		break;
 	case FILTER:	//Filter action
@@ -506,24 +646,232 @@ Action* Registrar::CreateRequiredAction()
 	case DONE:  //Check done
 		RequiredAction = new ValidityCheck(this);
 		break;
-	case EXIT:
+	case LINKS: // draw links between co and pre requisite
+		RequiredAction = new ActionLinks(this);
+		break;
+	case EXIT: //exit
 		RequiredAction = new ActionExit(this);
 		break;
-	case Upd_Status:		// update status of year or sem
+	case GPA: //GPA
+		RequiredAction = new CalculateGPA(this);
+		break;
+	case LEVEL: //Student Level
+		RequiredAction = new ActionStudentLevel(this);
+		break;
+	case STATUS: //Student status
 		RequiredAction = new ActionUpdateStatus(this, actData.x, actData.y);
 		break;
-	case DRAW_AREA:		// select action
+	case ADDMINOR: //Student status
+		RequiredAction = new ActionAddMinor(this);
+		break;
+	case DOUBLECONCENT: //Student double concentration
+		RequiredAction = new ActionDoubleConcenteration(this);
+		break;
+	case DOUBLEMAJOR: //Student Double concentration
+		RequiredAction = new ActionDoubleMajor(this);
+		break;
+	case DRAW_AREA: //draw info of the course
 		RequiredAction = new ActionInfo(this, actData.x, actData.y);
 		break;
-	
+
 	case ADD_MINOR:		// Action add minor
 		RequiredAction = new ActionAddMinor(this);
 		break;
 	}
 	return RequiredAction;
 }
+bool Registrar::ExecuteDoubleMajor(GUI* pGUI)
+{
+	pGUI->PrintMsg("Enter major name: ");
+	major2 = pGUI->GetSrting();
 
+	for (int i = 0; i < major2.length(); i++)
+	{
+		major2[i] = toupper(major2[i]);
+	}
 
+	while (major2 != "CIE"
+		&& major2 != "SPC"
+		&& major2 != "ENV"
+		&& major2 != "REE"
+		&& major2 != "BMS"
+		&& major2 != "PEU"
+		&& major2 != "NANENG"
+		&& major2 != "NANSCIE"
+		&& major2 != "MATSCIE")
+	{
+		pGUI->PrintMsg("Enter a valid major name");
+		major2 = pGUI->GetSrting();
+	}
+	while (major2 == major)
+	{
+		pGUI->PrintMsg("It is the first major! Enter another major name: ");
+		major2 = pGUI->GetSrting();
+	}
+	RulesReset(RegRules2);
+
+	ifstream input;
+	if (major2 == "CIE")
+	{
+		RulesRead(input, "CIE-Requirements.txt", RegRules2);
+	}
+	else if (major2 == "SPC")
+		RulesRead(input, "SPC-Requirements.txt", RegRules2);
+	else if (major2 == "ENV")
+		RulesRead(input, "ENV-Requirements.txt", RegRules2);
+	else if (major2 == "REE")
+		RulesRead(input, "REE-Requirements.txt", RegRules2);
+	else if (major2 == "BMS")
+		RulesRead(input, "Rules.txt", RegRules2);
+	else if (major2 == "PEU")
+		RulesRead(input, "PEU-Requirements.txt", RegRules2);
+	else if (major2 == "NANENG")
+		RulesRead(input, "NANENG-Requirements.txt", RegRules2);
+	else if (major2 == "NANSCIE")
+		RulesRead(input, "Rules.txt", RegRules2);
+	else if (major2 == "MATSCIE")
+		RulesRead(input, "Rules.txt", RegRules2);
+
+	input.close();
+
+	ifstream catalogFile;
+	catalogRead(catalogFile, "Source.txt", RegRules2);
+	catalogFile.close();
+	bool found = true;
+	Course_Code code1 = " ";
+
+	/////I commented it because it needs to be edited////
+	/*for (int i = 0; i < RegRules.UnivCompulsory.size(); i++)
+	{
+	  for (int j = 0; j < RegRules2.UnivCompulsory.size(); j++)
+	  {
+		if (RegRules.UnivCompulsory[i] != RegRules2.UnivCompulsory[j])
+		{
+		  code1 = RegRules2.UnivCompulsory[j];
+		  found = false;
+		}
+	  }
+	}
+	if (found == false)
+	{
+	  RegRulesDoubleMajor.UnivCompulsory.push_back(code1);
+	  RegRulesDoubleMajor.UnivCompCredits += RegRules2.UnivCompCredits;
+	}
+
+	for (int i = 0; i < RegRules.UnivElective.size(); i++)
+	{
+	  for (int j = 0; j < RegRules2.UnivElective.size(); j++)
+	  {
+		if (RegRules.UnivElective[i] != RegRules2.UnivElective[j])
+		{
+		  RegRulesDoubleMajor.UnivElective.push_back(RegRules2.UnivElective[j]);
+  }
+	  }
+	}
+	for (int i = 0; i < RegRules.TrackCompulsory.size(); i++)
+	{
+	  for (int j = 0; j < RegRules2.TrackCompulsory.size(); j++)
+	  {
+		if (RegRules.TrackCompulsory[i] != RegRules2.TrackCompulsory[j])
+		{
+		  RegRulesDoubleMajor.TrackCompulsory.push_back(RegRules2.TrackCompulsory[j]);
+		}
+	  }
+	}
+	for (int i = 0; i < RegRules.MajorCompulsory.size(); i++)
+	{
+	  for (int j = 0; j < RegRules2.MajorCompulsory.size(); j++)
+	  {
+		if (RegRules.MajorCompulsory[i] != RegRules2.MajorCompulsory[j])
+		{
+		  RegRulesDoubleMajor.MajorCompulsory.push_back(RegRules2.MajorCompulsory[j]);
+		}
+	  }
+	}
+	for (int i = 0; i < RegRules.MajorElective.size(); i++)
+	{
+	  for (int j = 0; j < RegRules2.MajorElective.size(); j++)
+	  {
+		if (RegRules.MajorElective[i] != RegRules2.MajorElective[j])
+		{
+		  RegRulesDoubleMajor.MajorElective.push_back(RegRules2.MajorElective[j]);
+		}
+	  }
+	}
+	for (int i = 0; i < RegRules.ConcRequirements.size(); i++)
+	{
+	  for (int j = 0; j < RegRules2.ConcRequirements.size(); j++)
+	  {
+		bool found = false;
+		for (int i = 0; i < RegRules2.UnivCompulsory.size(); i++)
+		{
+		  found = false;
+		  for (int j = 0; j < RegRules.UnivCompulsory.size(); j++)
+		  {
+			if (RegRules2.UnivCompulsory[i] == RegRules.UnivCompulsory[j])
+			{
+			  found = true;
+			  break;
+			}
+		  }
+		  if (found == false)
+		  {
+			RegRulesDoubleMajor.UnivCompulsory.push_back(RegRules2.UnivCompulsory[i];);
+			RegRulesDoubleMajor.UnivCompCredits += RegRules2.UnivCompCredits;
+		  }
+		  else
+			break;
+		}
+		bool found = false;
+		for (int i = 0; i < RegRules2.UnivCompulsory.size(); i++)
+		{
+		  found = false;
+		  for (int j = 0; j < RegRules.UnivCompulsory.size(); j++)
+		  {
+			if (RegRules2.UnivCompulsory[i] == RegRules.UnivCompulsory[j])
+			{
+			  found = true;
+			  break;
+			}
+		  }
+		  if (found == false)
+		  {
+			RegRulesDoubleMajor.UnivCompulsory.push_back(RegRules2.UnivCompulsory[i];);
+			RegRulesDoubleMajor.UnivCompCredits += RegRules2.UnivCompCredits;
+		  }
+		  else
+			break;
+		}
+	  }
+	}*/
+	pGUI->PrintMsg("Now You can add the courses of double majors! Ok?..Enter Ok");
+	string x = pGUI->GetSrting();
+	return true;
+}
+bool Registrar::ExecuteDoubleConcentration(GUI* pGUI)
+{
+	if (RegRules.NumOfConcent == 0)
+	{
+		pGUI->PrintMsg("Your major don't have this option! ok?..Enter ok");
+		string x = pGUI->GetSrting();
+	}
+	else
+	{
+		pGUI->PrintMsg("Add one course from this concentration! then, You can add the courses of double majors! Ok?..Enter Ok");
+		string x = pGUI->GetSrting();
+		RegRules.doubleConcentration = true;
+	}
+	//RegRules.doubleConcentration = false;
+	return true;
+}
+Rules Registrar::getRules2() const
+{
+	return RegRules2;
+}
+Rules Registrar::getRulesDoubleMajor() const
+{
+	return RegRulesDoubleMajor;
+}
 //Rules Registrar::getRules()
 //{
 //	return RegRules;
@@ -534,6 +882,7 @@ Action* Registrar::CreateRequiredAction()
 bool Registrar::ExecuteAction(Action* pAct)
 {
 	bool done = pAct->Execute();
+	PreCoCourse(RegRules);
 	delete pAct;	//free memory of that action object (either action is exec or cancelled)
 	return done;
 }
@@ -566,9 +915,24 @@ void Registrar::UpdateInterface()
 	pGUI->UpdateInterface();	//update interface items
 	pGUI->DrawNotes();
 	pSPlan->DrawMe(pGUI);		//make study plan draw itself
+	pSPlan->DrawLiveMessage(pGUI);
+	pSPlan->SetPreCoIssue();
 	if (actData.actType == DRAW_AREA)
+	{
 		pSPlan->DrawInfo(pGUI, actData.x, actData.y);
-
+	}
+	if (actData.actType == LINKS)
+	{
+		pSPlan->DrawConnectLine(pGUI);
+	}
+	if (actData.actType == GPA)
+	{
+		pGUI->DrawGPA();
+	}
+	if (actData.actType == LEVEL)
+	{
+		pGUI->DrawLevel();
+	}
 }
 
 

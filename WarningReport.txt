@@ -1,30 +1,180 @@
+Critical Issue: 
 Error in Total credits
- Error in unversity credits
-Error in major credits
-Error in track credits
-Credits of Fall semester in year 1is greater than Max credits 
-Credits of Spring semester in year 1is greater than Max credits 
-Credits of Fall semester in year 2is greater than Max credits 
-Credits of Spring semester in year 2is greater than Max credits 
-Credits of Fall semester in year 3is greater than Max credits 
-Credits of Spring semester in year 3is greater than Max credits 
-Credits of Fall semester in year 4is greater than Max credits 
-Credits of Spring semester in year 4is greater than Max credits 
-Error in Total credits
+Critical Issue:
 Error in unversity credits
+The problem in Courses :
+Critical Issue:
 Error in major credits
+The problem in Courses :
+CIE 402,CIE 416,CIE 418,CIE 427,CIE 430,CIE 438,CIE 440,CIE 450,CIE 458,CIE 460,CIE 464,CIE 470,CIE 478,CIE 502,CIE 506,CIE 510,CIE 514,CIE 524,CIE 528,CIE 530,CIE 538,CIE 539,CIE 552,CIE 553,CIE 554,CIE 555,CIE 556,CIE 558,CIE 564,CIE 574,CIE 581,CIE 591,CIE 592,CIE 593,CIE 594,CIE 595,CIE 597,CIE 202,CIE 205,CIE 206,CIE 212,CIE 227,CIE 239,CIE 301,CIE 302,CIE 318,CIE 320,CIE 327,CIE 328,CIE 337,CIE 338,CIE 405,CIE 408,CIE 417,CIE 425,CIE 437,CIE 439,CIE 442,CIE 447,ENGR 210,MATH 302,MATH 308,PEU 228,PHYS 201,PHYS 211,
+Critical Issue:
 Error in track credits
-Credits of Fall semester in year 4is greater than Max credits 
-Credits of Spring semester in year 4is greater than Max credits 
-Error in Total credits
-Error in unversity credits
-Error in major credits
-Error in track credits
-Credits of Fall semester in year 1is greater than Max credits 
-Credits of Spring semester in year 1is greater than Max credits 
-Credits of Fall semester in year 2is greater than Max credits 
-Credits of Spring semester in year 2is greater than Max credits 
-Credits of Fall semester in year 3is greater than Max credits 
-Credits of Spring semester in year 3is greater than Max credits 
-Credits of Fall semester in year 4is greater than Max credits 
-Credits of Spring semester in year 4is greater than Max credits 
+The problem in Courses :
+Critical Issue:
+Course: MATH 102 can not be taken without its correquisite MATH 101.
+Course: PHYS 102 can not be taken without its correquisite MATH 101.
+Course: ENGR 207 can not be taken without its correquisite PHYS 201.
+Course: ENGR 346 can not be taken without its correquisite MATH 205.
+Course: ENV 348 can not be taken without its correquisite BIOL 102.
+Course: ENV 425 can not be taken without its correquisite ENV 346.
+Course: ENV 425 can not be taken without its correquisite ENV 346.
+Critical Issue:
+Moderate Issue:
+Credits of Fall semester in year 1 is greater than max
+Moderate Issue:
+Credits of Spring semester in year 1 is greater than max
+Moderate Issue:
+Credits of Fall semester in year 2 is greater than max
+Moderate Issue:
+Credits of Spring semester in year 2 is greater than max
+Moderate Issue:
+Credits of Fall semester in year 3 is greater than max
+Moderate Issue:
+Credits of Spring semester in year 3 is greater than max
+Moderate Issue:
+Credits of Fall semester in year 4 is greater than max
+Moderate Issue:
+Credits of Spring semester in year 4 is greater than max
+Moderate Issue:
+Credits of Spring semester in year 5 is less than min
+Moderate Issue:
+Offering Problem in the Course: ENG 151
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: CSCI 101
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENG 152
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENGR 102
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENGR 221
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: MATH 102
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: PHYS 102
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: PHYS 112
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENGR 205
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 220
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 221
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: CHEM 102
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: CHEM 112
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: SCH 260
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: MATH 202
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENGR 207
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: CHEM 201
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: CHEM 211
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: SCH 262
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 330
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 357
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: MATH 306
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 303
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 319
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: MATH 301
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENGR 346
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 350
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 359
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 348
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 324
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 423
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 422
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 415
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 406
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 425
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 420
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 480
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: SCH 263
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 427
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 434
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 470
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 457
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENGR 444
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: SCH 261
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 510
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 599
+Ask the registrar to add the course to solve the problem
+Moderate Issue:
+Offering Problem in the Course: ENV 523
+Ask the registrar to add the course to solve the problem

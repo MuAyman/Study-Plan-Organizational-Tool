@@ -31,7 +31,7 @@ string ActionStudentLevel::showstatus()
 
 bool ActionStudentLevel::Execute()
 {
-	
+
 	return true;
 }
 

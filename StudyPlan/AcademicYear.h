@@ -3,7 +3,7 @@
 
 #include "..\Courses\Course.h"
 #include "../GUI/Drawable.h"
-//#include"F:\ZC\2\C++\GitHub\SPOT\ValidityCheck.h"
+
 //Represent one year in the student's study plan
 class AcademicYear :public Drawable
 {
@@ -23,7 +23,9 @@ class AcademicYear :public Drawable
 
 
 public:
-
+	bool FallGreater;
+	bool SpringGreater;
+	bool SummerGreater;
 	AcademicYear();
 	virtual ~AcademicYear();
 	void PlanCourses();
@@ -48,21 +50,26 @@ public:
 	//ValidityCheck check;
 	Course* getCourse(Course_Code code);
 	void virtual DrawMe(GUI*) const;
-
-	bool CreditsCheck(int SemCredits);
-	bool SummerCredits(int credits);
-	void SetPreIssue(string course);
-	void SetCoIssue(string course);
+	void virtual DrawConnectLine(GUI*) const;
+	void DrawLiveMessage(GUI* pGUI, string) const;
+	bool CreditsCheck(int SemCredits, SEMESTER sem);
+	void SetPreIssue(string course,bool);
+	void SetCoIssue(string course,bool);
 	int getTotalcredits();
 	int getTotalUnivCredits();
 	int getTotalMajorCredits();
 	int getTotalTrackCredits();
 	int getTotalConcentrationCredits();
 	int getTotalMinorCredits();
+	void PlanCourses();
 	list<Course*> AllCourses;
-	//helmy added
 	bool FallCredits();
 	bool SpringCredits();
 	bool SummerCredits();
-	
+	////////////////////update status helper functions
+	bool setYearStatus(CourseStatus status);
+	bool setSemsterStatus(int sem, CourseStatus status);
+	bool setCourseStatus(Course_Code coursecode, CourseStatus status);
+	void getSemCrd(int SemCourses[]);
+	bool isCourse(Course_Code coursecose);
 };

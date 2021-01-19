@@ -74,10 +74,21 @@ enum ActionType
 
 	NOTES,		//Add Notes 
 
-	OFFER,		//Import the coffering courses from the user 
+	LINKS,		//Draw line connection between the pre co requisite
 
-	DRAG,
-	DROP,
+	DRAG,		//Drag and drop action
+
+	GPA,		//Calculate GPA
+
+	DOUBLECONCENT,	//Double concentration
+
+	DOUBLEMAJOR,  //Double Major
+	
+	ADDMINOR,	//Add Minor courses
+
+	LEVEL,
+
+	STATUS
 
 	//TODO: Add more action types
 
@@ -98,3 +109,10 @@ struct MajorType
 };
 
 
+// Course Status
+enum CourseStatus
+{
+	Done,
+	InProgress,
+	Pending
+};

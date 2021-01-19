@@ -9,7 +9,7 @@ ActionDoubleMajor::ActionDoubleMajor(Registrar* p):Action(p)
 bool ActionDoubleMajor::Execute()
 {
 	GUI* pGUI = pReg->getGUI();
-	pReg->ExecuteDoubleMajors();
+	pReg->ExecuteDoubleMajor(pGUI);
 	return true;
 }
 ActionDoubleMajor::~ActionDoubleMajor()
