@@ -3,6 +3,7 @@
 
 class ActionAddMinor : public Action
 {
+	Action* RequiredAction = nullptr;
 public:
 	ActionAddMinor(Registrar*);
 	bool virtual Execute();

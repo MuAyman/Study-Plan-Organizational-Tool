@@ -16,12 +16,11 @@ bool ActionAddMinor::Execute()
 	if (minor1 == "y")
 	{
 		Rules RegRules = pReg->getRules();
-		RegRules.Minor = true;
-		Action* RequiredAction = nullptr;
+		pReg->setMinorbool(true);
 		RequiredAction = new ActionAddCourse(pReg);
 		for (int x = 0; x < 5; x++)
 			pReg->ExecuteAction(RequiredAction);						//drawing the minor course
-		RegRules.Minor = false;
+		pReg->setMinorbool(false);
 	}
 	return true;
 }
@@ -29,5 +28,5 @@ bool ActionAddMinor::Execute()
 
 ActionAddMinor::~ActionAddMinor()
 {
-
+	delete RequiredAction;
 }

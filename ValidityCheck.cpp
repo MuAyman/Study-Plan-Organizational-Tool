@@ -11,7 +11,7 @@ bool ValidityCheck::checkTotalCred(int cr)
 	else
 		return false;
 }
-bool ValidityCheck::checkMajCred(int cr)
+bool ValidityCheck::checkMajCred(int cr)	
 {
 	if (cr == (pReg->getRules().MajCommonCompCredits + pReg->getRules().MajCommonElecCredits))
 		return true;
@@ -62,7 +62,6 @@ bool ValidityCheck::ConcenReq(string major)
 		}
 	}
 }
-
 bool ValidityCheck::OverUnderLoadPetition()
 {
 	GUI* pGUI = pReg->getGUI();
@@ -97,7 +96,14 @@ bool  ValidityCheck::Execute()
 	//program requirements
 
 	if (!checkTotalCred(pReg->getStudyPlay()->getTotalcredits()))			//Total credits
+	{
 		pS->Set_Total_credits_Check(0);
+		if (pReg->getdoubleConcint() != -1)
+		{
+			pS->CheckList(pReg->getRules().ConcRequirements[pReg->getdoubleConcint()].ElectiveCourses, "ConcentrationIssue");
+			pS->CheckList(pReg->getRules().ConcRequirements[pReg->getdoubleConcint()].CompulsoryCourses, "ConcentrationIssue");
+		}
+	}
 
 	if (!checkUnivCred(pReg->getStudyPlay()->getTotalUnivCredits()))		//unversity credits
 	{

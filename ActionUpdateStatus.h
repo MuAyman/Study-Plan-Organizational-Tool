@@ -4,12 +4,10 @@
 
 class ActionUpdateStatus : public Action
 {
-protected:
-	int x;
-	int y;
+
 
 public:
-	ActionUpdateStatus(Registrar* p, int newx, int newy);
+	ActionUpdateStatus(Registrar* p);
 	bool virtual Execute();
 	virtual ~ActionUpdateStatus();
 

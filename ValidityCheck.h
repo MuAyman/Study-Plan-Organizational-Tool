@@ -4,6 +4,7 @@
 #include <iostream>
 class ValidityCheck : public Action
 {
+	Rules RegRules;
 	window* win;
 public:
 	ValidityCheck(Registrar* pReg);
@@ -11,15 +12,11 @@ public:
 	bool checkTrackCred(int cr);
 	bool checkMajCred(int cr);
 	bool checkTotalCred(int cr);
-	bool checkConcentCred(int cr);
 	bool OverUnderLoadPetition();
 	bool ConcenReq(string major);
 	bool Execute();
-	//bool ValidityCheck::PreReq_CoReq(Course* pC);
-	//bool ValidityCheck::petition(int SemCredits);
-	//bool ValidityCheck::CreditsCheck(int SemCredits);
 	~ValidityCheck();
-	window* returnWindow();
+
 	
 
 };

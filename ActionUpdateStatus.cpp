@@ -5,10 +5,9 @@ using namespace std;
 
 
 
-ActionUpdateStatus::ActionUpdateStatus(Registrar* p, int newx, int newy) : Action(p)
+ActionUpdateStatus::ActionUpdateStatus(Registrar* p) : Action(p)
 {
-	x = newx;
-	y = newy;
+	
 }
 
 bool ActionUpdateStatus::Execute()
@@ -19,6 +18,12 @@ bool ActionUpdateStatus::Execute()
 
 	pGUI->PrintMsg("Do you want to update that year / semester status? y/n ");
 	string yes = pGUI->GetSrting();
+	ActionData actData = pGUI->GetUserAction("Choose what you want to set status for");
+
+	int x, y;
+		//get coord where user clicked
+		x = actData.x;
+		y = actData.y;
 
 	if (x > 20 && x < 120)
 	{

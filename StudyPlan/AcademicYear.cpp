@@ -197,22 +197,33 @@ bool AcademicYear::AddSemester(int x, int y)
 	YearCourses[sem] = DummyYearCourses[sem];
 	return true;
 }
-//bool AcademicYear::AddType(string type)
-//{
-//	for (int sem = FALL; sem < SEM_CNT; sem++)
-//	{
-//		DummyYearCourses[sem] = YearCourses[sem];
-//	}
-//	//cleaaaaaaaaaaaaar YearCourses
-//	for (int sem = FALL; sem < SEM_CNT; sem++)
-//	{
-//		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
-//		{
-//			if ((*it)->getType() == type)
-//				YearCourses[sem].push_back(*it);
-//		}
-//	}
-//}
+bool AcademicYear::AddType(string type)
+{
+	
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+		{
+			if ((*it)->getType() == type)
+				(*it)->setVisible(0);
+			else
+				(*it)->setVisible(1);
+		}
+	}
+	return true;
+}
+bool AcademicYear::OriginalType()
+{
+
+	for (int sem = FALL; sem < SEM_CNT; sem++)
+	{
+		for (auto it = YearCourses[sem].begin(); it != YearCourses[sem].end(); ++it)
+		{
+				(*it)->setVisible(0);
+		}
+	}
+	return true;
+}
 bool AcademicYear::SemOriginal()
 {
 	for (int sem = FALL; sem < SEM_CNT; sem++)

@@ -35,7 +35,7 @@ bool CalculateGPA::Execute()
         {
             x = "Add the valid letter grade for " + (*it)->getCode() + ": ";
             pGUI->PrintMsg(x);
-            CourseGradeLetter gradeLetter = pGUI->GetSrting();
+            gradeLetter = pGUI->GetSrting();
         }
         if (gradeLetter == "A" || gradeLetter == "A-" || gradeLetter == "B+" || gradeLetter == "B"
             || gradeLetter == "B-" || gradeLetter == "C+" || gradeLetter == "C" || gradeLetter == "C-"

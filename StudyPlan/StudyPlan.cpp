@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 
+
 StudyPlan::StudyPlan()
 {
 	//By default, the study plan starts with 5 years
@@ -96,18 +97,14 @@ bool StudyPlan::AddSemester(int x, int y)
 }
 
 // Function to help diplay filter major
-//bool StudyPlan::AddType(string type)
-//{
-//	for (int i = 0; i < plan.size(); i++)
-//	{
-//		DummyPaln[i] = plan[i];
-//	}
-//	plan.clear();
-//	for (int i = 0; i < DummyPaln.size(); i++)
-//	{
-//		//plan[i]->AddCourse(type);
-//	}
-//}
+bool StudyPlan::AddType(string type)
+{
+	for (int i = 0; i < plan.size(); i++)
+	{
+		plan[i]->AddType(type);
+	}
+	return true;
+}
 
 //Return every thing as it was after add Year 
 bool StudyPlan::original()
@@ -125,6 +122,16 @@ bool StudyPlan::SemOriginal()
 	for (int i = 0; i < DummyPaln.size(); i++)
 	{
 		plan[i] ->SemOriginal();
+	}
+	return true;
+}
+
+//return every course vesible
+bool StudyPlan::OriginalType()
+{
+	for (int i = 0; i < plan.size(); i++)
+	{
+		plan[i]->OriginalType();
 	}
 	return true;
 }
@@ -261,14 +268,14 @@ void StudyPlan::WarningReport()
 	//check upload and under load
 	if (OverUnderLoad_Check == 0)
 	{
-		/*if (== 1)
+		if (OverUnderLoad_up_Check == 1)
 		{
-			Warnings << "Over load \n"
+			Warnings << "Over load \n";
 		}
 		else
 		{
-			Warnings << "under load \n"
-		}*/
+			Warnings << "under load \n";
+		}
 	}
 	//Check the credits per semester
 	for (int i = 0; i < plan.size(); i++)
@@ -332,6 +339,18 @@ void StudyPlan::WarningReport()
 		}
 	}
 	
+	//concentration check
+	if (!ConcentrationMissedCourses.empty())
+	{
+		Warnings << "Critical Issue: \n";
+		for (auto i = 0; i < ConcentrationMissedCourses.size(); i++)
+		{
+		
+				Warnings << "Course: " << ConcentrationMissedCourses[i] << "is in concentration is not filled in the plan" << ".\n";
+		}
+	}
+	
+	
 }
 
 //This function is used to know the missed courses in some vectors from the study plan
@@ -340,7 +359,7 @@ void StudyPlan::CheckList(vector<Course_Code> val, string type)
 	bool found = false;
 	for (auto code = val.begin(); code != val.end(); code++)
 	{
-		found == false;
+		found = false;
 		for (int i = 0; i < plan.size(); i++)
 		{
 			plan[i]->PlanCourses();
@@ -364,6 +383,9 @@ void StudyPlan::CheckList(vector<Course_Code> val, string type)
 				MajorMissedCourses.push_back(*code);
 			else if (type == "Track Compulsory")
 				TrackMissedCourses.push_back(*code);
+			else if (type == "ConcentrationIssue")
+				ConcentrationMissedCourses.push_back(*code);
+
 		}
 	}
 
@@ -373,6 +395,16 @@ void StudyPlan::CheckList(vector<Course_Code> val, string type)
 bool StudyPlan::check()
 {
 	ResetIntegers();
+	//clear all vector checks to renter them
+	UnivMissedCourses.clear();
+	MajorMissedCourses.clear();
+	TrackMissedCourses.clear();
+	ConcentrationMissedCourses.clear();
+	CourseCoString.clear();
+	CourseCoStringh.clear();
+	CoursePreString.clear();
+	CoursePreStringh.clear();
+
 	for (int i = 0; i < plan.size(); i++)
 	{
 		plan[i]->PlanCourses(); //filling AllCourses list
@@ -639,7 +671,9 @@ void StudyPlan::DrawLiveMessage(GUI* pGUI) const
 		}
 		if (Total_credits_Check == 0 || unversity_credits_Check == 0 || Major_credits_Check == 0 || Track_credits_Check == 0 || Concentratioin_Check == 0)
 			plan[i]->DrawLiveMessage(pGUI, "Critical");
-		
+		if(!ConcentrationMissedCourses.empty())
+			plan[i]->DrawLiveMessage(pGUI, "Critical");
+
 		for (auto j = plan[i]->AllCourses.begin(); j != plan[i]->AllCourses.end(); j++)
 		{
 			if ((*j)->IsOfferingsValid() == false)

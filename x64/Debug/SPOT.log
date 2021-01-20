@@ -1,0 +1,7 @@
+﻿  ActionDoubleMajor.cpp
+  StudyPlan.cpp
+  Generating Code...
+F:\ZC\2\C++\GitHub\SPOT\StudyPlan\StudyPlan.cpp(86): warning C4715: 'StudyPlan::AddYear': not all control paths return a value
+F:\ZC\2\C++\GitHub\SPOT\StudyPlan\StudyPlan.cpp(704): warning C4715: 'StudyPlan::isCourse': not all control paths return a value
+F:\ZC\2\C++\GitHub\SPOT\StudyPlan\StudyPlan.cpp(805): warning C4715: 'StudyPlan::setStatus': not all control paths return a value
+  SPOT.vcxproj -> F:\ZC\2\C++\GitHub\x64\Debug\SPOT.exe

@@ -40,10 +40,11 @@ struct Concentration
 	int comp_credits;
 	int elective_credits;
 };
+
 struct Rules	//contains all objects for registrations rules
 {
 	//TODO: add more fields if needed
-
+	string major, major2;
 	//vector<CourseInfo> CourseCatalog;	//List of ALL courses with full info
 	vector<CourseInfo*> CourseCatalog;	//List of ALL courses with full info
 	vector<AcademicYearOfferings> OffringsList;	//all offerings for all acedmic years
@@ -58,8 +59,7 @@ struct Rules	//contains all objects for registrations rules
 	int MajCommonElecCredits;	//total no. of Magor common Elective credits
 
 	int NumOfConcent;			 // Number of concentrations
-	int doubleConc = -1;
-	bool doubleConcentration = false;
+
 	vector<Course_Code> UnivCompulsory;	//Univ Compulsory courses
 	vector<Course_Code> UnivElective;	//Univ Elective courses
 
@@ -70,13 +70,8 @@ struct Rules	//contains all objects for registrations rules
 	vector<Course_Code> MajorElective;		//Major Elective courses
 
 	vector<Concentration> ConcRequirements; //concentration requirements
-	bool Minor = false;
 	vector<Course_Code> MinorCompulsory;		//Minor Compulsory courses
 	//Number of elements is the number of concentrations
 	//Each element is a struct of:
-	/*	vector<Course_Code> CompulsoryCourses;
-		vector <Course_Code> ElectiveCourses;
-		int comp_credits;
-		int elective_credits;
-	*/
+	
 };
