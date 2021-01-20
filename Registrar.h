@@ -44,7 +44,7 @@ public:
 	bool PreCoCourse(Rules& R);
 	Rules getRules2() const;
 	Rules getRulesDoubleMajor() const;
-	
+	bool ExecuteDoubleMajor();
 	void setMinorbool(bool);
 	bool getMinorbool();
 	void setConcentbool(bool);

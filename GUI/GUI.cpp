@@ -265,25 +265,34 @@ void GUI::DrawCourseInfo(const Course* pCrs) const  /////Me
 	pWind->DrawRectangle(ix, iy, ix + INFO_WIDTH, iy + INFO_HEIGHT);/*200 should be changed according to the gInfo that should be specified */
 	
 	int NumData = 3;
-	for (int i = 1; i < 3; i++)
+	for (int i = 1; i < 4; i++)
 	{
-		pWind->DrawLine(ix, iy + INFO_HEIGHT * i / 3, ix + INFO_WIDTH, iy + INFO_HEIGHT * i / 3);
+		pWind->DrawLine(ix, iy + INFO_HEIGHT * i / 4, ix + INFO_WIDTH, iy + INFO_HEIGHT * i / 4);
 	}
 	///Write the course code and credit hours.
 	int Info_x = ix + INFO_WIDTH * 0.07;
 	int Info_y = iy + INFO_HEIGHT * 0.1;
-	pWind->SetFont(INFO_HEIGHT * 0.15, BOLD, BY_NAME, "Gramound");
+	pWind->SetFont(INFO_HEIGHT * 0.10, BOLD, BY_NAME, "Gramound");
 	pWind->SetPen(WHITE);
 
 	ostringstream Title;
 	ostringstream Code;
 	ostringstream Credits;
-	Code << "Cource Code:" << pCrs->getCode();
+	ostringstream CourseStatus;
+
+	Code << "Course Code:" << pCrs->getCode();
 	pWind->DrawString(Info_x, Info_y, Code.str());
-	Credits << "Cource Credits:" << pCrs->getCredits();
-	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT / 3, Credits.str());
-	Title << "Cource Title:" << pCrs->getTitle();
-	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT * 2 / 3, Title.str());
+	Credits << "Course Credits:" << pCrs->getCredits();
+	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT / 4, Credits.str());
+	Title << "Course Title:" << pCrs->getTitle();
+	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT * 2 / 4, Title.str());
+	if (pCrs->status == 0)
+		CourseStatus << "Course Status:" << "Done";
+	else if (pCrs->status == 1)
+		CourseStatus << "Course Status:" << "In Progress";
+	else if (pCrs->status == 2)
+		CourseStatus << "Course Status:" << "Pending";
+	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT * 3 / 4, CourseStatus.str());
 }
 
 //function to read the file notes and display it on the screen

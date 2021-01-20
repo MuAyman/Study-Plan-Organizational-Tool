@@ -91,27 +91,29 @@ bool ActionUpdateStatus::Execute()
 			xi[i] = toupper(xi[i]);
 		}
 
+		year--;
+
 		if (xi == "DONE" || xi == "1")
 		{
-			if (dumb == 1)
+			if (dumb == 1)												//if the user selected year
 				pReg->getStudyPlay()->setStatus(year, FALL, "55555", Done);
-			else if (dumb == 2)
+			else if (dumb == 2)											//if the user selected semester
 				pReg->getStudyPlay()->setStatus(year + 20, sem, "55555", Done);
 			return true;
 		}
 		else if (xi == "INPROGRESS" || xi == "2")
 		{
-			if (dumb == 1)
+			if (dumb == 1)												//if the user selected year
 				pReg->getStudyPlay()->setStatus(year, FALL, "55555", InProgress);
-			else if (dumb == 2)
+			else if (dumb == 2)											//if the user selected semester
 				pReg->getStudyPlay()->setStatus(year + 20, sem, "55555", InProgress);
 			return true;
 		}
 		else if (xi == "PENDING" || xi == "3")
 		{
-			if (dumb == 1)
+			if (dumb == 1)												//if the user selected year
 				pReg->getStudyPlay()->setStatus(year, FALL, "55555", Pending);
-			else if (dumb == 2)
+			else if (dumb == 2)											//if the user selected semester
 				pReg->getStudyPlay()->setStatus(year + 20, sem, "55555", Pending);
 			return true;
 		}

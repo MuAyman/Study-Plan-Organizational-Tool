@@ -3,39 +3,75 @@ Error in Total credits
 Critical Issue: 
 Error in unversity credits
 The problem in Courses :
-ENG 151,ENG 152,SCH 260,SCH 261,SCH 262,SCH 263,SCH 264,ENV 301,ENV 512,ENV 527,HIS 302,HIS 304,PHIL 301,REE 503,SCH 201,SCH 202,SCH 205,SCH 206,SCH 207,SCH 232,SCH 233,SCH 234,SCH 235,SCH 244,SCH 258,SCH 265,SCH 266,
+SCH 260,SCH 261,SCH 264,ENV 301,ENV 512,ENV 527,HIS 302,HIS 304,PHIL 301,REE 503,SCH 201,SCH 205,SCH 206,SCH 207,SCH 232,SCH 233,SCH 234,SCH 235,SCH 244,SCH 258,SCH 265,SCH 266,
 Critical Issue: 
 Error in major credits
 The problem in Courses :
-NANENG 503,NANENG 514,NANENG 523,NANENG 524,NANENG 525,NANENG 535,NANENG 540,NANENG 597,CHEM 102,CHEM 112,ENGR 218,ENGR 219,MATH 203,MATH 301,MATH 302,MATH 306,MATSCI 201,MATSCI 255,NANENG 203,NANENG 204,NANENG 301,NANENG 305,NANENG 307,NANENG 308,NANENG 312,NANENG 322,NANENG 331,NANENG 335,NANENG 401,NANENG 402,NANENG 410,NANENG 421,NANENG 422,NANENG 424,NANENG 430,NANENG 433,NANENG 461,NANENG 512,NANENG 520,NANENG 581,NANENG 582,NANENG 583,NANENG 584,PHYS 201,PHYS 202,PHYS 211,PHYS 212,
+NANENG 503,NANENG 514,NANENG 523,NANENG 524,NANENG 525,NANENG 535,NANENG 540,NANENG 597,REE 555,SPC 303,SPC 309,SPC 318,SPC 338,SPC 418,SPC 424,SPC 472,SPC 504,SPC 505,SPC 506,SPC 509,SPC 510,SPC 511,SPC 512,SPC 513,SPC 520,SPC 521,SPC 525,SPC 526,SPC 527,SPC 597,NANENG 581,NANENG 582,NANENG 583,NANENG 584,CIE 202,CIE 205,CIE 239,CIE 327,CIE 337,ENGR 201,ENGR 205,ENGR 207,ENGR 346,SPC 201,SPC 202,SPC 208,SPC 304,SPC 307,SPC 308,SPC 310,SPC 406,SPC 407,SPC 408,SPC 409,SPC 410,SPC 428,SPC 470,SPC 491,SPC 577,
 Critical Issue: 
 Error in track credits
 The problem in Courses :
-BIOL 101,BIOL 111,CHEM 101,CHEM 111,CSCI 101,ENGR 102,ENGR 221,ENGR 444,Math 101,MATH 102,MATH 201,MATH 202,NANENG 598,NANENG 599,PHYS 101,PHYS 102,PHYS 111,PHYS 112,
+SPC 598,SPC 599,
 Critical Issue: 
-Course: NANENG 513 can not be taken without its correquisite BIOL 111
+Course: ENV 406 can not be taken without its correquisite ENGR 207.
+Course: NANENG 513 can not be taken without its correquisite NANENG 598.
+Course: MATH 102 can not be taken without its correquisite MATH 101.
+Course: PHYS 102 can not be taken without its correquisite MATH 101.
+Course: ENV 420 can not be taken without its correquisite ENV 303.
+Course: ENV 420 can not be taken without its correquisite ENV 303.
+Course: ENV 415 can not be taken without its correquisite ENV 303.
+Course: NANENG 322 can not be taken without its correquisite ENGR 201.
+Course: ENV 423 can not be taken without its correquisite ENV 207.
+Course: ENV 422 can not be taken without its correquisite ENV 359.
+Course: ENV 422 can not be taken without its correquisite ENV 359.
+Course: NANENG 301 can not be taken without its correquisite MATSCI 102.
+Course: NANENG 312 can not be taken without its correquisite MATH 101.
+Course: NANENG 402 can not be taken without its correquisite And 202.
+Course: REE 302 can not be taken without its correquisite REE 202.
+Course: REE 302 can not be taken without its correquisite MATSCI 202.
+Course: REE 302 can not be taken without its correquisite And 201.
+Course: REE 302 can not be taken without its correquisite REE 222.
+Course: NANENG 512 can not be taken without its correquisite MATH 312.
+Critical Issue: 
+Course: ENV 415 can not be taken without its correquisite ENV 422
 Moderate Issue: 
-Credits of Fall semester in year 1 is less than min 
+Credits of Fall semester in year 1 is greater than max 
 Moderate Issue: 
-Credits of Spring semester in year 1 is less than min 
+Credits of Spring semester in year 1 is greater than max 
 Moderate Issue: 
-Credits of Fall semester in year 2 is less than min 
+Credits of Summer semester in year 1 is greater than max 
 Moderate Issue: 
-Credits of Spring semester in year 2 is less than min 
+Credits of Fall semester in year 2 is greater than max 
 Moderate Issue: 
-Credits of Fall semester in year 3 is less than min 
+Credits of Spring semester in year 2 is greater than max 
 Moderate Issue: 
-Credits of Spring semester in year 3 is less than min 
+Credits of Fall semester in year 3 is greater than max 
 Moderate Issue: 
-Credits of Fall semester in year 4 is less than min 
+Credits of Spring semester in year 3 is greater than max 
 Moderate Issue: 
-Credits of Spring semester in year 4 is less than min 
+Credits of Fall semester in year 4 is greater than max 
 Moderate Issue: 
-Credits of Fall semester in year 5 is less than min 
+Credits of Spring semester in year 4 is greater than max 
+Moderate Issue: 
+Credits of Summer semester in year 4 is greater than max 
+Moderate Issue: 
+Credits of Fall semester in year 5 is greater than max 
 Moderate Issue: 
 Credits of Spring semester in year 5 is less than min 
 Moderate Issue: 
 Offering Problem in the Course: NANENG 513
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: SCH 202
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: NANENG 335
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: REE 312
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: NANENG 410
 Ask the registrar to add the course to solve the problem
 Critical Issue: 
 Course: NANENG 515is in concentration is not filled in the plan.

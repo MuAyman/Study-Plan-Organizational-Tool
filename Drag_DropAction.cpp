@@ -9,8 +9,10 @@ Drag_DropAction::Drag_DropAction(Registrar* pReg, int newx, int newy) : Action(p
 
 bool Drag_DropAction::Execute()
 {
+	SEMESTER sem;
 	GUI* pGUI = pReg->getGUI();
 	StudyPlan* pS = pReg->getStudyPlay();
+	Rules RegRules = pReg->getRules();
 	window* pWind = pGUI->getWindow();
 	const button butt = RIGHT_BUTTON;
 	buttonstate buttstate;
@@ -35,9 +37,25 @@ bool Drag_DropAction::Execute()
 		////////////////
 		if (buttstate == BUTTON_UP)
 		{
+			
 			bool isCourse = pS->AddCourse(course, x1, y1);
+			sem = pS->getSemester(x1, y1);
 			if (isCourse == true)
 			{
+				for (int i = 0; i < RegRules.OffringsList[0].Offerings[sem].size(); i++)
+				{
+					if (course->getCode() == RegRules.OffringsList[0].Offerings[sem][i])
+					{
+						// set the course as valid
+						course->SetOfferingsValid(true);
+						break;
+					}
+					else
+					{
+						//set the course as in valid
+						course->SetOfferingsValid(false);
+					}
+				}
 				pS->DeleteCourse(course, gInfo.x, gInfo.y);
 				return true;
 			}

@@ -32,7 +32,183 @@ GUI* Registrar::getGUI() const
 {
 	return pGUI;
 }
+bool Registrar::ExecuteDoubleMajor()
+{
+	
+	RegRulesDoubleMajor = RegRules;
 
+	pGUI->PrintMsg("Enter major name: ");
+	string major2 = pGUI->GetSrting();
+	RegRules.major2 = major2;
+
+	for (int i = 0; i < major2.length(); i++)
+	{
+		major2[i] = toupper(major2[i]);
+	}
+
+	while (major2 != "CIE"
+		&& major2 != "SPC"
+		&& major2 != "ENV"
+		&& major2 != "REE"
+		&& major2 != "BMS"
+		&& major2 != "PEU"
+		&& major2 != "NANENG"
+		&& major2 != "NANSCIE"
+		&& major2 != "MATSCIE")
+	{
+		pGUI->PrintMsg("Enter a valid major name");
+		major2 = pGUI->GetSrting();
+		for (int i = 0; i < major2.length(); i++)
+			major2[i] = toupper(major2[i]);
+	}
+	while (major2 == RegRules.major)
+	{
+		pGUI->PrintMsg("It is the first major! Enter another major name: ");
+		major2 = pGUI->GetSrting();
+		for (int i = 0; i < major2.length(); i++)
+			major2[i] = toupper(major2[i]);
+	}
+	RulesReset(RegRules2);
+	ifstream input;
+	if (major2 == "CIE")
+	{
+		RulesRead(input, "CIE-Requirements.txt", RegRules2);
+	}
+	else if (major2 == "SPC")
+		RulesRead(input, "SPC-Requirements.txt", RegRules2);
+	else if (major2 == "ENV")
+		RulesRead(input, "ENV-Requirements.txt", RegRules2);
+	else if (major2 == "REE")
+		RulesRead(input, "REE-Requirements.txt", RegRules2);
+	else if (major2 == "BMS")
+		RulesRead(input, "Rules.txt", RegRules2);
+	else if (major2 == "PEU")
+		RulesRead(input, "PEU-Requirements.txt", RegRules2);
+	else if (major2 == "NANENG")
+		RulesRead(input, "NANENG-Requirements.txt", RegRules2);
+	else if (major2 == "NANSCIE")
+		RulesRead(input, "Rules.txt", RegRules2);
+	else if (major2 == "MATSCIE")
+		RulesRead(input, "Rules.txt", RegRules2);
+
+	input.close();
+
+	ifstream catalogFile;
+	catalogRead(catalogFile, "Source.txt", RegRules2);
+	catalogFile.close();
+	bool found = false;
+	/////I commented it because it needs to be edited////
+	for (int i = 0; i < RegRules2.UnivCompulsory.size(); i++) //univCompulsory
+	{
+		found = false;
+		for (int j = 0; j < RegRules.UnivCompulsory.size(); j++)
+		{
+			if (RegRules2.UnivCompulsory[i] == RegRules.UnivCompulsory[j])
+			{
+				found = true;
+				break;
+			}
+		}
+		if (found == false)
+		{
+			RegRulesDoubleMajor.UnivCompulsory.push_back(RegRules2.UnivCompulsory[i]);
+			RegRulesDoubleMajor.UnivCompCredits += RegRules2.UnivCompCredits;
+			RegRulesDoubleMajor.TotalCredits += RegRules2.UnivCompCredits;
+		}
+	}
+	for (int i = 0; i < RegRules2.UnivElective.size(); i++) //univelective
+	{
+		found = false;
+		for (int j = 0; j < RegRules.UnivElective.size(); j++)
+		{
+			if (RegRules2.UnivElective[i] == RegRules.UnivElective[j])
+			{
+				found = true;
+				break;
+			}
+		}
+		if (found == false)
+		{
+			RegRulesDoubleMajor.UnivElective.push_back(RegRules2.UnivElective[i]);
+			RegRulesDoubleMajor.UnivElectiveCredits += RegRules2.UnivElectiveCredits;
+			RegRulesDoubleMajor.TotalCredits += RegRules2.UnivElectiveCredits;
+		}
+	}
+
+	for (int i = 0; i < RegRules2.TrackCompulsory.size(); i++) //trackcompulsory
+	{
+		found = false;
+		for (int j = 0; j < RegRules.TrackCompulsory.size(); j++)
+		{
+			if (RegRules2.TrackCompulsory[i] == RegRules.TrackCompulsory[j])
+			{
+				found = true;
+				break;
+			}
+		}
+		if (found == false)
+		{
+			RegRulesDoubleMajor.TrackCompulsory.push_back(RegRules2.TrackCompulsory[i]);
+			RegRulesDoubleMajor.CompTrackCredits += RegRules2.CompTrackCredits;
+			RegRulesDoubleMajor.TotalCredits += RegRules2.CompTrackCredits;
+		}
+	}
+
+	for (int i = 0; i < RegRules2.MajorCompulsory.size(); i++) //majorcompulsory
+	{
+		found = false;
+		for (int j = 0; j < RegRules.MajorCompulsory.size(); j++)
+		{
+			if (RegRules2.MajorCompulsory[i] == RegRules.MajorCompulsory[j])
+			{
+				found = true;
+				break;
+			}
+		}
+		if (found == false)
+		{
+			RegRulesDoubleMajor.MajorCompulsory.push_back(RegRules2.MajorCompulsory[i]);
+			RegRulesDoubleMajor.MajCommonCompCredits += RegRules2.MajCommonCompCredits;
+			RegRulesDoubleMajor.TotalCredits += RegRules2.MajCommonCompCredits;
+		}
+	}
+
+
+	for (int i = 0; i < RegRules2.MajorElective.size(); i++) //majorelective
+	{
+		found = false;
+		for (int j = 0; j < RegRules.MajorElective.size(); j++)
+		{
+			if (RegRules2.MajorElective[i] == RegRules.MajorElective[j])
+			{
+				found = true;
+				break;
+			}
+		}
+		if (found == false)
+		{
+			RegRulesDoubleMajor.MajorElective.push_back(RegRules2.MajorElective[i]);
+			RegRulesDoubleMajor.MajCommonElecCredits += RegRules2.MajCommonElecCredits;
+			RegRulesDoubleMajor.TotalCredits += RegRules2.MajCommonElecCredits;
+		}
+	}
+
+	if (RegRules2.NumOfConcent == 0)
+		RegRulesDoubleMajor.NumOfConcent = RegRules.NumOfConcent;
+	else if (RegRules.NumOfConcent == 0 && RegRules2.NumOfConcent != 0)
+	{
+		RegRulesDoubleMajor.NumOfConcent = RegRules2.NumOfConcent;
+		for (int i = 0; i < RegRules2.NumOfConcent; i++)
+			RegRulesDoubleMajor.ConcRequirements.push_back(RegRules2.ConcRequirements[i]);
+	}
+	else
+	{
+		RegRulesDoubleMajor.NumOfConcent += RegRules2.NumOfConcent;
+		for (int j = 0; j < RegRules2.NumOfConcent; j++)
+			RegRulesDoubleMajor.ConcRequirements.push_back(RegRules2.ConcRequirements[j]);
+	}
+	return true;
+}
 bool Registrar::ExecuteOfferings()					//OFFEREINGS **************************************		AYMAN
 {
 	GUI* pGUI = this->getGUI();
@@ -46,7 +222,7 @@ bool Registrar::ExecuteOfferings()					//OFFEREINGS ****************************
 	else
 	{
 		char* psc = nullptr;
-		const int size = 500;
+		const int size = 2000;
 		char line[size];
 		AcademicYearOfferings as;
 		while (OfferingsData.getline(line, size))
@@ -654,7 +830,7 @@ bool Registrar::ExecuteAction(Action* pAct)
 		R = RegRulesDoubleMajor;
 	}
 	PreCoCourse(R);
-	delete pAct;	//free memory of that action object (either action is exec or cancelled)
+	//delete pAct;	//free memory of that action object (either action is exec or cancelled)
 	return done;
 }
 
