@@ -19,23 +19,19 @@ class Registrar
 	
 	Rules RegRules2;
 	Rules RegRulesDoubleMajor;
-	bool doubleConcentbool = false;
-	bool AddMinorbool = false;
-	int doubleConcint = -1;
-	bool doubleMajorbool = false;
 public:
 
-
+	//Major getMajortype();
 	string major, major2;
 	Registrar();
 	GUI* getGUI() const;
 	Action* CreateRequiredAction();
 	bool ExecuteAction(Action*);
 	void UpdateInterface();
-	StudyPlan* getStudyPlay() const;
+	StudyPlan* getStudyPlan() const;
 	vector <ActionType> Memory;
 	bool RulesReset(Rules& R);
-	void checkType(Course* pC);
+	void checkType(Course* pC); //new
 	bool catalogRead(ifstream& File, string name, Rules& R);
 	bool RulesRead(ifstream& File, string name, Rules& R1);
 	Rules getRules();
@@ -44,17 +40,8 @@ public:
 	bool PreCoCourse(Rules& R);
 	Rules getRules2() const;
 	Rules getRulesDoubleMajor() const;
-	bool ExecuteDoubleMajor();
-	void setMinorbool(bool);
-	bool getMinorbool();
-	void setConcentbool(bool);
-	bool getConcentbool();
-
-	void setdoubleConcint(int);
-	int  getdoubleConcint();
-
-	void setdoubleMajor(bool);
-	bool getdoubleMajor();
+	bool ExecuteDoubleMajor(GUI* pGUI);
+	bool ExecuteDoubleConcentration(GUI* pGUI);
 	void Run();
 	
 	~Registrar();

@@ -37,7 +37,6 @@ public:
 	bool AddType(string type);
 	bool original();
 	bool SemOriginal();
-	bool OriginalType();
 	///////////////////////////////////////////////
 
 	//functions that return course
@@ -84,7 +83,6 @@ public:
 	vector<Course_Code> UnivMissedCourses;
 	vector<Course_Code> MajorMissedCourses;
 	vector<Course_Code> TrackMissedCourses;
-	vector<Course_Code> ConcentrationMissedCourses;
 
 	
 	 

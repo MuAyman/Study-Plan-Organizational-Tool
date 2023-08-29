@@ -22,56 +22,45 @@ bool ActionAddCourse::Execute()
 		string coursecode = pGUI->GetSrting();
 		//capitalizing course code letters
 		for (int i = 0; i < coursecode.length(); i++)
-		{
 			coursecode[i] = toupper(coursecode[i]);
-		}
 		//searching for it in the course catalouge
 		for (auto it = RegRules.CourseCatalog.begin(); it != RegRules.CourseCatalog.end(); it++)
 		{
 				
 			if ((*it)->Code == coursecode) //course found in course catalouge
 			{
-				code = (*it)->Code;
-				Title = (*it)->Title;
-				crd = (*it)->Credits;
 				
-				Course* pC = new Course(code, Title, crd);
-				if (pReg->getStudyPlay()->CheckRepeatance(pC) == true)
-					//Check whether the course is already entered before or not 
-				{
-					//concentration indecation
-					if (pReg->getConcentbool() == 1)
+					/*if (RegRules.doubleConcentration)
 					{
-						if (pReg->getdoubleConcint() == -1)
+						for (int i = 0; RegRules.NumOfConcent; i++)
 						{
-							for (int i = 0; i < RegRules.NumOfConcent; i++)
+							for (auto comb = RegRules.ConcRequirements[i].CompulsoryCourses.begin(); comb != RegRules.ConcRequirements[i].CompulsoryCourses.end(); comb++)
 							{
-								for (auto comb = RegRules.ConcRequirements[i].CompulsoryCourses.begin(); comb != RegRules.ConcRequirements[i].CompulsoryCourses.end(); comb++)
+								if (coursecode == (*comb))
 								{
-									if (coursecode == (*comb))
-									{
-										pReg->setdoubleConcint(i);
-										RegRules.TotalCredits += RegRules.ConcRequirements[i].comp_credits;
-										RegRules.TotalCredits += RegRules.ConcRequirements[i].elective_credits;
-										break;
-									}
+									RegRules.doubleConc = i;
 								}
-								if (pReg->getdoubleConcint() == -1)
+							}
+							if (RegRules.doubleConc == -1)
+							{
+								for (auto elective = RegRules.ConcRequirements[i].ElectiveCourses.begin(); elective != RegRules.ConcRequirements[i].ElectiveCourses.end(); elective++)
 								{
-									for (auto elective = RegRules.ConcRequirements[i].ElectiveCourses.begin(); elective != RegRules.ConcRequirements[i].ElectiveCourses.end(); elective++)
+									if (coursecode == (*elective))
 									{
-										if (coursecode == (*elective))
-										{
-											pReg->setdoubleConcint(i);
-											RegRules.TotalCredits += RegRules.ConcRequirements[i].comp_credits;
-											RegRules.TotalCredits += RegRules.ConcRequirements[i].elective_credits;
-											break;
-										}
+										RegRules.doubleConc = i;
 									}
 								}
 							}
 						}
-					}
+					}*/
+
+				code = (*it)->Code;
+				Title = (*it)->Title;
+				crd = (*it)->Credits;
+				Course* pC = new Course(code, Title, crd);
+				if (pReg->getStudyPlan()->CheckRepeatance(pC) == true)
+					//Check whether the course is already entered before or not 
+				{
 					pC->setCoReqC((*it)->CoReqC);
 					pC->setPreReqC((*it)->PreReqC);
 					pC->setCoReq((*it)->CoReqList);
@@ -87,7 +76,7 @@ bool ActionAddCourse::Execute()
 						x = actData.x;
 						y = actData.y;
 						graphicsInfo gInfo{ x, y };
-						StudyPlan* pS = pReg->getStudyPlay();
+						StudyPlan* pS = pReg->getStudyPlan();
 						int year = pS->getYear(x, y);
 						SEMESTER sem = pS->getSemester(x, y);
 						if (pS->AddCourse(pC, x, y) == true)
@@ -96,17 +85,16 @@ bool ActionAddCourse::Execute()
 							// This is a offering_time validation check for the course
 							for (int i = 0; i < RegRules.OffringsList[0].Offerings[sem].size(); i++)
 							{
-								if (code == RegRules.OffringsList[0].Offerings[sem][i])
+								if (pC->getCode() == RegRules.OffringsList[0].Offerings[sem][i])
 								{
 									// set the course as valid
 									pC->SetOfferingsValid(true);
-									if (pReg->getMinorbool())
+									if (RegRules.Minor)
 									{
 										RegRules.MinorCompulsory.push_back(coursecode);		// Adding the course to the minor compulsory courses vector
 										RegRules.TotalCredits += pC->getCredits();		// Adding the minor course crd to hte total
 									}
-									pReg->getStudyPlay()->setStatus((year + 10), FALL, pC->getCode(), Done);		// Setting course status as done (default value)
-									break;
+									pReg->getStudyPlan()->setStatus((year + 10), FALL, pC->getCode(), Done);		// Setting course status as done (default value)
 								}
 								else
 								{

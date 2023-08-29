@@ -38,7 +38,6 @@ public:
 	SEMESTER getSemester(int x, int y);
 	bool AddSemester(int x, int y);
 	bool SemOriginal();
-	bool OriginalType();
 	bool AddType(string type);
 	//ValidityCheck check;
 	Course* getCourse(Course_Code code);

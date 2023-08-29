@@ -3,7 +3,7 @@
 #include "Registrar.h"
 class ActionDoubleConcenteration : public Action
 {
-	Action* RequiredAction = nullptr;
+
 public:
 	ActionDoubleConcenteration(Registrar*);
 	bool virtual Execute();

@@ -10,7 +10,7 @@ using namespace std;
 //Base class for all types of courses
 class Course : public Drawable
 {
-	Course_Code code;	//course code: e.g. "CIE202". This is the course ID
+	const Course_Code code;	//course code: e.g. "CIE202". This is the course ID
 	CourseGradeLetter gradeLetter;
 	double gradePoints;
 	double QP;
@@ -18,7 +18,7 @@ class Course : public Drawable
 	int credits;	//no. of course credits
 	string type;	//Univ, track, or major.....etc.
 	bool Done;		//Done or not yet?
-	bool visible = 0;
+	
 	bool OffValid = true;
 	bool PreIssue = true;
 	bool CoIssue = true;
@@ -54,12 +54,8 @@ public:
 	void setPreReqC(vector<Course*> Cor);
 	void setPreReq(vector<Course_Code> Pre);
 	void setCoReq(vector<Course_Code> Cor);
-	void setVisible(bool);
-	bool getVisible() const;
-
 	double getQP();
 	bool setCourseStatus(CourseStatus status);
-	void setCode(string newCode);
 	virtual ~Course();
 
 

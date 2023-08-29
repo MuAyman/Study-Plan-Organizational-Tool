@@ -1,0 +1,86 @@
+Critical Issue: 
+Error in Total credits
+Critical Issue: 
+Error in unversity credits
+The problem in Courses :
+ENV 301,ENV 512,ENV 527,HIS 302,HIS 304,PHIL 301,
+Critical Issue: 
+Error in major credits
+The problem in Courses :
+ENV 406,ENV 530,REE 501,REE 506,REE 517,REE 520,REE 522,REE 523,REE 524,REE 525,REE 526,REE 528,REE 530,REE 534,REE 540,REE 543,REE 555,REE 560,REE 561,REE 577,REE 590,ENGR 201,
+Critical Issue: 
+Error in track credits
+The problem in Courses :
+Critical Issue: 
+Course: MATH 102 can not be taken without its correquisite MATH 101.
+Course: PHYS 102 can not be taken without its correquisite MATH 101.
+Course: ENGR 207 can not be taken without its correquisite PHYS 201.
+Course: ENGR 346 can not be taken without its correquisite MATH 205.
+Critical Issue: 
+Moderate Issue: 
+Credits of Fall semester in year 2 is less than min 
+Moderate Issue: 
+Credits of Spring semester in year 2 is less than min 
+Moderate Issue: 
+Credits of Fall semester in year 3 is less than min 
+Moderate Issue: 
+Credits of Spring semester in year 3 is less than min 
+Moderate Issue: 
+Credits of Fall semester in year 4 is less than min 
+Moderate Issue: 
+Credits of Spring semester in year 4 is less than min 
+Moderate Issue: 
+Credits of Fall semester in year 5 is less than min 
+Moderate Issue: 
+Credits of Spring semester in year 5 is less than min 
+Moderate Issue: 
+Offering Problem in the Course: ENG 151
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: CSCI 101
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: ENG 152
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: ENGR 102
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: ENGR 221
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: MATH 102
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: PHYS 102
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: PHYS 112
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: ENGR 205
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: ENGR 207
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: MATH 202
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: MATH 302
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: ENGR 346
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: MATH 301
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: MATH 306
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: ENGR 444
+Ask the registrar to add the course to solve the problem
+Moderate Issue: 
+Offering Problem in the Course: REE 503
+Ask the registrar to add the course to solve the problem

@@ -11,7 +11,7 @@ bool ValidityCheck::checkTotalCred(int cr)
 	else
 		return false;
 }
-bool ValidityCheck::checkMajCred(int cr)	
+bool ValidityCheck::checkMajCred(int cr)
 {
 	if (cr == (pReg->getRules().MajCommonCompCredits + pReg->getRules().MajCommonElecCredits))
 		return true;
@@ -44,7 +44,7 @@ bool ValidityCheck::ConcenReq(string major)
 			cout << pReg->getRules().ConcRequirements[x].CompulsoryCourses[y] << endl;
 		for (auto y : pReg->getRules().ConcRequirements[x].CompulsoryCourses)		// looping on the compulsory courses vector
 		{
-			if (pReg->getStudyPlay()->isCourse(y))
+			if (pReg->getStudyPlan()->isCourse(y))
 				return true;
 			else
 				return false;
@@ -55,33 +55,34 @@ bool ValidityCheck::ConcenReq(string major)
 			cout << pReg->getRules().ConcRequirements[x].ElectiveCourses[y] << endl;
 		for (auto y : pReg->getRules().ConcRequirements[x].ElectiveCourses)		// looping on the elective courses vector
 		{
-			if (pReg->getStudyPlay()->isCourse(y))
+			if (pReg->getStudyPlan()->isCourse(y))
 				return true;
 			else
 				return false;
 		}
 	}
 }
+
 bool ValidityCheck::OverUnderLoadPetition()
 {
 	GUI* pGUI = pReg->getGUI();
 	int* semcrd[4];					// semcrd [year][sem] => num of crd in that sem of that year
 
-	pReg->getStudyPlay()->getYearCrd(semcrd);
+	pReg->getStudyPlan()->getYearCrd(semcrd);
 	int cr_min = 12;
 	int cr_max = 18;
 	for (int z = 0; z < 4; z++)
 		for (int c = 0; c < 4; c++)
 			if (semcrd[z][c] > cr_max)
 			{
-				pReg->getStudyPlay()->OverUnderLoad_up_down_Check(1);	// to inform him it is overload
-				pReg->getStudyPlay()->OverUnderLoad_Check_Check(0);
+				pReg->getStudyPlan()->OverUnderLoad_up_down_Check(1);	// to inform him it is overload
+				pReg->getStudyPlan()->OverUnderLoad_Check_Check(0);
 				return false;
 			}
 			else if (semcrd[z][c] < cr_min)
 			{
-				pReg->getStudyPlay()->OverUnderLoad_up_down_Check(0);	// to inform him it is underload
-				pReg->getStudyPlay()->OverUnderLoad_Check_Check(0);
+				pReg->getStudyPlan()->OverUnderLoad_up_down_Check(0);	// to inform him it is underload
+				pReg->getStudyPlan()->OverUnderLoad_Check_Check(0);
 				return false;
 			}
 			else
@@ -91,35 +92,28 @@ bool  ValidityCheck::Execute()
 {
 	//Number of credits per semester
 	//Corequisite, and Prerequisite courses
-	StudyPlan* pS = pReg->getStudyPlay();
+	StudyPlan* pS = pReg->getStudyPlan();
 	pS->check();
 	//program requirements
 
-	if (!checkTotalCred(pReg->getStudyPlay()->getTotalcredits()))			//Total credits
-	{
+	if (!checkTotalCred(pReg->getStudyPlan()->getTotalcredits()))			//Total credits
 		pS->Set_Total_credits_Check(0);
-		if (pReg->getdoubleConcint() != -1)
-		{
-			pS->CheckList(pReg->getRules().ConcRequirements[pReg->getdoubleConcint()].ElectiveCourses, "ConcentrationIssue");
-			pS->CheckList(pReg->getRules().ConcRequirements[pReg->getdoubleConcint()].CompulsoryCourses, "ConcentrationIssue");
-		}
-	}
 
-	if (!checkUnivCred(pReg->getStudyPlay()->getTotalUnivCredits()))		//unversity credits
+	if (!checkUnivCred(pReg->getStudyPlan()->getTotalUnivCredits()))		//unversity credits
 	{
 		pS->Set_unversity_credits_Check(0);
 		pS->CheckList(pReg->getRules().UnivCompulsory, "University Compulsory");
 		pS->CheckList(pReg->getRules().UnivElective, "University Elective");
 	}
 
-	if (!checkMajCred(pReg->getStudyPlay()->getTotalMajorCredits()))		//Major credits
+	if (!checkMajCred(pReg->getStudyPlan()->getTotalMajorCredits()))		//Major credits
 	{
 		pS->Set_Major_credits_Check(0);
 		pS->CheckList(pReg->getRules().MajorElective, "Major Elective");
 		pS->CheckList(pReg->getRules().MajorCompulsory, "Major Compulsory");
 	}
 
-	if (!checkTrackCred(pReg->getStudyPlay()->getTotalTrackCredits()))		//Track credits
+	if (!checkTrackCred(pReg->getStudyPlan()->getTotalTrackCredits()))		//Track credits
 	{
 		pS->Set_Track_credits_Check(0);
 		pS->CheckList(pReg->getRules().TrackCompulsory, "Track Compulsory");

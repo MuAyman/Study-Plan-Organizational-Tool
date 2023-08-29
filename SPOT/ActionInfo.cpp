@@ -1,7 +1,4 @@
 #include "ActionInfo.h"
-#include <string>
-#include <iostream>
-
 ActionInfo::ActionInfo(Registrar* p, int newx, int newy) : Action(p)
 {
 	x = newx;
@@ -10,10 +7,9 @@ ActionInfo::ActionInfo(Registrar* p, int newx, int newy) : Action(p)
 bool ActionInfo::Execute()
 {
 	GUI* pGUI = pReg->getGUI();
-	StudyPlan* pS = pReg->getStudyPlay();
+	StudyPlan* pS = pReg->getStudyPlan();
 	pS->DrawInfo(pGUI, x, y);
 	pS->Highlight(x, y);
-
 	return true;
 }
 ActionInfo::~ActionInfo()

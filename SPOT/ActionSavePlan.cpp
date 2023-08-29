@@ -9,7 +9,7 @@ ActionSavePlan::ActionSavePlan(Registrar* p) :Action(p)
 
 bool ActionSavePlan::Execute()
 {
-	StudyPlan* pSPlan = pReg->getStudyPlay();
+	StudyPlan* pSPlan = pReg->getStudyPlan();
 	GUI* pGUI = pReg->getGUI();
 
 	pGUI->PrintMsg("Enter the file name with adding .txt: ");

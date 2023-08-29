@@ -5,10 +5,11 @@
 
 class ActionStudentLevel : public Action
 {
-	int NoOfCrd = 0;
+	int NoOfCrd;
 	string s;
 public:
 	ActionStudentLevel(Registrar* p);
+	string Executess();
 	bool virtual Execute();
 	virtual ~ActionStudentLevel();
 

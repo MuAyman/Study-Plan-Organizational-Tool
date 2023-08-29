@@ -105,79 +105,77 @@ void GUI::UpdateInterface() const
 ////////////////////////    Drawing functions    ///////////////////
 void GUI::DrawCourse(const Course* pCrs)
 {
-	if (pCrs->getVisible() == 0)
+	
+	if (pCrs->isSelected())
 	{
-		if (pCrs->isSelected())
-		{
-			pWind->SetPen(HiColor, 2);
-		}
-		else
-		{
-			pWind->SetPen(BLACK, 2);
-			if (pCrs->getType() == "UnivCompulsory" || pCrs->getType() == "UnivElective")
-			{
-				pWind->SetPen(PINK, 2);
-			}
-			else if (pCrs->getType() == "TrackCompulsory" || pCrs->getType() == "TrackElective")
-			{
-				pWind->SetPen(BLUE, 2);
-			}
-			else if (pCrs->getType() == "MajorCompulsory" || pCrs->getType() == "MajorElective")
-			{
-				pWind->SetPen(PURPLE, 2);
-			}
-			else if (pCrs->getType() == "Concentration")
-			{
-				pWind->SetPen(SKYBLUE, 2);
-			}
-			else if (pCrs->getType() == "Minor")
-			{
-				pWind->SetPen(LIGHTCYAN, 2);
-			}
-			else if (pCrs->getType() == "Extra")
-			{
-				pWind->SetPen(DARKGOLDENROD, 2);
-			}
-
-		}
-		pWind->SetBrush(DARKGREEN);
-		if (pCrs->IsOfferingsValid() == false)
-		{
-			pWind->SetBrush(YELLOW);
-		}
-		if (pCrs->IsPreValid() == false || pCrs->IsCoValid() == false)
-		{
-			pWind->SetBrush(RED);
-		}
-
-		graphicsInfo gInfo = pCrs->getGfxInfo();
-
-		if (pCrs->getType() == "UnivElective" || pCrs->getType() == "TrackElective" || pCrs->getType() == "MajorElective")
-		{
-			pWind->DrawRectangle(gInfo.x, gInfo.y, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT, FILLED, 7, 7);
-		}
-		else
-		{
-			pWind->DrawRectangle(gInfo.x, gInfo.y, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT);
-		}
-
-		pWind->DrawLine(gInfo.x, gInfo.y + CRS_HEIGHT / 2, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT / 2);
-
-		//Write the course code and credit hours.
-		int Code_x = gInfo.x + CRS_WIDTH * 0.15;
-		int Code_y = gInfo.y + CRS_HEIGHT * 0.05;
-		pWind->SetFont(CRS_HEIGHT * 0.4, BOLD, BY_NAME, "Gramound");
-		pWind->SetPen(WHITE);
-		if (pCrs->IsOfferingsValid() == false)
-		{
-			pWind->SetPen(BLACK);
-		}
-		ostringstream crd;
-		crd << "crd:" << pCrs->getCredits();
-		pWind->DrawString(Code_x, Code_y, pCrs->getCode());
-		pWind->DrawString(Code_x, Code_y + CRS_HEIGHT / 2, crd.str());
-
+		pWind->SetPen(HiColor, 2);
 	}
+	else
+	{
+		pWind->SetPen(BLACK, 2);
+		if (pCrs->getType() == "UnivCompulsory" || pCrs->getType() == "UnivElective")
+		{
+			pWind->SetPen(PINK, 2);
+		}
+		else if (pCrs->getType() == "TrackCompulsory" || pCrs->getType() == "TrackElective")
+		{
+			pWind->SetPen(BLUE, 2);
+		}
+		else if (pCrs->getType() == "MajorCompulsory" || pCrs->getType() == "MajorElective")
+		{
+			pWind->SetPen(PURPLE, 2);
+		}
+		else if (pCrs->getType() == "Concentration")
+		{
+			pWind->SetPen(SKYBLUE, 2);
+		}
+		else if (pCrs->getType() == "Minor")
+		{
+			pWind->SetPen(LIGHTCYAN, 2);
+		}
+		else if (pCrs->getType() == "Extra")
+		{
+			pWind->SetPen(DARKGOLDENROD, 2);
+		}
+		
+	}
+	pWind->SetBrush(DARKGREEN);
+	if (pCrs->IsOfferingsValid() == false)
+	{
+		pWind->SetBrush(YELLOW);
+	}
+	if (pCrs ->IsPreValid() == false || pCrs->IsCoValid() == false)
+	{
+		pWind->SetBrush(RED);
+	}
+	
+	graphicsInfo gInfo = pCrs->getGfxInfo();
+	
+	if (pCrs->getType() == "UnivElective" || pCrs->getType() == "TrackElective" || pCrs->getType() == "MajorElective")
+	{
+		pWind->DrawRectangle(gInfo.x, gInfo.y, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT, FILLED, 7, 7);
+	}
+	else
+	{
+		pWind->DrawRectangle(gInfo.x, gInfo.y, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT);
+	}
+	
+	pWind->DrawLine(gInfo.x, gInfo.y + CRS_HEIGHT / 2, gInfo.x + CRS_WIDTH, gInfo.y + CRS_HEIGHT / 2);
+	
+	//Write the course code and credit hours.
+	int Code_x = gInfo.x + CRS_WIDTH * 0.15;
+	int Code_y = gInfo.y + CRS_HEIGHT * 0.05;
+	pWind->SetFont(CRS_HEIGHT * 0.4, BOLD, BY_NAME, "Gramound");
+	pWind->SetPen(WHITE);
+	if (pCrs->IsOfferingsValid() == false)
+	{
+		pWind->SetPen(BLACK);
+	}
+	ostringstream crd;
+	crd << "crd:" << pCrs->getCredits();
+	pWind->DrawString(Code_x, Code_y, pCrs->getCode());
+	pWind->DrawString(Code_x, Code_y + CRS_HEIGHT / 2, crd.str());
+
 
 }
 
@@ -265,34 +263,25 @@ void GUI::DrawCourseInfo(const Course* pCrs) const  /////Me
 	pWind->DrawRectangle(ix, iy, ix + INFO_WIDTH, iy + INFO_HEIGHT);/*200 should be changed according to the gInfo that should be specified */
 	
 	int NumData = 3;
-	for (int i = 1; i < 4; i++)
+	for (int i = 1; i < 3; i++)
 	{
-		pWind->DrawLine(ix, iy + INFO_HEIGHT * i / 4, ix + INFO_WIDTH, iy + INFO_HEIGHT * i / 4);
+		pWind->DrawLine(ix, iy + INFO_HEIGHT * i / 3, ix + INFO_WIDTH, iy + INFO_HEIGHT * i / 3);
 	}
 	///Write the course code and credit hours.
 	int Info_x = ix + INFO_WIDTH * 0.07;
 	int Info_y = iy + INFO_HEIGHT * 0.1;
-	pWind->SetFont(INFO_HEIGHT * 0.10, BOLD, BY_NAME, "Gramound");
+	pWind->SetFont(INFO_HEIGHT * 0.15, BOLD, BY_NAME, "Gramound");
 	pWind->SetPen(WHITE);
 
 	ostringstream Title;
 	ostringstream Code;
 	ostringstream Credits;
-	ostringstream CourseStatus;
-
-	Code << "Course Code:" << pCrs->getCode();
+	Code << "Cource Code:" << pCrs->getCode();
 	pWind->DrawString(Info_x, Info_y, Code.str());
-	Credits << "Course Credits:" << pCrs->getCredits();
-	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT / 4, Credits.str());
-	Title << "Course Title:" << pCrs->getTitle();
-	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT * 2 / 4, Title.str());
-	if (pCrs->status == 0)
-		CourseStatus << "Course Status:" << "Done";
-	else if (pCrs->status == 1)
-		CourseStatus << "Course Status:" << "In Progress";
-	else if (pCrs->status == 2)
-		CourseStatus << "Course Status:" << "Pending";
-	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT * 3 / 4, CourseStatus.str());
+	Credits << "Cource Credits:" << pCrs->getCredits();
+	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT / 3, Credits.str());
+	Title << "Cource Title:" << pCrs->getTitle();
+	pWind->DrawString(Info_x, Info_y + INFO_HEIGHT * 2 / 3, Title.str());
 }
 
 //function to read the file notes and display it on the screen
@@ -423,7 +412,7 @@ void GUI::DrawGPA() const
 //Draw Level
 void GUI::DrawLevel() const
 {
-	int Info_x = WindWidth / 2 + INFO_WIDTH * 0.07;
+	int Info_x = 0 + INFO_WIDTH * 0.07;
 	int Info_y = MenuBarHeight + 4;
 	pWind->SetFont(INFO_HEIGHT * 0.14, BOLD, BY_NAME, "Gramound");
 	pWind->SetPen(BLACK);

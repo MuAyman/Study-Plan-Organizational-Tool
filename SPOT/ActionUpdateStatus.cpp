@@ -5,9 +5,10 @@ using namespace std;
 
 
 
-ActionUpdateStatus::ActionUpdateStatus(Registrar* p) : Action(p)
+ActionUpdateStatus::ActionUpdateStatus(Registrar* p, int newx, int newy) : Action(p)
 {
-	
+	x = newx;
+	y = newy;
 }
 
 bool ActionUpdateStatus::Execute()
@@ -18,12 +19,6 @@ bool ActionUpdateStatus::Execute()
 
 	pGUI->PrintMsg("Do you want to update that year / semester status? y/n ");
 	string yes = pGUI->GetSrting();
-	ActionData actData = pGUI->GetUserAction("Choose what you want to set status for");
-
-	int x, y;
-		//get coord where user clicked
-		x = actData.x;
-		y = actData.y;
 
 	if (x > 20 && x < 120)
 	{
@@ -91,30 +86,28 @@ bool ActionUpdateStatus::Execute()
 			xi[i] = toupper(xi[i]);
 		}
 
-		year--;
-
 		if (xi == "DONE" || xi == "1")
 		{
-			if (dumb == 1)												//if the user selected year
-				pReg->getStudyPlay()->setStatus(year, FALL, "55555", Done);
-			else if (dumb == 2)											//if the user selected semester
-				pReg->getStudyPlay()->setStatus(year + 20, sem, "55555", Done);
+			if (dumb == 1)
+				pReg->getStudyPlan()->setStatus(year, FALL, "55555", Done);
+			else if (dumb == 2)
+				pReg->getStudyPlan()->setStatus(year + 20, sem, "55555", Done);
 			return true;
 		}
 		else if (xi == "INPROGRESS" || xi == "2")
 		{
-			if (dumb == 1)												//if the user selected year
-				pReg->getStudyPlay()->setStatus(year, FALL, "55555", InProgress);
-			else if (dumb == 2)											//if the user selected semester
-				pReg->getStudyPlay()->setStatus(year + 20, sem, "55555", InProgress);
+			if (dumb == 1)
+				pReg->getStudyPlan()->setStatus(year, FALL, "55555", InProgress);
+			else if (dumb == 2)
+				pReg->getStudyPlan()->setStatus(year + 20, sem, "55555", InProgress);
 			return true;
 		}
 		else if (xi == "PENDING" || xi == "3")
 		{
-			if (dumb == 1)												//if the user selected year
-				pReg->getStudyPlay()->setStatus(year, FALL, "55555", Pending);
-			else if (dumb == 2)											//if the user selected semester
-				pReg->getStudyPlay()->setStatus(year + 20, sem, "55555", Pending);
+			if (dumb == 1)
+				pReg->getStudyPlan()->setStatus(year, FALL, "55555", Pending);
+			else if (dumb == 2)
+				pReg->getStudyPlan()->setStatus(year + 20, sem, "55555", Pending);
 			return true;
 		}
 		else

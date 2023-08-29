@@ -14,7 +14,7 @@ bool ActionDeleteCourse::Execute()
 	int x, y;
 	x = actData.x;
 	y = actData.y;
-	StudyPlan* pS = pReg->getStudyPlay();
+	StudyPlan* pS = pReg->getStudyPlan();
 	Course* CRS = pS->select(x,y);
 	pS->DeleteCourse(CRS, x, y);
 	return true;

@@ -13,7 +13,7 @@ CalculateGPA::CalculateGPA(Registrar* p) :Action(p)
 bool CalculateGPA::Execute()
 {
     GUI* pGUI = pReg->getGUI();
-    StudyPlan* pS = pReg->getStudyPlay();
+    StudyPlan* pS = pReg->getStudyPlan();
     list<Course*> CRS = pS->PlanCoursesNeeded();
     string x, y, z;
     double GPA = 0;
@@ -35,7 +35,7 @@ bool CalculateGPA::Execute()
         {
             x = "Add the valid letter grade for " + (*it)->getCode() + ": ";
             pGUI->PrintMsg(x);
-            gradeLetter = pGUI->GetSrting();
+            CourseGradeLetter gradeLetter = pGUI->GetSrting();
         }
         if (gradeLetter == "A" || gradeLetter == "A-" || gradeLetter == "B+" || gradeLetter == "B"
             || gradeLetter == "B-" || gradeLetter == "C+" || gradeLetter == "C" || gradeLetter == "C-"

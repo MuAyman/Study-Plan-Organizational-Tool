@@ -127,14 +127,6 @@ void Course::setCoReqC(vector<Course*> Cor)
 	}
 
 }
-void Course::setVisible(bool newState)
-{
-	visible = newState;
-}
-bool Course::getVisible() const
-{
-	return visible;
-}
 //list<Course_Code> Course::getPreReq()
 //{
 //	return PreReq;
@@ -207,8 +199,4 @@ bool Course::setCourseStatus(CourseStatus newstatus)
 void Course::DrawInfo(GUI* pG) const
 {
 	pG->DrawCourseInfo(this);
-}
-void Course::setCode(string newCode)
-{
-	code = newCode;
 }
